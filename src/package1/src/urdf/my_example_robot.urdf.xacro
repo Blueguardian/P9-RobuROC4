@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="robot">
+
+    <!-- This is an example of a URDF. -->
+    <!-- As we move through the file, new things to note will be pointed out. -->
+    <!-- It's not meant an example of GOOD design, but an example of some of the various features of URDF/xacro. -->
+    <xacro:property name="box_x" value="0.54" />
+    <xacro:property name="box_y" value="0.925" />
+    <xacro:property name="box_z" value="0.304" />
+    <xacro:property name="box_m" value="100" />
+    <xacro:property name="box_off_z" value="0.484" />
+    <xacro:property name="cyl_l" value="0.05" />
+    <xacro:property name="cyl_r" value="0.28" />
+    <xacro:property name="cyl_m" value="10" />
+    <xacro:property name="cyl_off_x" value="0.3068" />
+    <xacro:property name="cyl_off_y" value="0.3425" />
+    <xacro:property name="cyl_off_z" value="-0.204" />
+    <xacro:property name="rot_90" value="${pi/2}" />
+
+
+    <!-- This will include all the contents of example_include.xacro first. Go check it out! -->
+    <xacro:include filename="example_include.xacro" />
+
+
+
+    <!-- This first link called "world" is empty -->
+    <link name="world"></link>
+
+
+    <!-- A simple fixed joint from our empty world link, to our base. -->
+    <!-- The base origin is offset from the world origin. -->
+    <joint name="chassis_joint" type="fixed">
+        <origin xyz="0 0 ${box_off_z}" rpy="0 0 0"/>
+        <parent link="world"/>
+        <child link="chassis_link"/>        
+    </joint>
+
+    <!-- <joint name="chassis_joint" type="float">
+        <origin xyz="0 0 ${box_off_z}" rpy="0 0 0"/>
+        <parent link="world"/>
+        <child link="chassis_link"/>        
+    </joint> -->
+
+
+    <!-- base_link is a large rectangular plate. Some things to note: -->
+    <!-- - We set the visual origin Z to half the box height, so that the link origin sits at the bottom of the box -->
+    <!-- - We set the collision to be identical to the visual -->
+    <!-- - We specified the colour manually (but still need to enter a name) -->
+    <!-- - We specified all the inertial parameters manually -->
+    <link name="chassis_link">
+        <visual>
+            <origin xyz="0 0 ${-box_z/2}" rpy="0 0 0"/>
+            <geometry>
+                <box size="${box_x} ${box_y} ${box_z}" />
+            </geometry>
+            <material name="blue" />
+        </visual>
+        <collision>
+            <origin xyz="0 0 ${-box_z/2}" rpy="0 0 0"/>
+            <geometry>
+                <box size="${box_x} ${box_y} ${box_z}" />
+            </geometry>
+        </collision>
+       <xacro:inertial_box mass="${box_m}" x="${box_x}" y="${box_y}" z="${box_z}">
+            <origin xyz="0.0 0 ${-box_z/2}" rpy="0 0 0"/>
+        </xacro:inertial_box>
+    </link>
+
+
+
+    <!-- WHEEL 1  +x +y-->
+    <!--  -->
+
+    <joint name="wheel_1_joint" type="fixed">
+        <origin xyz="${cyl_off_x} ${cyl_off_y} ${cyl_off_z}" rpy="0 ${rot_90} 0"/>
+        <parent link="chassis_link"/>
+        <child link="wheel_1_link"/>        
+    </joint>
+
+    <link name="wheel_1_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="${cyl_l}" radius="${cyl_r}" />
+            </geometry>
+            <material name="orange" />
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="${cyl_l}" radius="${cyl_r}" />
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass="${cyl_m}" length="${cyl_l}" radius="${cyl_r}">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_cylinder>
+    </link>
+
+    <!-- WHEEL 2  +x -y -->
+    <!--  -->
+    <joint name="wheel_2_joint" type="fixed">
+        <origin xyz="${cyl_off_x} ${-cyl_off_y} ${cyl_off_z}" rpy="0 ${rot_90} 0"/>
+        <parent link="chassis_link"/>
+        <child link="wheel_2_link"/>        
+    </joint>
+
+    <link name="wheel_2_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="${cyl_l}" radius="${cyl_r}" />
+            </geometry>
+            <material name="orange" />
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="${cyl_l}" radius="${cyl_r}" />
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass="${cyl_m}" length="${cyl_l}" radius="${cyl_r}">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_cylinder>
+    </link>
+
+    <!-- WHEEL 3  -x -y -->
+    <!--  -->
+    <joint name="wheel_3_joint" type="fixed">
+        <origin xyz="${-cyl_off_x} ${-cyl_off_y} ${cyl_off_z}" rpy="0 ${rot_90} 0"/>
+        <parent link="chassis_link"/>
+        <child link="wheel_3_link"/>        
+    </joint>
+
+    <link name="wheel_3_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="${cyl_l}" radius="${cyl_r}" />
+            </geometry>
+            <material name="orange" />
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="${cyl_l}" radius="${cyl_r}" />
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass="${cyl_m}" length="${cyl_l}" radius="${cyl_r}">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_cylinder>
+    </link>
+
+    <!-- WHEEL 4  -x +y -->
+    <!--  -->
+    <joint name="wheel_4_joint" type="fixed">
+        <origin xyz="${-cyl_off_x} ${cyl_off_y} ${cyl_off_z}" rpy="0 ${rot_90} 0"/>
+        <parent link="chassis_link"/>
+        <child link="wheel_4_link"/>        
+    </joint>
+
+    <link name="wheel_4_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="${cyl_l}" radius="${cyl_r}" />
+            </geometry>
+            <material name="orange" />
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="${cyl_l}" radius="${cyl_r}" />
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass="${cyl_m}" length="${cyl_l}" radius="${cyl_r}">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_cylinder>
+    </link>
+    <!-- <xacro:include filename="example_gazebo.xacro" /> -->
+
+
+</robot>
