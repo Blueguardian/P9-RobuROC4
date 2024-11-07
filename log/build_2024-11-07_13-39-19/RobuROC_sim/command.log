@@ -1,0 +1,6 @@
+Invoking command in '/home/julian/model/P9-RobuROC4/build/RobuROC_sim': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/julian/model/P9-RobuROC4/src/RobuROC_sim/src -DCMAKE_INSTALL_PREFIX=/home/julian/model/P9-RobuROC4/install/RobuROC_sim
+Invoked command in '/home/julian/model/P9-RobuROC4/build/RobuROC_sim' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/julian/model/P9-RobuROC4/src/RobuROC_sim/src -DCMAKE_INSTALL_PREFIX=/home/julian/model/P9-RobuROC4/install/RobuROC_sim
+Invoking command in '/home/julian/model/P9-RobuROC4/build/RobuROC_sim': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/julian/model/P9-RobuROC4/build/RobuROC_sim -- -j16 -l16
+Invoked command in '/home/julian/model/P9-RobuROC4/build/RobuROC_sim' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/julian/model/P9-RobuROC4/build/RobuROC_sim -- -j16 -l16
+Invoking command in '/home/julian/model/P9-RobuROC4/build/RobuROC_sim': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/julian/model/P9-RobuROC4/build/RobuROC_sim
+Invoked command in '/home/julian/model/P9-RobuROC4/build/RobuROC_sim' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/julian/model/P9-RobuROC4/build/RobuROC_sim
