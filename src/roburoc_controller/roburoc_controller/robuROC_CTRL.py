@@ -1,25 +1,20 @@
-import canopen, logging, os, COBID, CTW
-
+import logging
+from .utils import CTW, COBID, robuROC_CANopen
 import rclpy.subscription
 from rclpy.node import Node
-import std_msgs
-from src.robotController.robotController.robuROC_CANopen import RobuROC_Canopen
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     handlers=[logging.FileHandler("CAN_Logs"),
                               logging.StreamHandler()])
 
-class ROBUROC_CTRL(Node, RobuROC_Canopen):
+class ROBUROC_CTRL(Node):
 
     # Initialize fields to contain periodic status updates
     _CURRENT_PERIODIC = [None, None, None, None]
     _VELOCITY_PERIODIC = [None, None, None, None]
     _STATUS_PERIODIC = [None, None, None, None]
     _TEMPORARY_PERIODIC = [None, None, None, None]
-
-    # Initialize logging
-    logger = logging.getLogger("CAN")
 
     # Setup fields for status and debugging
     _CONNECTED = False
@@ -38,17 +33,25 @@ class ROBUROC_CTRL(Node, RobuROC_Canopen):
 
     def __init__(self):
         super().__init__('RobuROC_CTRL')
+        self.logger = Node.get_logger(self)
+        self.CAN = robuROC_CANopen.RobuROC_Canopen()
 
         self._CTW = CTW.CTW()
         self._COBID = COBID.COBID()
 
         while self._CONNECTED == False:
-            self._CONNECTED = self.Connect()
-        self.InitHeartbeat()
+            self._CONNECTED = self.CAN.Connect()
 
 
-        self.velocity_Sub = rclpy.subscription.Subscription(std_msgs)
-
+    @property
+    def Velocity(self):
+        return self._VELOCITY_PERIODIC
+    @property
+    def Current(self):
+        return self._CURRENT_PERIODIC
+    @property
+    def Status(self):
+        return self._STATUS_PERIODIC
 
     def setup(self):
         """
@@ -57,30 +60,33 @@ class ROBUROC_CTRL(Node, RobuROC_Canopen):
         """
         # If the system is already initialized, stop it and reset everything
         if self._CONNECTED:
-            self.CAN_NETWORK.disconnect()
-            for node in self.CAN_NODES:
+            self.CAN.CAN_NETWORK.disconnect()
+            while not self._CONNECTED:
+                self._CONNECTED = self.CAN.Connect()
+
+        if self._CONNECTED == True:
+            for node in self.CAN.CAN_NODES:
                 # Reset all drives
                 # node.nmt.send_command(0x81, 0)
-                self.NMTwrite(node.id, self._CTW.RESET)
+                self.CAN.NMTwrite(node.id, self._CTW.RESET)
                 # Set deceleration on all drives
-                self.SDOwrite(node.id, [0x20, 0x64, 0x04], [0x80, 0x4F, 0x12])
+                self.CAN.SDOwrite(node.id, [0x20, 0x64, 0x04], [0x80, 0x4F, 0x12])
                 # Enable all drives
                 # node.nmt.send_command(0x01, 0)
-                self.NMTwrite(node.id, self._CTW.ENABLE)
+                self.CAN.NMTwrite(node.id, self._CTW.ENABLE)
                 # Turn on all drives
                 # node.nmt.send_command(0x07, 0)
-                self.NMTwrite(node.id, self._CTW.TURNON)
+                self.CAN.NMTwrite(node.id, self._CTW.TURNON)
                 # Enable operatiom on all drives
                 # node.nmt.send_command(0x0F, 0)
-                self.NMTwrite(node.id, self._CTW.ENABLE_OP)
+                self.CAN.NMTwrite(node.id, self._CTW.ENABLE_OP)
 
             if not self._PERIODIC:
                 self.InitPeriodic()
             if not self._HEARTBEAT:
                 self.InitHeartbeat()
 
-            self.Connect()
-            self._CONNECTED = True
+
     def InitHeartbeat(self, heartbeat_time_ms: int = 200):
         """
         Initialize heartbeat messages where the host (Node 0) is the producer
@@ -89,8 +95,8 @@ class ROBUROC_CTRL(Node, RobuROC_Canopen):
         :param heartbeat_time_ms: Time interval in milliseconds for sending heartbeat messages.
         """
 
-        self.PeriodicTask(0x700 + self._COBID.HOST, [0], heartbeat_time_ms)
-        self.logger.log(logging.DEBUG, f"Heartbeat initialized to {heartbeat_time_ms} ms")
+        self.CAN.PeriodicTask(0x700 + self._COBID.HOST, [0], heartbeat_time_ms)
+        self.logger.error(logging.DEBUG, f"Heartbeat initialized to {heartbeat_time_ms} ms")
         self._HEARTBEAT = True
     def InitPeriodic(self):
         """
@@ -98,12 +104,11 @@ class ROBUROC_CTRL(Node, RobuROC_Canopen):
         and motors.
         :return: None
         """
-        for node in self.CAN_NODES:
+        for node in self.CAN.CAN_NODES:
             # Subscribe to Actual Current and Velocity, Status messages and SDO read feedback
-            self.Subscribe(self._COBID.ACT_CURRENT.ALL[node.id-1], self.SDO_Current_Callback)
-            self.Subscribe(self._COBID.ACT_VELOCITY.ALL[node.id-1], self.SDO_Velocity_Callback)
-            self.Subscribe(self._COBID.HEARTBEAT.ALL[node.id-1], self.SDO_Status_Callback)
-            # self.Subscribe(self._COBID.SDO_READ.ALL[node.id-1], self.SDO_Callback)
+            self.CAN.Subscribe(self._COBID.ACT_CURRENT.ALL[node.id-1], self.SDO_Current_Callback)
+            self.CAN.Subscribe(self._COBID.ACT_VELOCITY.ALL[node.id-1], self.SDO_Velocity_Callback)
+            self.CAN.Subscribe(self._COBID.HEARTBEAT.ALL[node.id-1], self.SDO_Status_Callback)
         self._PERIODIC = True
     def setSpeed(self, speed, type:str='MPS'):
         """
@@ -112,24 +117,24 @@ class ROBUROC_CTRL(Node, RobuROC_Canopen):
         :param type: Speed representation, current supported values: ['MPS', 'RPM']
         :return: None
         """
-        for node in self.CAN_NODES:
+        for node in self.CAN.CAN_NODES:
             # Set the mode to velocity mode
-            self.SDOwrite(node.id, [0x60, 0x60, 0x00], [0x03])
+            self.CAN.SDOwrite(node.id, [0x60, 0x60, 0x00], [0x03])
 
             # If the system is not in operation mode
             if self._STATUS_PERIODIC[node.id-1] == 'OPERATIONAL':
                 self.recover()
-                self.NMTwrite(node.id, self._CTW.ENABLE_OP)
+                self.CAN.NMTwrite(node.id, self._CTW.ENABLE_OP)
 
             data = list(speed.to_bytes(4, byteorder='little', signed=True))
-            self.SDOwrite(node.id, [0x60, 0xFF, 0x00], data)
+            self.CAN.SDOwrite(node.id, [0x60, 0xFF, 0x00], data)
     def brake(self, node_id):
         """
         Method for braking the RobuROC4 when velocity is set to 0.
         :param node_id: The node for which to change the state to Quickstop
         :return: None
         """
-        self.NMTwrite(node_id, self._CTW.QUICKSTOP)
+        self.CAN.NMTwrite(node_id, self._CTW.QUICKSTOP)
     def recover(self):
         """
         Recovery method for when a software related issue has arisen. Will not reset the emergency stop
@@ -137,11 +142,11 @@ class ROBUROC_CTRL(Node, RobuROC_Canopen):
         :return: None
         TODO: Enable status bit check to enable proper recovery
         """
-        for node in self.CAN_NODES:
+        for node in self.CAN.CAN_NODES:
             if self._STATUS_PERIODIC[node.id-1] == 'STOPPED' or self._STATUS_PERIODIC[node.id-1] == 'UNKNOWN':
-                self.NMTwrite(node.id, self._CTW.ENABLE)
-                self.NMTwrite(node.id, self._CTW.ENABLE_OP)
-                self.NMTwrite(node.id, self._CTW.TURNON)
+                self.CAN.NMTwrite(node.id, self._CTW.ENABLE)
+                self.CAN.NMTwrite(node.id, self._CTW.ENABLE_OP)
+                self.CAN.NMTwrite(node.id, self._CTW.TURNON)
     # def SDO_Callback(self, COBID:int, data:bytearray, flags:float):
     #
     #     if COBID in self._COBID.SDO_READ.ALL:
@@ -197,14 +202,25 @@ class ROBUROC_CTRL(Node, RobuROC_Canopen):
                 self._STATUS_PERIODIC[nodeid-1] = 'PRE-OPERATIONAL'
             else:
                 self._STATUS_PERIODIC[nodeid-1] = 'UNKNOWN'
-    @property
-    def Velocity(self):
-        return self._VELOCITY_PERIODIC
-    @property
-    def Current(self):
-        return self._CURRENT_PERIODIC
-    @property
-    def Status(self):
-        return self._STATUS_PERIODIC
 
 
+def main():
+    rclpy.init()
+    ctrl = ROBUROC_CTRL()
+    ctrl.setup()
+
+    try:
+        rclpy.spin(ctrl)
+        print(ctrl.Velocity)
+    except Exception as e:
+        print(e)
+    finally:
+        ctrl.destroy_node()
+        rclpy.shutdown()
+if __name__ == '__main__':
+    ctrl = ROBUROC_CTRL()
+    ctrl.setup()
+
+    while True:
+        print("yay!")
+        print(ctrl.Velocity)

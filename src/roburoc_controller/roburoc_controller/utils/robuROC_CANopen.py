@@ -17,10 +17,8 @@ Copyright 2024 Thomas Schou Sørensen, Julian Witold Wagner and César Zacharie 
    See the License for the specific language governing permissions and
    limitations under the License.
 """
-from threading import Event
 
-import canopen, logging, os, COBID, CTW, asyncio
-from cryptography.utils import int_from_bytes
+import canopen, logging, os, asyncio
 
 from rclpy.node import Node
 
@@ -40,7 +38,7 @@ class RobuROC_Canopen():
     extent possible. When utilized, it will establish and maintain communication with these drivers.
     """
 
-    _DRIVE_CONFIG = os.path.join(os.path.abspath("../"), "resource", "AMC_Digiflex_1.0.14.eds")
+    #_DRIVE_CONFIG = os.path.join(os.path.abspath("../../"), "resource", "AMC_Digiflex_1.0.14.eds")
     _SDO_ABORT_CODES  = {
         0x00000503: "Toggle bit not alternated",
         0x00000504: "SDO protocol timed out",
@@ -82,6 +80,8 @@ class RobuROC_Canopen():
         self._CAN_SUBSCRIPTION = []
         self._CAN_PERIODICTASK = []
         self._CONNECTED = False
+
+
     def Connect(self, bustype:str = 'pcan', channel:str = 'PCAN_USBBUS1', bitrate:int = 1000000):
         """
         Connection method for attempting to connect to the CANBUS network specified by bustype and channel at the specified
@@ -98,7 +98,7 @@ class RobuROC_Canopen():
                 if len (self.CAN_NODES) == 0:
                     try:
                         for i in range(1,5):
-                            node = self.CAN_NETWORK.add_node(i, self._DRIVE_CONFIG)
+                            node = self.CAN_NETWORK.add_node(i)
                             self.CAN_NODES.append(node)
                     except Exception as e:
                         self.node.get_logger().error(f"Unable to initialize nodes, Error: {e}",
@@ -357,7 +357,7 @@ class RobuROC_Canopen():
         else:
             self.node.get_logger().error(logging.ERROR, f"Message length over 8 bits is not supported")
             return False
-    def PDOread(self, node_id: int, index: int, subindex: int = 0, timeout: int = 1, timeout_count=5):
+    def PDOread(self, node_id: int, index: int, subindex: int = 0, timeout: int = 1):
         """
         Read data from an SDO on the specified CANopen node.
         :param node_id: The ID of the node to read from.

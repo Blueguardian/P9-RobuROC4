@@ -10,7 +10,9 @@ Documentation, related files, and licensing can be found at
   <https://github.com/joncoop/pygame-xbox360controller>.
 """
 
-import pygame, gamepad_buttons
+import pygame
+from .utils import gamepad_buttons
+
 
 class Controller:
     id_num = 0
