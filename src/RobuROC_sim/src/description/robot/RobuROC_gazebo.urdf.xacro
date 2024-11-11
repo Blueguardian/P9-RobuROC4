@@ -18,6 +18,11 @@
     <xacro:property name="cyl_off_z" value="${box_off_z-0.204}" />
     <xacro:property name="rot_90" value="${pi/2}" />
     <xacro:property name="max_vel" value="2" />
+    <xacro:property name="IMU_y" value="0.06" />
+    <xacro:property name="IMU_x" value="0.05" />
+    <xacro:property name="IMU_z" value="0.02" />
+    <xacro:property name="IMU_m" value="0.1" />
+    <xacro:property name="IMU_off_z" value="${0.484+IMU_z/2}" />
 
 
     <!-- This will include inertia and color functions -->
@@ -188,8 +193,36 @@
         </xacro:inertial_cylinder>
     </link>
 
+    <!-- ##############################################  -->
+    <!--                IMU                              -->
+    <!-- ##############################################  -->
+
+    <joint name="IMU_joint" type="fixed">
+        <origin xyz="0 0 ${IMU_off_z}"/>
+        <parent link="chassis_link"/>
+        <child link="IMU_link"/>        
+    </joint>
+
+    <link name="IMU_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${IMU_x} ${IMU_y} ${IMU_z}"/>
+            </geometry>
+            <material name="red" />
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${IMU_x} ${IMU_y} ${IMU_z}" />
+            </geometry>
+        </collision>
+        <xacro:inertial_box mass="${IMU_m}" x="${IMU_x}" y="${IMU_y}" z="${IMU_z}">
+            <origin xyz="0.0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_box>
+    </link>
+
     <!-- Include gazebo model -->
     <xacro:include filename="RobuROC_gazebo_sim.xacro" />
-
 
 </robot>

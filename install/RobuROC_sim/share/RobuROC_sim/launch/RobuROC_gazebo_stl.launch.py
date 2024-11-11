@@ -11,11 +11,12 @@ import xacro
 
 def generate_launch_description():
 
-    robotXacroName = 'robot'
-    # Specify the name of the package and path to xacro file within the package
-    namePackage = 'urdf_example'
+    robotXacroName = 'RobuROC'  # Must have same name as in xacro file
 
-    modelFileRelativePath = 'description/my_example_robot_gazebo.urdf.xacro'
+    # Specify the name of the package and path to xacro file within the package
+    namePackage = 'RobuROC_sim'
+
+    modelFileRelativePath = 'description/robot/RobuROC_gazebo_stl.urdf.xacro'
     worldFileRelativePath = 'worlds/empty_world.world'
 
     pathModelFile = os.path.join(get_package_share_directory(namePackage),modelFileRelativePath)
@@ -28,6 +29,8 @@ def generate_launch_description():
 
     gazeboLaunch=IncludeLaunchDescription(gazebo_rosPackageLaunch,launch_arguments={'world': pathWolrdFile}.items())
 
+
+    # Configure the nodes
     spawnModelNode = Node(
         package='gazebo_ros',
         executable='spawn_entity.py',
@@ -42,7 +45,7 @@ def generate_launch_description():
         parameters=[{'robot_description':robotDescription,
         'use_sim_time': True}] # add other parameters here if required
     )
-
+    # Launch the nodes
     return LaunchDescription([
         gazeboLaunch,
         spawnModelNode,

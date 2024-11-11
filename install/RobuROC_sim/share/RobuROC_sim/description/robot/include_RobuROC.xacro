@@ -23,6 +23,17 @@
         <color rgba="0.2 1 0.2 1"/>
     </material>
 
+    <material name="red">
+        <color rgba="1 0.2 0.2 1"/>
+    </material>
+
+    <material name="black">
+        <color rgba="0 0 0 1"/>
+    </material>  
+
+    <material name="grey">
+        <color rgba="0.5 0.5 0.5 1"/>
+    </material>    
 
     <!-- Specify some standard inertial calculations https://en.wikipedia.org/wiki/List_of_moments_of_inertia -->
     <!-- These make use of xacro's mathematical functionality -->

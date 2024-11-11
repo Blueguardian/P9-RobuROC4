@@ -1,0 +1,50 @@
+-- Found ament_cmake: 1.3.10 (/opt/ros/humble/share/ament_cmake/cmake)
+-- Found ament_lint_auto: 0.12.11 (/opt/ros/humble/share/ament_lint_auto/cmake)
+WARNING: Package name "RobuROC_sim" does not follow the naming conventions. It should start with a lower case letter and only contain lower case letters, digits, underscores, and dashes.
+-- Added test 'flake8' to check Python code syntax and style conventions
+-- Added test 'lint_cmake' to check CMake code style
+-- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+-- Added test 'xmllint' to check XML markup files
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/julian/model/P9-RobuROC4/build/RobuROC_sim
+-- Install configuration: ""
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/robot
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/robot/RobuROC_model.urdf.xacro
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/robot/RobuROC_rviz_blocks.urdf.xacro
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/robot/RobuROC_rviz_stl.urdf.xacro
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/robot/RobuROC_gazebo.urdf.xacro
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/robot/include_RobuROC.xacro
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/robot/RobuROC_gazebo_sim.xacro
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/camera
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/camera/_d435.urdf.xacro
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/camera/rgbd.gazebo.xacro
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/launch
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/launch/RobuROC_rviz_stl.launch.py
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/launch/RobuROC_gazebo_stl.launch.py
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/launch/RobuROC_rviz.launch.py
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/launch/RobuROC_sim.launch.py
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/launch/RobuROC_gazebo.launch.py
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/worlds
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/worlds/empty_world
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/meshes
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/meshes/chassis.STL
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/meshes/wheel.STL
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/scripts
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/scripts/publish_odom.py
+-- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/ament_index/resource_index/package_run_dependencies/RobuROC_sim
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/ament_index/resource_index/parent_prefix_path/RobuROC_sim
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/environment/ament_prefix_path.sh
+-- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/environment/ament_prefix_path.dsv
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/environment/path.sh
+-- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/environment/path.dsv
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/local_setup.bash
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/local_setup.sh
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/local_setup.zsh
+-- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/local_setup.dsv
+-- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/package.dsv
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/ament_index/resource_index/packages/RobuROC_sim
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/cmake/RobuROC_simConfig.cmake
+-- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/cmake/RobuROC_simConfig-version.cmake
+-- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/package.xml

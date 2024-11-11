@@ -65,12 +65,21 @@ Visualization Manager:
         Expand Joint Details: false
         Expand Link Details: false
         Expand Tree: false
+        IMU_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         Link Tree Style: Links in Alphabetic Order
         chassis_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
+        dummy:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         wheel_1_link:
           Alpha: 1
           Show Axes: false
@@ -91,10 +100,6 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        world:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
       Mass Properties:
         Inertia: false
         Mass: false
@@ -108,7 +113,11 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
+        IMU_link:
+          Value: true
         chassis_link:
+          Value: true
+        dummy:
           Value: true
         wheel_1_link:
           Value: true
@@ -118,16 +127,16 @@ Visualization Manager:
           Value: true
         wheel_4_link:
           Value: true
-        world:
-          Value: true
       Marker Scale: 1
       Name: TF
       Show Arrows: true
       Show Axes: true
       Show Names: false
       Tree:
-        world:
+        dummy:
           chassis_link:
+            IMU_link:
+              {}
             wheel_1_link:
               {}
             wheel_2_link:
@@ -141,7 +150,7 @@ Visualization Manager:
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: world
+    Fixed Frame: dummy
     Frame Rate: 30
   Name: root
   Tools:
@@ -184,25 +193,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 4.086756229400635
+      Distance: 5.482244491577148
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0
-        Y: 0
-        Z: 0
+        X: -0.9029493927955627
+        Y: 0.2879897356033325
+        Z: -0.03174484148621559
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.5353972911834717
+      Pitch: 0.5853980779647827
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 3.1635892391204834
+      Yaw: 2.638587474822998
     Saved: ~
 Window Geometry:
   Displays:

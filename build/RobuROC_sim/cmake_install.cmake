@@ -48,6 +48,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
     "/home/julian/model/P9-RobuROC4/src/RobuROC_sim/src/launch"
     "/home/julian/model/P9-RobuROC4/src/RobuROC_sim/src/worlds"
     "/home/julian/model/P9-RobuROC4/src/RobuROC_sim/src/meshes"
+    "/home/julian/model/P9-RobuROC4/src/RobuROC_sim/src/scripts"
     )
 endif()
 

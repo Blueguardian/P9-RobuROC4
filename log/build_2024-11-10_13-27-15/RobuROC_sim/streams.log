@@ -1,0 +1,67 @@
+[0.010s] Invoking command in '/home/julian/model/P9-RobuROC4/build/RobuROC_sim': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/julian/model/P9-RobuROC4/src/RobuROC_sim/src -DCMAKE_INSTALL_PREFIX=/home/julian/model/P9-RobuROC4/install/RobuROC_sim
+[0.113s] -- The C compiler identification is GNU 11.4.0
+[0.214s] -- The CXX compiler identification is GNU 11.4.0
+[0.236s] -- Detecting C compiler ABI info
+[0.348s] -- Detecting C compiler ABI info - done
+[0.367s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.367s] -- Detecting C compile features
+[0.368s] -- Detecting C compile features - done
+[0.375s] -- Detecting CXX compiler ABI info
+[0.471s] -- Detecting CXX compiler ABI info - done
+[0.493s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.494s] -- Detecting CXX compile features
+[0.495s] -- Detecting CXX compile features - done
+[0.504s] -- Found ament_cmake: 1.3.10 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.714s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[0.839s] -- Found ament_lint_auto: 0.12.11 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[0.886s] WARNING: Package name "RobuROC_sim" does not follow the naming conventions. It should start with a lower case letter and only contain lower case letters, digits, underscores, and dashes.
+[0.913s] -- Added test 'flake8' to check Python code syntax and style conventions
+[0.913s] -- Added test 'lint_cmake' to check CMake code style
+[0.914s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[0.916s] -- Added test 'xmllint' to check XML markup files
+[0.918s] -- Configuring done
+[0.921s] -- Generating done
+[0.921s] -- Build files have been written to: /home/julian/model/P9-RobuROC4/build/RobuROC_sim
+[0.926s] Invoked command in '/home/julian/model/P9-RobuROC4/build/RobuROC_sim' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/julian/model/P9-RobuROC4/src/RobuROC_sim/src -DCMAKE_INSTALL_PREFIX=/home/julian/model/P9-RobuROC4/install/RobuROC_sim
+[0.929s] Invoking command in '/home/julian/model/P9-RobuROC4/build/RobuROC_sim': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/julian/model/P9-RobuROC4/build/RobuROC_sim -- -j16 -l16
+[0.978s] Invoked command in '/home/julian/model/P9-RobuROC4/build/RobuROC_sim' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/julian/model/P9-RobuROC4/build/RobuROC_sim -- -j16 -l16
+[1.032s] Invoking command in '/home/julian/model/P9-RobuROC4/build/RobuROC_sim': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/julian/model/P9-RobuROC4/build/RobuROC_sim
+[1.048s] -- Install configuration: ""
+[1.048s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description
+[1.048s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/robot
+[1.048s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/robot/RobuROC_model.urdf.xacro
+[1.057s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/robot/RobuROC_rviz_blocks.urdf.xacro
+[1.057s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/robot/RobuROC_rviz_stl.urdf.xacro
+[1.058s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/robot/RobuROC_gazebo.urdf.xacro
+[1.058s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/robot/include_RobuROC.xacro
+[1.059s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/robot/RobuROC_gazebo_sim.xacro
+[1.059s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/camera
+[1.059s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/camera/_d435.urdf.xacro
+[1.059s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/camera/rgbd.gazebo.xacro
+[1.060s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/launch
+[1.060s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/launch/RobuROC_rviz_stl.launch.py
+[1.060s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/launch/RobuROC_gazebo_stl.launch.py
+[1.061s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/launch/RobuROC_rviz.launch.py
+[1.061s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/launch/RobuROC_sim.launch.py
+[1.061s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/launch/RobuROC_gazebo.launch.py
+[1.061s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/worlds
+[1.061s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/worlds/empty_world
+[1.062s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/meshes
+[1.062s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/meshes/chassis.STL
+[1.062s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/meshes/wheel.STL
+[1.064s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/ament_index/resource_index/package_run_dependencies/RobuROC_sim
+[1.064s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/ament_index/resource_index/parent_prefix_path/RobuROC_sim
+[1.065s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/environment/ament_prefix_path.sh
+[1.065s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/environment/ament_prefix_path.dsv
+[1.065s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/environment/path.sh
+[1.065s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/environment/path.dsv
+[1.066s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/local_setup.bash
+[1.066s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/local_setup.sh
+[1.066s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/local_setup.zsh
+[1.066s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/local_setup.dsv
+[1.066s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/package.dsv
+[1.067s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/ament_index/resource_index/packages/RobuROC_sim
+[1.067s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/cmake/RobuROC_simConfig.cmake
+[1.067s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/cmake/RobuROC_simConfig-version.cmake
+[1.067s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/package.xml
+[1.070s] Invoked command in '/home/julian/model/P9-RobuROC4/build/RobuROC_sim' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/julian/model/P9-RobuROC4/build/RobuROC_sim

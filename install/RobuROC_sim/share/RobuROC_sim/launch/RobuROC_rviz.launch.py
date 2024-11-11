@@ -9,7 +9,7 @@ def generate_launch_description():
 
     # Specify the name of the package and path to xacro file within the package
     pkg_name = 'RobuROC_sim'
-    file_subpath = 'description/robot/RobuROC_rviz_blocks.urdf.xacro'
+    file_subpath = 'description/robot/RobuROC_gazebo.urdf.xacro'
     my_base_path = 'src/RobuROC_sim/src/rviz'   #path to all config files
     my_rviz_path = my_base_path+'/RobuROC_vis.rviz'       #config file for rviz
 
