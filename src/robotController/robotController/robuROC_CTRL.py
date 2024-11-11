@@ -3,7 +3,7 @@ import canopen, logging, os, COBID, CTW
 import rclpy.subscription
 from rclpy.node import Node
 import std_msgs
-from src.robotController.robotController.ROBUROC_CANopen import RobuROC_Canopen
+from src.robotController.robotController.robuROC_CANopen import RobuROC_Canopen
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -26,6 +26,16 @@ class ROBUROC_CTRL(Node, RobuROC_Canopen):
     _PERIODIC = False
     _HEARTBEAT = False
 
+    # Public variables
+    MAX_SPEED = 2  # Meters per second
+    WHEEL_RADIUS = 0.28  # Meters
+
+    # Constants
+    _SCALE_CURRENT = pow(2, 13) / 40.0  # to Amps
+    _SCALE_SETCURRENT = pow(2, 15) / 40.0  # to Amps
+    _SCALE_VELOCITY = ((pow(2, 17) / (2 * 20000) * pow(2, 19)) / 1000) * 32  # To RPM
+    _SCALE_RPM_TO_MPS = ((2.0 * 3.14) / 60.0) * WHEEL_RADIUS
+
     def __init__(self):
         super().__init__('RobuROC_CTRL')
 
@@ -35,7 +45,7 @@ class ROBUROC_CTRL(Node, RobuROC_Canopen):
         while self._CONNECTED == False:
             self._CONNECTED = self.Connect()
         self.InitHeartbeat()
-        self.InitHeartbeat()
+
 
         self.velocity_Sub = rclpy.subscription.Subscription(std_msgs)
 
@@ -93,7 +103,7 @@ class ROBUROC_CTRL(Node, RobuROC_Canopen):
             self.Subscribe(self._COBID.ACT_CURRENT.ALL[node.id-1], self.SDO_Current_Callback)
             self.Subscribe(self._COBID.ACT_VELOCITY.ALL[node.id-1], self.SDO_Velocity_Callback)
             self.Subscribe(self._COBID.HEARTBEAT.ALL[node.id-1], self.SDO_Status_Callback)
-            self.Subscribe(self._COBID.SDO_READ.ALL[node.id-1], self.SDO_Callback)
+            # self.Subscribe(self._COBID.SDO_READ.ALL[node.id-1], self.SDO_Callback)
         self._PERIODIC = True
     def setSpeed(self, speed, type:str='MPS'):
         """
@@ -132,17 +142,17 @@ class ROBUROC_CTRL(Node, RobuROC_Canopen):
                 self.NMTwrite(node.id, self._CTW.ENABLE)
                 self.NMTwrite(node.id, self._CTW.ENABLE_OP)
                 self.NMTwrite(node.id, self._CTW.TURNON)
-    def SDO_Callback(self, COBID:int, data:bytearray, flags:float):
-
-        if COBID in self._COBID.SDO_READ.ALL:
-            # An SDO request has returned a value
-            node_id = COBID - 0x580
-            index = int.from_bytes(data[0:3], 'little', signed=True)
-            subindex = int.from_bytes(data[4], 'little', signed=False)
-            data = list(data)
-            self._TEMPORARY_PERIODIC[node_id] = [index, subindex, data]
-        else:
-            self.logger.log(logging.ERROR, f"COBID {COBID} not recognized")
+    # def SDO_Callback(self, COBID:int, data:bytearray, flags:float):
+    #
+    #     if COBID in self._COBID.SDO_READ.ALL:
+    #         # An SDO request has returned a value
+    #         node_id = COBID - 0x580
+    #         index = int.from_bytes(data[0:3], 'little', signed=True)
+    #         subindex = int.from_bytes(data[4], 'little', signed=False)
+    #         data = list(data)
+    #         self._TEMPORARY_PERIODIC[node_id] = [index, subindex, data]
+    #     else:
+    #         self.logger.log(logging.ERROR, f"COBID {COBID} not recognized")
     def SDO_Velocity_Callback(self, COBID:int, data:bytearray, timestamp:float):
         """
         Callback function for velocity, measuring in the driver/motor. It updates the internal values _VELOCITY_PERIODIC
