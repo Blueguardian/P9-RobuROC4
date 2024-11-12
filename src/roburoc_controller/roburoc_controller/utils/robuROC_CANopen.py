@@ -70,12 +70,12 @@ class RobuROC_Canopen():
         0x00220800: "Data cannot be transferred or stored to the application because of present device state",
         0x00230800: "Object dictionary dynamic generation fails or no object dictionary is present (object dictionary loads from file and file error occurred)"
     }
+    CAN_NETWORK = canopen.Network()
 
     def __init__(self):
-        self.node = Node("CANBUS")
+        self.logger = logging.getLogger("CANBUS")
 
         # Initialize a network object
-        self.CAN_NETWORK = canopen.Network()
         self.CAN_NODES = []
         self._CAN_SUBSCRIPTION = []
         self._CAN_PERIODICTASK = []
@@ -101,12 +101,10 @@ class RobuROC_Canopen():
                             node = self.CAN_NETWORK.add_node(i)
                             self.CAN_NODES.append(node)
                     except Exception as e:
-                        self.node.get_logger().error(f"Unable to initialize nodes, Error: {e}",
-                                                    throttle_duration_sec=1)
+                        self.logger.error(f"Unable to initialize nodes, Error: {e}")
                         self._CONNECTED = False
             except Exception as error:
-                self.node.get_logger().error(f"Unable to connect to CAN Bus, Error: {error}",
-                                            throttle_duration_sec=1)
+                self.logger.error(f"Unable to connect to CAN Bus, Error: {error}")
                 self._CONNECTED = False
             finally:
                 return self._CONNECTED
@@ -128,22 +126,20 @@ class RobuROC_Canopen():
                         for id in self._CAN_SUBSCRIPTION:
                             self.Unsubscribe(id)
                     except Exception as error:
-                        self.node.get_logger().error(f"Unable to shutdown periodic loop, Error: {error}",
-                                                    throttle_duration_sec=1)
+                        self.logger.error(f"Unable to shutdown periodic loop, Error: {error}")
             except Exception as error:
-                self.node.get_logger().error(f"Unable to disconnect from CAN Bus, Error: {error}",
-                                                    throttle_duration_sec=1)
+                self.logger.error(f"Unable to disconnect from CAN Bus, Error: {error}")
             finally:
                 return not self._CONNECTED
         else:
             return True
-    def PeriodicTask(self, COB_ID: int, data: list, period: int = 200):
+    def PeriodicTask(self, COB_ID: int, data: list, period: float = 0.2):
         """
         Adds a CANOpen periodically sent message, e.g. for heartbeat. This task is stored should it later be
         required to be stopped.
         :param COB_ID: COBID of the intended target
         :param data: Data to be sent periodically
-        :param period: The period between messages in ms
+        :param period: The period between messages in seconds
         :return: Bool: True or False for successful periodic task addition
         """
         sent_data = None
@@ -157,8 +153,7 @@ class RobuROC_Canopen():
             self._CAN_PERIODICTASK.append(task)
             return True
         except Exception as error:
-            self.node.get_logger().error(f"Unable to send periodic task, Error: {error}",
-                                        throttle_duration_sec=1)
+            self.logger.error(f"Unable to send periodic task, Error: {error}")
             return False
     def Subscribe(self, COBID: int, callback: callable):
         """
@@ -172,8 +167,7 @@ class RobuROC_Canopen():
             self._CAN_SUBSCRIPTION.append(COBID)
             return True
         except Exception as error:
-            self.node.get_logger().error(f"Unable to subscribe to {COBID}, Error: {error}",
-                                        throttle_duration_sec=1)
+            self.logger.error(f"Unable to subscribe to {COBID}, Error: {error}")
             return False
     def Unsubscribe(self, COBID: int, callback: callable = None):
         """
@@ -190,7 +184,7 @@ class RobuROC_Canopen():
                 self.CAN_NETWORK.unsubscribe(COBID, callback)
                 self._CAN_SUBSCRIPTION.remove(COBID)
         except Exception as e:
-            self.node.get_logger().error(f"Error unsubscribing from {COBID}, error: {e}")
+            self.logger.error(f"Error unsubscribing from {COBID}, error: {e}")
     async def SDOwrite(self, node_id: int, pdo_index: list, data: list):
         """
         Write data to a specified SDO for the given node.
@@ -201,7 +195,7 @@ class RobuROC_Canopen():
         """
 
         if len(data) > 4:
-            index_data = bytearray([pdo_index[1], pdo_index[0], pdo_index[2]])
+            index_data = bytearray([pdo_index[0], pdo_index[2], pdo_index[1]])
             data.reverse()
             data_chunks = [data[i:i + 4] for i in range(0, len(data), 4)]
 
@@ -228,7 +222,7 @@ class RobuROC_Canopen():
                 feedback_event.clear()
 
                 if feedback == 0x80:
-                    self.node.get_logger().error(
+                    self.logger.error(
                         f"Error writing to {pdo_index}: {self._SDO_ABORT_CODES.get(received_data)}"
                     )
                     return False
@@ -253,7 +247,7 @@ class RobuROC_Canopen():
                 return True
 
             except Exception as e:
-                self.node.get_logger().error(f"Error writing to SDO {0x600 + node_id}, error: {e}")
+                self.logger.error(f"Error writing to SDO {0x600 + node_id}, error: {e}")
                 return False
 
             finally:
@@ -270,11 +264,11 @@ class RobuROC_Canopen():
                 self.CAN_NETWORK.send_message(0x600 + node_id, index_data + written_data)
                 return True
             except canopen.SdoCommunicationError as e:
-                self.node.get_logger().error(f"PDO Write Error: {e}")
+                self.logger.error(f"PDO Write Error: {e}")
                 return False
 
         else:
-            self.node.get_logger().error(
+            self.logger.error(
                 f"Error in writing to {pdo_index}: Unsupported data length."
             )
             return False
@@ -312,7 +306,7 @@ class RobuROC_Canopen():
 
                 # Check for SDO error
                 if feedback == 0x80:
-                    self.node.get_logger().error(f"SDO error: node {node_id}, error: {self._SDO_ABORT_CODES.get(received_data[-8:])}")
+                    self.logger.error(f"SDO error: node {node_id}, error: {self._SDO_ABORT_CODES.get(received_data[-8:])}")
                     return None
 
                 # If feedback indicates last packet received, break loop
@@ -326,13 +320,11 @@ class RobuROC_Canopen():
                 self.CAN_NETWORK.send_message(0x600 + node_id, bytearray([control_bit]))
 
             # Return the assembled data as an integer
-            received_data.reverse()
             rcv_data = int.from_bytes(received_data, 'little')
-            return
+            return rcv_data
 
         except Exception as e:
-            self.node.get_logger().error(f"Error reading from node {node_id}: {e}",
-                                         throttle_duration_sec=1)
+            self.logger.error(f"Error reading from node {node_id}: {e}")
             return None
     def PDOwrite(self, COB_ID: int, data=None):
         """
@@ -352,12 +344,12 @@ class RobuROC_Canopen():
                 self.CAN_NETWORK.send_message(COB_ID, written_data)
                 return True
             except canopen.SdoCommunicationError as e:
-                self.node.get_logger().error(logging.ERROR, f"PDO Write Error: {e}")
+                self.logger.error(f"PDO Write Error: {e}")
                 return False
         else:
-            self.node.get_logger().error(logging.ERROR, f"Message length over 8 bits is not supported")
+            self.logger.error(f"Message length over 8 bits is not supported")
             return False
-    def PDOread(self, node_id: int, index: int, subindex: int = 0, timeout: int = 1):
+    def PDOread(self, node_id: int, index: int, subindex: int = 0, timeout: int = 1, timeout_count: int = 5):
         """
         Read data from an SDO on the specified CANopen node.
         :param node_id: The ID of the node to read from.
@@ -375,10 +367,10 @@ class RobuROC_Canopen():
             data = node.sdo[index][subindex].read(timeout=timeout)
             return data
         except canopen.SdoCommunicationError as e:
-            self.node.get_logger().error(logging.ERROR, f"SDO Read Error: {e}")
+            self.logger.error(f"SDO Read Error: {e}")
             raise
         except TimeoutError:
-            self.node.get_logger().error(logging.ERROR, f"SDO read timed out after {timeout} seconds")
+            self.logger.error(f"SDO read timed out after {timeout} seconds")
             while timeout_counter < timeout_count:
                 try:
                     node = self.CAN_NODES[node_id - 1]
@@ -386,7 +378,7 @@ class RobuROC_Canopen():
                     timeout_counter += 1
                     return data
                 except TimeoutError:
-                    self.node.get_logger().error(logging.ERROR, f"SDO read timed out after {timeout} seconds")
+                    self.logger.error(f"SDO read timed out after {timeout} seconds")
             raise
     def NMTwrite(self, node_id: int, ctrlWord: int):
         data = [ctrlWord, node_id]

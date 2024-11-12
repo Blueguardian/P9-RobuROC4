@@ -1,6 +1,8 @@
 import logging
+import time
+
 from .utils import CTW, COBID, robuROC_CANopen
-import rclpy.subscription
+import rclpy.subscription, asyncio
 from rclpy.node import Node
 
 logging.basicConfig(level=logging.DEBUG,
@@ -42,6 +44,9 @@ class ROBUROC_CTRL(Node):
         while self._CONNECTED == False:
             self._CONNECTED = self.CAN.Connect()
 
+    def __del__(self):
+        self.CAN.Disconnect()
+
 
     @property
     def Velocity(self):
@@ -59,10 +64,8 @@ class ROBUROC_CTRL(Node):
         :return: None
         """
         # If the system is already initialized, stop it and reset everything
-        if self._CONNECTED:
-            self.CAN.CAN_NETWORK.disconnect()
-            while not self._CONNECTED:
-                self._CONNECTED = self.CAN.Connect()
+        while not self._CONNECTED:
+            self._CONNECTED = self.CAN.Connect()
 
         if self._CONNECTED == True:
             for node in self.CAN.CAN_NODES:
@@ -85,18 +88,20 @@ class ROBUROC_CTRL(Node):
                 self.InitPeriodic()
             if not self._HEARTBEAT:
                 self.InitHeartbeat()
+        else:
+            Node.get_logger(self).error(f"Unable to connect to CANBUS")
 
 
-    def InitHeartbeat(self, heartbeat_time_ms: int = 200):
+    def InitHeartbeat(self, heartbeat_time_ms: float = 0.2):
         """
         Initialize heartbeat messages where the host (Node 0) is the producer
         and the nodes are consumers.
 
-        :param heartbeat_time_ms: Time interval in milliseconds for sending heartbeat messages.
+        :param heartbeat_time_ms: Time interval in seconds for sending heartbeat messages.
         """
 
         self.CAN.PeriodicTask(0x700 + self._COBID.HOST, [0], heartbeat_time_ms)
-        self.logger.error(logging.DEBUG, f"Heartbeat initialized to {heartbeat_time_ms} ms")
+        Node.get_logger(self).debug(f"Heartbeat initialized to {heartbeat_time_ms} ms")
         self._HEARTBEAT = True
     def InitPeriodic(self):
         """
@@ -210,6 +215,7 @@ def main():
     ctrl.setup()
 
     try:
+        time.sleep(1)
         rclpy.spin(ctrl)
         print(ctrl.Velocity)
     except Exception as e:
