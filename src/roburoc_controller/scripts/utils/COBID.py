@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Created for Lunar surface preparation project
 9. Semester, Robotics, 2024 Fall Semester

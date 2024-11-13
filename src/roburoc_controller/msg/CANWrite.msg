@@ -1,0 +1,3 @@
+std_msgs/String can_type
+std_msgs/Int32MultiArray indices
+std_msgs/Int32MultiArray data

@@ -1,8 +1,10 @@
+#!/usr/bin/env python3
 import logging
 import time
 
-from .utils import CTW, COBID, robuROC_CANopen
-import rclpy.subscription, asyncio
+from .utils import CTW, COBID
+from src.roburoc_controller.scripts import Pure_robuROC_CANopen
+import rclpy.subscription
 from rclpy.node import Node
 
 logging.basicConfig(level=logging.DEBUG,

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Created for Lunar surface preparation project
 9. Semester, Robotics, 2024 Fall Semester
@@ -20,18 +21,18 @@ Copyright 2024 Thomas Schou Sørensen, Julian Witold Wagner and César Zacharie 
 
 import canopen, logging, os, asyncio
 
+import rclpy.subscription
+from rclpy.action import ActionServer
 from rclpy.node import Node
-
-# Make directory for logs locally
-if not os.path.join(os.curdir, "logs"):
-    os.mkdir("logs", 0o777)
+from .msg import CANWrite, CANSignal, CANPeriodicTask, CANSubscribe, CANSubscription
+from .srv import CANRead
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                    handlers=[logging.FileHandler("CAN_Logs"),
+                    handlers=[logging.FileHandler("CANOpen_Ros_Logs"),
                               logging.StreamHandler()])
 
-class RobuROC_Canopen():
+class RobuROC_Canopen(Node):
     """
     The RobuROC_Canopen class is constructed to communicate with the DPCANTR-040B080 drives installed in the
     RobuROC4. The methods implemented here are defined such that the low level CANBus communication is simplified to the
@@ -73,7 +74,9 @@ class RobuROC_Canopen():
     CAN_NETWORK = canopen.Network()
 
     def __init__(self):
-        self.logger = logging.getLogger("CANBUS")
+        super().__init__("robuROC_CAN")
+
+        self.logger = self.get_logger()
 
         # Initialize a network object
         self.CAN_NODES = []
@@ -81,6 +84,17 @@ class RobuROC_Canopen():
         self._CAN_PERIODICTASK = []
         self._CONNECTED = False
 
+        self.Write_Sub = self.create_subscription(CANWrite, 'CANWrite', self.Write_CB, 10)
+
+        self.Signal_Sub = self.create_subscription(CANSignal, 'CANSignal', self.Signal_CB, 10)
+
+        self.ReadSrv = self.create_service(CANRead, 'CANRead', self.SDOread)
+
+    def Write_CB(self, msg: CANWrite):
+        None
+
+    def Signal_CB(self, Signal):
+        None
 
     def Connect(self, bustype:str = 'pcan', channel:str = 'PCAN_USBBUS1', bitrate:int = 1000000):
         """
@@ -272,7 +286,7 @@ class RobuROC_Canopen():
                 f"Error in writing to {pdo_index}: Unsupported data length."
             )
             return False
-    async def SDOread(self, node_id: int, pdo_index: list):
+    async def SDOread(self, request, response):
         """
         Retrieve the current data from the specified SDO for the given node.
         :param node_id: The ID of the node to read from.
@@ -294,10 +308,10 @@ class RobuROC_Canopen():
 
         try:
             # Setup the initial read request in little-endian format
-            data = [0x40, pdo_index[1], pdo_index[0], pdo_index[2]]
+            data = [0x40, request.indices[1], request.indices[0], request.indices[2]]
             # Subscribe to response and send the initial read request
-            self.Subscribe(0x580 + node_id, temp_callback)
-            self.CAN_NETWORK.send_message(0x600 + node_id, bytearray(data))
+            self.Subscribe(0x580 + request.node_id, temp_callback)
+            self.CAN_NETWORK.send_message(0x600 + request.node_id, bytearray(data))
 
             # Continuously wait and read until the last message is received
             while True:
@@ -306,7 +320,7 @@ class RobuROC_Canopen():
 
                 # Check for SDO error
                 if feedback == 0x80:
-                    self.logger.error(f"SDO error: node {node_id}, error: {self._SDO_ABORT_CODES.get(received_data[-8:])}")
+                    self.logger.error(f"SDO error: node {request.node_id}, error: {self._SDO_ABORT_CODES.get(received_data[-8:])}")
                     return None
 
                 # If feedback indicates last packet received, break loop
@@ -317,15 +331,18 @@ class RobuROC_Canopen():
 
                 # Toggle control bit and send acknowledgment to request next part
                 control_bit = 0x70 if control_bit == 0x60 else 0x60
-                self.CAN_NETWORK.send_message(0x600 + node_id, bytearray([control_bit]))
+                self.CAN_NETWORK.send_message(0x600 + request.node_id, bytearray([control_bit]))
 
             # Return the assembled data as an integer
             rcv_data = int.from_bytes(received_data, 'little')
             return rcv_data
 
         except Exception as e:
-            self.logger.error(f"Error reading from node {node_id}: {e}")
-            return None
+            self.logger.error(f"Error reading from node {request.node_id}: {e}")
+            response.success = False
+            response.indices.extend([0xFF, 0xFF, 0xFF])
+            return response
+
     def PDOwrite(self, COB_ID: int, data=None):
         """
         Write data to a mapped RPDO object (Controlword)
