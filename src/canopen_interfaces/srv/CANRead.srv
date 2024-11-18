@@ -1,4 +1,6 @@
-int16 node_id
+string command "SDO"
+int16 cobid
+int8 node_id
 std_msgs/Int32MultiArray indices
 ---
 std_msgs/Int32MultiArray indices

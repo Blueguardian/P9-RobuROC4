@@ -12,7 +12,7 @@ Documentation, related files, and licensing can be found at
 """
 
 import pygame
-from .utils import gamepad_buttons
+from src.roburoc_canopen.utils import gamepad_buttons
 
 
 class Controller:

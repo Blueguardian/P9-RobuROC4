@@ -19,27 +19,27 @@ Copyright 2024 Thomas Schou Sørensen, Julian Witold Wagner and César Zacharie 
    limitations under the License.
 """
 
-import canopen, logging, os, asyncio
+import canopen, os, asyncio, logging
 
-import rclpy.subscription
-from rclpy.action import ActionServer
+import rclpy
 from rclpy.node import Node
-from .msg import CANWrite, CANSignal, CANPeriodicTask, CANSubscribe, CANSubscription
-from .srv import CANRead
+from rclpy.subscription import Subscription
+from canopen_interfaces.msg import CANWrite, CANSubscription
+from canopen_interfaces.srv import CANRead, CANConnection, CANPeriodicTask, CANSubscribe
 
-logging.basicConfig(level=logging.DEBUG,
-                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                    handlers=[logging.FileHandler("CANOpen_Ros_Logs"),
-                              logging.StreamHandler()])
+# Set logging level and output files
+logging.basicConfig(level=logging.ERROR)
 
 class RobuROC_Canopen(Node):
     """
     The RobuROC_Canopen class is constructed to communicate with the DPCANTR-040B080 drives installed in the
     RobuROC4. The methods implemented here are defined such that the low level CANBus communication is simplified to the
-    extent possible. When utilized, it will establish and maintain communication with these drivers.
+    extent possible. This particular class is adapted to function within the ROS2 framework and is based upon services
+    and topics to provide the requested data. This is due to the integration in ROS2 a standalone node, with customized
+    messages and services to reduce redundancy.
     """
 
-    #_DRIVE_CONFIG = os.path.join(os.path.abspath("../../"), "resource", "AMC_Digiflex_1.0.14.eds")
+    _DRIVE_CONFIG = os.path.join(os.path.abspath(""), "utils", "AMC_Digiflex_1.0.14.eds")
     _SDO_ABORT_CODES  = {
         0x00000503: "Toggle bit not alternated",
         0x00000504: "SDO protocol timed out",
@@ -74,8 +74,15 @@ class RobuROC_Canopen(Node):
     CAN_NETWORK = canopen.Network()
 
     def __init__(self):
-        super().__init__("robuROC_CAN")
+        """
+        TODO: Implement ros parameters
+        """
+        super().__init__("ROC_CAN")
+        self.declare_parameter('bustype', 'pcan')
+        self.declare_parameter('channel', 'PCAN_USBBUS1')
+        self.declare_parameter('bitrate', 1000000)
 
+        # Init logging
         self.logger = self.get_logger()
 
         # Initialize a network object
@@ -84,18 +91,54 @@ class RobuROC_Canopen(Node):
         self._CAN_PERIODICTASK = []
         self._CONNECTED = False
 
-        self.Write_Sub = self.create_subscription(CANWrite, 'CANWrite', self.Write_CB, 10)
+        # Initialize subscriptions
+        self.WriteSub = self.create_subscription(CANWrite, 'CANWrite', self.Write_CB, 10)
 
-        self.Signal_Sub = self.create_subscription(CANSignal, 'CANSignal', self.Signal_CB, 10)
+        # Initialize publishers
+        self.SubscriptionPub = self.create_publisher(CANSubscription, 'CANSubscription', 10)
 
-        self.ReadSrv = self.create_service(CANRead, 'CANRead', self.SDOread)
+        # Initialize services
+        self.ConnectionSrv = self.create_service(CANConnection, 'CANConnection', self.Connection_CB)
+        self.PeriodicSrv = self.create_service(CANPeriodicTask, 'CANPeriodic', self.PeriodicTask_CB)
+        self.SubscribeSrv = self.create_service(CANSubscribe, 'CANSubscribe', self.Subscribe_CB)
+        self.ReadSrv = self.create_service(CANRead, 'CANRead', self.Read_CB)
+    def __del__(self):
+        self.Disconnect()
 
-    def Write_CB(self, msg: CANWrite):
-        None
+        self.destroy_service(self.ConnectionSrv)
+        self.destroy_publisher(self.SubscriptionPub)
+        self.destroy_service(self.PeriodicSrv)
+        self.destroy_service(self.SubscribeSrv)
+        self.destroy_service(self.ReadSrv)
 
-    def Signal_CB(self, Signal):
-        None
+        self.destroy_node()
 
+    def Connection_CB(self, request, response):
+        """
+        Callback function for connection signals, depending on the signal received (Connect or Disconnect), the node
+        will call the corresponding method. Each method is called up to 10 times, and after that will return unsuccessful
+        :request.std_msgs/String command: "Connect" or "Disconnect", otherwise will return error
+        :request.std_msgs/String bustype: If "Connect" desired bustype for canopen
+        :request.std_msgs/String channel: If "Connect" desired channel for bustype
+        :request.int32 bitrate: If "Connect" desired bitrate for connection
+        :return: Bool Success
+        """
+
+        if request.command == "Connect":
+            bustype = self.get_parameter('bustype').get_parameter_value().string_value
+            channel = self.get_parameter('channel').get_parameter_value().string_value
+            bitrate = self.get_parameter('bitrate').get_parameter_value().integer_value
+            for _ in range(10):
+                if self.Connect(bustype, channel, bitrate):
+                    response.success = True
+                    response.node_list = list(range(len(self.CAN_NODES)))
+                    return response
+            response.success = False
+        elif request.command == "Disconnect":
+            if self.Disconnect():
+                response.success = True
+            else:
+                response.success = False
     def Connect(self, bustype:str = 'pcan', channel:str = 'PCAN_USBBUS1', bitrate:int = 1000000):
         """
         Connection method for attempting to connect to the CANBUS network specified by bustype and channel at the specified
@@ -104,6 +147,8 @@ class RobuROC_Canopen(Node):
         :param channel: Connection channel (or object), defined bu the interface to the CANBus
         :param bitrate: The bitrate for the connection
         :return: Bool: true or false for connection
+
+        TODO: Implement ros parameters, use as inputs for bustype, channel and bitrate (Reduce msg structure)
         """
         if not self._CONNECTED:
             try:
@@ -112,7 +157,7 @@ class RobuROC_Canopen(Node):
                 if len (self.CAN_NODES) == 0:
                     try:
                         for i in range(1,5):
-                            node = self.CAN_NETWORK.add_node(i)
+                            node = self.CAN_NETWORK.add_node(i, self._DRIVE_CONFIG)
                             self.CAN_NODES.append(node)
                     except Exception as e:
                         self.logger.error(f"Unable to initialize nodes, Error: {e}")
@@ -147,11 +192,38 @@ class RobuROC_Canopen(Node):
                 return not self._CONNECTED
         else:
             return True
-    def PeriodicTask(self, COB_ID: int, data: list, period: float = 0.2):
+    def PeriodicTask_CB(self, request, response):
+        """
+        Callback method for periodic tasks, either adds or removes a periodic task depending on the command
+        specified.
+        :param request.command: Either "Periodic" or "RemovePeriodic"
+        :param request.cobid: COBID of PDO to periodically send data to or of task to remove
+        :param request.data:  Data to send to PDO or of task to remove
+        :param request.period: If command "Periodic", period between transmits
+        :param response.success: Bool success of command
+        :return: response
+        """
+        if request.command == "Add":
+            if any(value is not None for value in [request.cobid, request.data, request.period]):
+                kwargs = {key: value for key, value in {'COBID': request.cobid, 'data': request.data,
+                                                        'period': request.period}.items() if value is not None}
+                response.success = self.PeriodicTask(**kwargs)
+                return response
+            else:
+                response.success = self.PeriodicTask(request.cobid, request.data)
+                return response
+        elif request.command == "Remove":
+            response.success = self.RemovePeriodicTask(request.cobid, request.data)
+            return response
+        else:
+            self.logger.ERROR(f"Unknown command {request.command} specified")
+            response.success = False
+            return response
+    def PeriodicTask(self, COBID: int, data: list, period: float = 0.2):
         """
         Adds a CANOpen periodically sent message, e.g. for heartbeat. This task is stored should it later be
         required to be stopped.
-        :param COB_ID: COBID of the intended target
+        :param COBID: COBID of the intended target
         :param data: Data to be sent periodically
         :param period: The period between messages in seconds
         :return: Bool: True or False for successful periodic task addition
@@ -163,12 +235,62 @@ class RobuROC_Canopen(Node):
             data.reverse()
             sent_data = bytearray(data)
         try:
-            task = self.CAN_NETWORK.send_periodic(COB_ID, sent_data, period)
+            task = self.CAN_NETWORK.send_periodic(COBID, sent_data, period)
             self._CAN_PERIODICTASK.append(task)
+            index = self._CAN_PERIODICTASK.index(task)
             return True
+
         except Exception as error:
             self.logger.error(f"Unable to send periodic task, Error: {error}")
             return False
+    def RemovePeriodicTask(self, COBID: int, data: list):
+        """
+        Removes an existing Periodic task from the _CAN_PERIODICTASK list and stops it. Returns True if the tasks exists
+        and is removed. Returns False if task either doesn't exist or is not removed.
+        :param COBID: COBID of the task when it was initialized
+        :param data: Data that is sent to the COBID
+        :return: Bool success
+        """
+        sent_data = None
+        if len(data) <= 8:
+            # Zero-pad data if necessary
+            data += [0] * (8 - len(data))
+            data.reverse()
+            sent_data = bytearray(data)
+        i = 0
+        try:
+            for task in self._CAN_PERIODICTASK:
+                if task.can_id == COBID and task.data == sent_data:
+                    task.stop()
+                    i =+ 1
+            if i == 0:
+                self.logger.ERROR(f"No tasks with COBID {COBID} with {data} exists")
+                return False
+            else:
+                self.logger.DEBUG(f"Stopped {i} Periodic tasks, for {COBID} with {data}")
+                return True
+        except Exception as error:
+            self.logger.error(f"Unable to remove Periodic task, Error: {error}")
+            return False
+    def Subscribe_CB(self, request, response):
+        """
+        Subscribe callback method for subscribing to specific COBIDs. The resulting subscription will provide
+        data when the internal values change.
+        :param request.command: either "Subscribe" or "Unsubscribe" depending on desired outcome
+        :param request.cobid: COBID to subscribe to (Statuswords)
+        :param response.success: Bool success of command
+        :return: response
+        """
+        if request.command == "Add":
+            response.success = self.Subscribe(request.cobid, self.Generic_callback)
+            return response
+        elif request.command == "Remove":
+            response.success = self.Unsubscribe(request.cobid)
+            return response
+        else:
+            self.logger.ERROR(f"Unknown command {request.command} specified")
+            response.success = False
+            return response
     def Subscribe(self, COBID: int, callback: callable):
         """
         Adds a CANOpen subscription to a specified COBID, the return value is handled through the specified callback
@@ -194,11 +316,55 @@ class RobuROC_Canopen(Node):
             if callback == None:
                 self.CAN_NETWORK.unsubscribe(COBID)
                 self._CAN_SUBSCRIPTION.remove(COBID)
+                return True
             else:
                 self.CAN_NETWORK.unsubscribe(COBID, callback)
                 self._CAN_SUBSCRIPTION.remove(COBID)
+                return True
         except Exception as e:
             self.logger.error(f"Error unsubscribing from {COBID}, error: {e}")
+            return False
+    def Generic_callback(self, COBID:int, data:bytearray, rec_percentage:float):
+        """
+        Generic callback function for returning data from subscriptions
+        :param COBID: The COBID of the subscription
+        :param data: The data returned from the subscription
+        :param rec_percentage: The percentage of the data returned from the subscription
+        :return: None
+        """
+        Subscription_message = Subscription
+        Subscription_message.origin = [COBID_stor for COBID_stor in self._CAN_SUBSCRIPTION if COBID % COBID_stor in {1, 2, 3, 4}][0] - COBID
+        Subscription_message.cobid = COBID
+        data.reverse()
+        Subscription_message.data = list(data)
+        self.SubscriptionPub.publish(Subscription_message)
+    def Write_CB(self, message: CANWrite):
+        """
+        Write callback method for writing with different methods, depending on the desired target.
+        The message structure is assumed to be a list of most significant bit first.
+        :param message.command: The desired write command "SDO", "PDO" or "NMT" for Service data object, Process data
+        object or network management respectively
+        :param message.cobid: If command "PDO" the COBID to write to
+        :param message.node_id: If command "SDO" or "NMT" the nodeid to write to
+        :param message.indices: If command "SDO" the indices of the object in the object dictionary.
+        :param message.data: data specific to the individual commands: "SDO" 4-bit (len=4) list of data, "PDO" 8-bit
+        (len=8) list of data, "NMT" 1-bit (len=1) list of data.
+        :return: None
+        """
+        if message.command == "SDO":
+            success = self.SDOwrite(message.node_id, message.indices, message.data)
+            self.logger.DEBUG(f"Attempting to write SDO message: {message.data} to node {message.node_id}, index "
+                              f"{hex(message.indices[0])}{hex(message.indices[1])}:{hex(message.indices[2])}")
+            if success == False:
+                self.logger.ERROR("Write SDO attempt failed")
+        elif message.command == "PDO":
+            success = self.PDOwrite(message.cobid, message.data)
+            self.logger.DEBUG(f"Attempting to write PDO message: {message.data} to COBID {message.COBID}")
+            if success == False:
+                self.logger.ERROR("Write PDO attempt failed")
+        elif message.command == "NMT":
+            success = self.NMTwrite(message.node_id, message.data)
+            self.logger.DEBUG(f"Attempting to write NMT message: {message.data} to node {message.node_id}")
     async def SDOwrite(self, node_id: int, pdo_index: list, data: list):
         """
         Write data to a specified SDO for the given node.
@@ -286,67 +452,10 @@ class RobuROC_Canopen(Node):
                 f"Error in writing to {pdo_index}: Unsupported data length."
             )
             return False
-    async def SDOread(self, request, response):
-        """
-        Retrieve the current data from the specified SDO for the given node.
-        :param node_id: The ID of the node to read from.
-        :param pdo_index: A list of the index and subindex of the sdo as in [index bit 0, index bit 1, subindex bit], e.g. [0x60, 0x60, 0x00] for index 0x6060 subindex 0x00
-        return: Returns data with callback with node id 0x580 + nodeid or None if an error occurs.
-
-        TODO: Enable support for multiple data lengths
-        """
-        feedback = None
-        received_data = bytearray()
-        feedback_event = asyncio.Event()
-        control_bit = 0x60  # Start with control bit 0x60 for multi-part transfer
-
-        def temp_callback(_cobid, rec_data, rec_perc):
-            nonlocal feedback, received_data
-            feedback = int.from_bytes(rec_data[0:1], 'little')
-            received_data.extend(rec_data[5:])  # Collect data from response payload
-            feedback_event.set()
-
-        try:
-            # Setup the initial read request in little-endian format
-            data = [0x40, request.indices[1], request.indices[0], request.indices[2]]
-            # Subscribe to response and send the initial read request
-            self.Subscribe(0x580 + request.node_id, temp_callback)
-            self.CAN_NETWORK.send_message(0x600 + request.node_id, bytearray(data))
-
-            # Continuously wait and read until the last message is received
-            while True:
-                await feedback_event.wait()
-                feedback_event.clear()
-
-                # Check for SDO error
-                if feedback == 0x80:
-                    self.logger.error(f"SDO error: node {request.node_id}, error: {self._SDO_ABORT_CODES.get(received_data[-8:])}")
-                    return None
-
-                # If feedback indicates last packet received, break loop
-                if control_bit == 0x60 and feedback == 0x41:
-                    break
-                elif control_bit == 0x70 and feedback == 0x43:
-                    break
-
-                # Toggle control bit and send acknowledgment to request next part
-                control_bit = 0x70 if control_bit == 0x60 else 0x60
-                self.CAN_NETWORK.send_message(0x600 + request.node_id, bytearray([control_bit]))
-
-            # Return the assembled data as an integer
-            rcv_data = int.from_bytes(received_data, 'little')
-            return rcv_data
-
-        except Exception as e:
-            self.logger.error(f"Error reading from node {request.node_id}: {e}")
-            response.success = False
-            response.indices.extend([0xFF, 0xFF, 0xFF])
-            return response
-
-    def PDOwrite(self, COB_ID: int, data=None):
+    def PDOwrite(self, COBID: int, data: list):
         """
         Write data to a mapped RPDO object (Controlword)
-        :param COB_ID: The mapped ID of the RPDO
+        :param COBID: The mapped ID of the RPDO
         :param data: The data to be written (list of hexadecimals or ints).
         :return: Bool: True if successful, False if an error occurred.
         """
@@ -358,13 +467,99 @@ class RobuROC_Canopen(Node):
             # Convert to bytes
             written_data = bytearray(data)
             try:
-                self.CAN_NETWORK.send_message(COB_ID, written_data)
+                self.CAN_NETWORK.send_message(COBID, written_data)
                 return True
             except canopen.SdoCommunicationError as e:
                 self.logger.error(f"PDO Write Error: {e}")
                 return False
         else:
             self.logger.error(f"Message length over 8 bits is not supported")
+            return False
+    def NMTwrite(self, node_id: int, ctrlWord: list):
+        try:
+            data = [ctrlWord[0], node_id]
+            self.CAN_NETWORK.send_message(0x00, bytearray(data))
+            return True
+        except Exception as e:
+            self.logger.error(f"NMT Write Error: {e}")
+            return False
+    def Read_CB(self, request, response):
+        """
+        Read callback method for reading from a SDO (or PDO (NOT SUPPORTED) object in the object library
+        :param request.command: either "SDO" or "PDO" (PDO not supported)
+        :param request.cobid: If "PDO" COBID of the statusword to read from
+        :param request.node_id: If "SDO" id of the node to read from
+        :param request.indices: If "SDO" indices of the object in object dictionary
+        :param response.indices: Indices read from
+        :param response.data: Data returned from the object
+        :param response.success: Bool success of read
+        :return: response
+        """
+        if request.command == "SDO":
+            data = self.SDOread(request.node_id, request.indices)
+            if data is not None:
+                response.success = True
+                response.data = data
+                response.indices = request.indices
+                return response
+            else:
+                response.success = False
+                return response
+        if request.command == "PDO":
+            self.logger.ERROR(f"PDO read is not supported")
+            response.success = False
+            return response
+    async def SDOread(self, node_id: int, pdo_index: list):
+        """
+        Retrieve the current data from the specified SDO for the given node.
+        :param node_id: The ID of the node to read from.
+        :param pdo_index: A list of the index and subindex of the sdo as in [index bit 0, index bit 1, subindex bit], e.g. [0x60, 0x60, 0x00] for index 0x6060 subindex 0x00
+        return: Returns data with callback with node id 0x580 + nodeid or None if an error occurs.
+        """
+        feedback = None
+        received_data = bytearray()
+        feedback_event = asyncio.Event()
+        control_bit = 0x60  # Start with control bit 0x60 for multi-part transfer
+
+        async def temp_callback(_cobid, rec_data, rec_perc):
+            nonlocal feedback, received_data
+            feedback = int.from_bytes(rec_data[0:1], 'little')
+            received_data.extend(rec_data[5:])  # Collect data from response payload
+            feedback_event.set()
+
+        try:
+            # Setup the initial read request in little-endian format
+            data = [0x40, pdo_index[1], pdo_index[0], pdo_index[2]]
+            # Subscribe to response and send the initial read request
+            self.Subscribe(0x580 + node_id, temp_callback)
+            self.CAN_NETWORK.send_message(0x600 + node_id, bytearray(data))
+
+            # Continuously wait and read until the last message is received
+            while True:
+                await feedback_event.wait()
+                feedback_event.clear()
+
+                # Check for SDO error
+                if feedback == 0x80:
+                    self.logger.error(f"SDO error: node {node_id}, error: {self._SDO_ABORT_CODES.get(received_data[-8:])}")
+                    return None
+
+                # If feedback indicates last packet received, break loop
+                if control_bit == 0x60 and feedback == 0x41:
+                    break
+                elif control_bit == 0x70 and feedback == 0x43:
+                    break
+
+                # Toggle control bit and send acknowledgment to request next part
+                control_bit = 0x70 if control_bit == 0x60 else 0x60
+                self.CAN_NETWORK.send_message(0x600 + node_id, bytearray([control_bit]))
+
+            # Return the assembled data as an integer
+            rcv_data = int.from_bytes(received_data, 'little')
+            return rcv_data
+
+        except Exception as e:
+            self.logger.error(f"Error reading from node {node_id}: {e}")
             return False
     def PDOread(self, node_id: int, index: int, subindex: int = 0, timeout: int = 1, timeout_count: int = 5):
         """
@@ -373,6 +568,7 @@ class RobuROC_Canopen(Node):
         :param index: The index in the object dictionary to read from.
         :param subindex: The subindex in the object dictionary.
         :param timeout: Timeout in seconds for the operation.
+        :param timeout_count: Amount of tries to read
         :return: Data read from the node, or raises an exception on failure.
 
         TODO: NOT SUPPORTED (Can be accessed through either SDOread or Subscribe)
@@ -397,6 +593,17 @@ class RobuROC_Canopen(Node):
                 except TimeoutError:
                     self.logger.error(f"SDO read timed out after {timeout} seconds")
             raise
-    def NMTwrite(self, node_id: int, ctrlWord: int):
-        data = [ctrlWord, node_id]
-        self.CAN_NETWORK.send_message(0x00, bytearray(data))
+
+
+def main():
+    rclpy.init()
+    can = RobuROC_Canopen()
+
+    rclpy.spin(can)
+
+    can.destroy_node()
+    rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+

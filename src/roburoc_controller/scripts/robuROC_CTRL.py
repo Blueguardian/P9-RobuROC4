@@ -1,19 +1,21 @@
 #!/usr/bin/env python3
-import logging
-import time
-
-from .utils import CTW, COBID
-from src.roburoc_controller.scripts import Pure_robuROC_CANopen
-import rclpy.subscription
+from utils.CTW import CTW
+from utils.COBID import COBID
+from canopen_interfaces.msg import CANWrite, CANSubscription
+from canopen_interfaces.srv import CANRead, CANConnection, CANPeriodicTask, CANSubscribe
+import rclpy.subscription, logging, time
 from rclpy.node import Node
+from sensor_msgs.msg import Joy
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     handlers=[logging.FileHandler("CAN_Logs"),
                               logging.StreamHandler()])
 
-class ROBUROC_CTRL(Node):
+class RobuROC_CTRL(Node):
+    """
 
+    """
     # Initialize fields to contain periodic status updates
     _CURRENT_PERIODIC = [None, None, None, None]
     _VELOCITY_PERIODIC = [None, None, None, None]
@@ -35,30 +37,35 @@ class ROBUROC_CTRL(Node):
     _SCALE_VELOCITY = ((pow(2, 17) / (2 * 20000) * pow(2, 19)) / 1000) * 32  # To RPM
     _SCALE_RPM_TO_MPS = ((2.0 * 3.14) / 60.0) * WHEEL_RADIUS
 
+    _DEADMAN_SWITCH = False
+
     def __init__(self):
-        super().__init__('RobuROC_CTRL')
-        self.logger = Node.get_logger(self)
-        self.CAN = robuROC_CANopen.RobuROC_Canopen()
+        super().__init__('ROC_CTRL')
+        self.logger = self.get_logger()
 
-        self._CTW = CTW.CTW()
-        self._COBID = COBID.COBID()
+        # Setup canopen help modules
+        self._CTW = CTW()
+        self._COBID = COBID()
 
-        while self._CONNECTED == False:
-            self._CONNECTED = self.CAN.Connect()
+        # Set up publisher
+        self.WritePub = self.create_publisher(CANWrite, 'CANWrite', 10)
 
-    def __del__(self):
-        self.CAN.Disconnect()
+        # Set up service clients
+        self.ConnectionSrvCli = self.create_client(CANConnection, 'CANConnection')
+        self.ConnectionSrvCli.wait_for_service()
+        self.PeriodicSrvCli = self.create_client(CANPeriodicTask, 'CANPeriodic')
+        self.PeriodicSrvCli.wait_for_service()
+        self.SubscribeSrvCli = self.create_client(CANSubscribe, 'CANSubscribe')
+        self.SubscribeSrvCli.wait_for_service()
+        self.ReadSrvCli = self.create_client(CANRead, 'CANRead')
+        self.ReadSrvCli.wait_for_service()
 
+        # Set up subscriptions
+        self.SubscriptionSub = self.create_subscription(CANSubscription, 'CANSubscription', self.Subscription_CB, 10)
+        self.VelSub = self.create_subscription(Joy, 'joy', self.setSpeed, 10)
 
-    @property
-    def Velocity(self):
-        return self._VELOCITY_PERIODIC
-    @property
-    def Current(self):
-        return self._CURRENT_PERIODIC
-    @property
-    def Status(self):
-        return self._STATUS_PERIODIC
+        # Set up interface variables
+        self._CAN_NODES = []
 
     def setup(self):
         """
@@ -66,25 +73,31 @@ class ROBUROC_CTRL(Node):
         :return: None
         """
         # If the system is already initialized, stop it and reset everything
+        request = CANConnection.Request()
+        request.command = "Connect"
         while not self._CONNECTED:
-            self._CONNECTED = self.CAN.Connect()
+            response = self.ConnectionSrvCli.call_async(request)
+            rclpy.spin_until_future_complete(self, response)
+            self._CONNECTED = response.result().success
+            self._CAN_NODES.extend(response.result().node_list)
 
         if self._CONNECTED == True:
-            for node in self.CAN.CAN_NODES:
+            for node in self._CAN_NODES:
                 # Reset all drives
                 # node.nmt.send_command(0x81, 0)
-                self.CAN.NMTwrite(node.id, self._CTW.RESET)
+                self.NMT_Write(node, [self._CTW.RESET])
                 # Set deceleration on all drives
-                self.CAN.SDOwrite(node.id, [0x20, 0x64, 0x04], [0x80, 0x4F, 0x12])
+                self.SDO_Write(node, [0x20, 0x64, 0x04], [0x80, 0x4F, 0x12])
                 # Enable all drives
                 # node.nmt.send_command(0x01, 0)
-                self.CAN.NMTwrite(node.id, self._CTW.ENABLE)
+                self.NMT_Write(node, [self._CTW.ENABLE])
                 # Turn on all drives
                 # node.nmt.send_command(0x07, 0)
-                self.CAN.NMTwrite(node.id, self._CTW.TURNON)
+                self.NMT_Write(node, [self._CTW.TURNON])
                 # Enable operatiom on all drives
                 # node.nmt.send_command(0x0F, 0)
-                self.CAN.NMTwrite(node.id, self._CTW.ENABLE_OP)
+                self.NMT_Write(node, [self._CTW.ENABLE_OP])
+                # self.CAN.NMTwrite(node.id, self._CTW.ENABLE_OP)
 
             if not self._PERIODIC:
                 self.InitPeriodic()
@@ -92,8 +105,6 @@ class ROBUROC_CTRL(Node):
                 self.InitHeartbeat()
         else:
             Node.get_logger(self).error(f"Unable to connect to CANBUS")
-
-
     def InitHeartbeat(self, heartbeat_time_ms: float = 0.2):
         """
         Initialize heartbeat messages where the host (Node 0) is the producer
@@ -101,47 +112,89 @@ class ROBUROC_CTRL(Node):
 
         :param heartbeat_time_ms: Time interval in seconds for sending heartbeat messages.
         """
-
-        self.CAN.PeriodicTask(0x700 + self._COBID.HOST, [0], heartbeat_time_ms)
-        Node.get_logger(self).debug(f"Heartbeat initialized to {heartbeat_time_ms} ms")
-        self._HEARTBEAT = True
+        success = self.AddPeriodicTask(0x700+self._COBID.HOST, [0], heartbeat_time_ms)
+        if success:
+            self._HEARTBEAT = True
+        else:
+            self._HEARTBEAT = False
     def InitPeriodic(self):
         """
         Initialize periodic read TPDO messages, such that it returns with periodic updates to the state of the drives
         and motors.
         :return: None
         """
-        for node in self.CAN.CAN_NODES:
-            # Subscribe to Actual Current and Velocity, Status messages and SDO read feedback
-            self.CAN.Subscribe(self._COBID.ACT_CURRENT.ALL[node.id-1], self.SDO_Current_Callback)
-            self.CAN.Subscribe(self._COBID.ACT_VELOCITY.ALL[node.id-1], self.SDO_Velocity_Callback)
-            self.CAN.Subscribe(self._COBID.HEARTBEAT.ALL[node.id-1], self.SDO_Status_Callback)
-        self._PERIODIC = True
-    def setSpeed(self, speed, type:str='MPS'):
+        success_vel = []
+        success_cur = []
+        success_heart = []
+
+        for node in self._CAN_NODES:
+            success_vel.extend(self.Subscribe(self._COBID.ACT_VELOCITY.ALL[node]))
+            success_cur.extend(self.Subscribe(self._COBID.ACT_CURRENT.ALL[node]))
+            success_heart.extend(self.Subscribe(self._COBID.HEARTBEAT.ALL[node]))
+
+        self.logger.debug(f"Successfully subcribed to Velocity for nodes [1, 2, 3, 4]:{success_vel}, Current: {success_cur}, Heartbeat: {success_heart}")
+        if all(success_vel) and all(success_cur) and all(success_heart):
+            self._PERIODIC = True
+        else:
+            self._PERIODIC = False
+
+    def setSpeed(self, message):
         """
         Method for setting the speed of the individual wheels
         :param speed: A list of speeds for the individual wheels
         :param type: Speed representation, current supported values: ['MPS', 'RPM']
         :return: None
         """
-        for node in self.CAN.CAN_NODES:
-            # Set the mode to velocity mode
-            self.CAN.SDOwrite(node.id, [0x60, 0x60, 0x00], [0x03])
+        if type(message) == type(Joy):
+            if self._DEADMAN_SWITCH == True:
+                left = round(message.axes[1] + message.axes[0] / 4, 4) * 2
+                right = round(message.axes[1] - message.axes[0] / 4, 4) * 2
 
-            # If the system is not in operation mode
-            if self._STATUS_PERIODIC[node.id-1] == 'OPERATIONAL':
-                self.recover()
-                self.CAN.NMTwrite(node.id, self._CTW.ENABLE_OP)
+                vel_MPS = int(left * (self._SCALE_VELOCITY / self._SCALE_RPM_TO_MPS))
+                vel2_MPS = int(-right * (self._SCALE_VELOCITY / self._SCALE_RPM_TO_MPS))
+        #
+                vel_MPS = list(bytearray(vel_MPS.to_bytes(4, byteorder='little', signed=True)))
+                vel2_MPS = list(bytearray(vel2_MPS.to_bytes(4, byteorder='little', signed=True)))
+                self.NMT_Write(0x514, vel_MPS)
+                self.NMT_Write(0x513, vel2_MPS)
+                self.NMT_Write(0x512, vel2_MPS)
+                self.NMT_Write(0x511, vel_MPS)
+            if message.buttons[2] == 1:
+                self._DEADMAN_SWITCH = True
+        # network.send_message(0x514, vel_MPS)
+        # network.send_message(0x513, vel2_MPS)
+        # network.send_message(0x512, vel2_MPS)
+        # network.send_message(0x511, vel_MPS)
 
-            data = list(speed.to_bytes(4, byteorder='little', signed=True))
-            self.CAN.SDOwrite(node.id, [0x60, 0xFF, 0x00], data)
+            # # Set the mode to velocity mode
+            # SDO_msg = CANWrite
+            # SDO_msg.command = "SDO"
+            # SDO_msg.node_id = nodeSDO_msg = CANWrite
+            #     SDO_msg.command = "SDO"
+            #     SDO_msg.node_id = node
+            #     SDO_msg.indices = [0x20, 0x64, 0x04]
+            #     SDO_msg.data = [0x80, 0x4F, 0x12]
+            #     self.WritePub.publish(SDO_msg)
+            # SDO_msg.indices = [0x20, 0x64, 0x04]
+            # SDO_msg.data = [0x80, 0x4F, 0x12]
+            # self.WritePub.publish(SDO_msg)
+            # self.CAN.SDOwrite(node.id, [0x60, 0x60, 0x00], [0x03])
+
+#             # If the system is not in operation mode
+#             if self._STATUS_PERIODIC[node.id-1] == 'OPERATIONAL':
+#                 self.recover()
+#                 self.CAN.NMTwrite(node.id, self._CTW.ENABLE_OP)
+
+#             data = list(speed.to_bytes(4, byteorder='little', signed=True))
+#             self.CAN.SDOwrite(node.id, [0x60, 0xFF, 0x00], data)
     def brake(self, node_id):
         """
         Method for braking the RobuROC4 when velocity is set to 0.
         :param node_id: The node for which to change the state to Quickstop
         :return: None
         """
-        self.CAN.NMTwrite(node_id, self._CTW.QUICKSTOP)
+        for node in self._CAN_NODES:
+            self.NMT_Write(node, [self._CTW.QUICKSTOP])
     def recover(self):
         """
         Recovery method for when a software related issue has arisen. Will not reset the emergency stop
@@ -149,86 +202,157 @@ class ROBUROC_CTRL(Node):
         :return: None
         TODO: Enable status bit check to enable proper recovery
         """
-        for node in self.CAN.CAN_NODES:
-            if self._STATUS_PERIODIC[node.id-1] == 'STOPPED' or self._STATUS_PERIODIC[node.id-1] == 'UNKNOWN':
-                self.CAN.NMTwrite(node.id, self._CTW.ENABLE)
-                self.CAN.NMTwrite(node.id, self._CTW.ENABLE_OP)
-                self.CAN.NMTwrite(node.id, self._CTW.TURNON)
-    # def SDO_Callback(self, COBID:int, data:bytearray, flags:float):
-    #
-    #     if COBID in self._COBID.SDO_READ.ALL:
-    #         # An SDO request has returned a value
-    #         node_id = COBID - 0x580
-    #         index = int.from_bytes(data[0:3], 'little', signed=True)
-    #         subindex = int.from_bytes(data[4], 'little', signed=False)
-    #         data = list(data)
-    #         self._TEMPORARY_PERIODIC[node_id] = [index, subindex, data]
-    #     else:
-    #         self.logger.log(logging.ERROR, f"COBID {COBID} not recognized")
-    def SDO_Velocity_Callback(self, COBID:int, data:bytearray, timestamp:float):
+        for node in self._CAN_NODES:
+            if self._STATUS_PERIODIC[node.id] == 'STOPPED' or self._STATUS_PERIODIC[node.id] == 'UNKNOWN':
+                self.NMT_Write(node.id, [self._CTW.ENABLE])
+                self.NMT_Write(node.id, [self._CTW.ENABLE_OP])
+                self.NMT_Write(node.id, [self._CTW.TURNON])
+    def AddPeriodicTask(self, COBID: int, data: list, period: float):
         """
-        Callback function for velocity, measuring in the driver/motor. It updates the internal values _VELOCITY_PERIODIC
-        with these values
-        :param COBID: COBID returned as sender from the driver
-        :param data: data returned from the CANBus
-        :param timestamp: returned from the CANBus
+
+        :param COBID:
+        :param data:
+        :param period:
+        :return:
+        """
+        request = CANPeriodicTask.Request()
+        request.command = "Add"
+        request.cobid = COBID # 0x700 + COBID.HOST
+        request.data = data
+        request.period = period
+        response = self.PeriodicSrvCli.call_async(request)
+        rclpy.spin_until_future_complete(self, response)
+        return response.result().success
+    def RemovePeriodicTask(self, COBID:int, data: list=[]):
+        """
+
+        :param COBID:
+        :param data:
+        :return:
+        """
+
+        request = CANPeriodicTask.Request()
+        request.command = "Remove"
+        request.cobid = COBID  # 0x700 + COBID.HOST
+        request.data = data
+        response = self.PeriodicSrvCli.call_async(request)
+        rclpy.spin_until_future_complete(self, response)
+        return response.result().success
+    def Subscribe(self, COBID:int):
+        """
+        Subscribe "override" method, to subscribe to specific COBIDs in the CANBUS node
+        :param COBID: COBID of the desired object
         :return: None
         """
-        if COBID in self._COBID.ACT_VELOCITY.ALL:
-            velocity = int.from_bytes(data, 'little', signed=True)
-            velocity_mps = velocity / ((((pow(2, 17) / (2 * 20000) * pow(2, 19)) / 1000) * 32) * (((2.0 * 3.14) / 60.0) * 0.28)) # To MPS
-            node_id = COBID - 0x370
-            self._VELOCITY_PERIODIC[node_id-1] = velocity_mps
-        else:
-            self.logger.log(logging.ERROR, f"COBID {COBID} not recognized")
-    def SDO_Current_Callback(self, COBID:int, data:bytearray, timestamp:float):
+        Subscribe_req = CANSubscribe
+        Subscribe_req.command = "Add"
+        Subscribe_req.COBID = COBID
+        response = self.SubscribeSrvCli.call_async(Subscribe_req)
+        rclpy.spin_until_future_complete(self, response)
+        return response.result().success
+    def Unsubscribe(self, COBID:int):
         """
-        Callback function for Current, measured in the driver/motor. It updates the internal values _CURRENT_PERIODIC
-        with these values.
-        :param COBID: COBID returned as sender from the driver
-        :param data: data returned from the CANBus
-        :param timestamp: returned from the CANBus
-        :return: None
-        """
-        if COBID in self._COBID.ACT_CURRENT.ALL:
-            current = int.from_bytes(data, 'little', signed=True)
-            current_amps = current * (pow(2, 13) / 40.0) # to amps
-            node_id = COBID - 0x380
-            self._CURRENT_PERIODIC[node_id-1] = current_amps
-        else:
-            self.logger.log(logging.ERROR, f"COBID {COBID} not recognised")
-    def SDO_Status_Callback(self, COBID:int, data:bytearray, timestamp:float):
-        if COBID in self._COBID.HEARTBEAT.ALL:
-            status = int.from_bytes(data, 'little', signed=True)
-            nodeid = COBID - 0x700
-            if status == 0x85 or status == 0x05:
-                self._STATUS_PERIODIC[nodeid-1] = 'OPERATIONAL'
-            elif status == 0x84 or status == 0x04:
-                self._STATUS_PERIODIC[nodeid-1] = 'STOPPED'
-            elif status == 0xFF or status == 0x7F:
-                self._STATUS_PERIODIC[nodeid-1] = 'PRE-OPERATIONAL'
+                Subscribe "override" method, to subscribe to specific COBIDs in the CANBUS node
+                :param COBID: COBID of the desired object
+                :return: None
+                """
+        Subscribe_req = CANSubscribe
+        Subscribe_req.command = "Remove"
+        Subscribe_req.COBID = COBID
+        success = False
+        i = 0
+
+        response = self.SubscribeSrvCli.call_async(Subscribe_req)
+        for i in range(10):
+            rclpy.spin_until_future_complete(self, response)
+            success = response.result().success
+            if success == True:
+                break
             else:
-                self._STATUS_PERIODIC[nodeid-1] = 'UNKNOWN'
+                response = self.SubscribeSrvCli.call_async(Subscribe_req)
+    def NMT_Write(self, node_id: int, data: list):
+        """
+        NMT write "override" method, to write NMT messages to the canbus node
+        for readability
+        :param node_id:
+        :param data:
+        :return:
+        """
+        NMT_msg = CANWrite
+        NMT_msg.command = "NMT"
+        NMT_msg.node_id = node_id
+        NMT_msg.data = data
+        self.WritePub.publish(NMT_msg)
+    def SDO_Write(self, node_id: int, indices: list, data: list):
+        """
+        SDO write "override" method, to write SDO messages to the canbus node
+        for readability
+        :param node_id:
+        :param data:
+        :return:
+        """
 
+        SDO_msg = CANWrite
+        SDO_msg.command = "SDO"
+        SDO_msg.node_id = node_id
+        SDO_msg.indices = indices
+        SDO_msg.data = data
+        self.WritePub.publish(SDO_msg)
+    def PDO_Write(self, COBID: int, data: list):
+        """
+        PDO write "override" method, to write PDO messages to the canbus node
+        for readability
+        :param COBID:
+        :param data:
+        :return:
+        """
 
+        PDO_msg = CANWrite
+        PDO_msg.command = "PDO"
+        PDO_msg.cobid = COBID
+        PDO_msg.data = data
+        self.WritePub.publish(PDO_msg)
+    def Subscription_CB(self, message):
+        return None
+        # if COBID in self._COBID.ACT_CURRENT.ALL:
+        #     current = int.from_bytes(data, 'little', signed=True)
+        #     current_amps = current * (pow(2, 13) / 40.0) # to amps
+        #     node_id = COBID - 0x380
+        #     self._CURRENT_PERIODIC[node_id-1] = current_amps
+        # else:
+        #     self.logger.log(logging.ERROR, f"COBID {COBID} not recognised")
+        #
+        # if COBID in self._COBID.ACT_VELOCITY.ALL:
+        #     velocity = int.from_bytes(data, 'little', signed=True)
+        #     velocity_mps = velocity / ((((pow(2, 17) / (2 * 20000) * pow(2, 19)) / 1000) * 32) * (((2.0 * 3.14) / 60.0) * 0.28)) # To MPS
+        #     node_id = COBID - 0x370
+        #     self._VELOCITY_PERIODIC[node_id-1] = velocity_mps
+        # else:
+        #     self.logger.log(logging.ERROR, f"COBID {COBID} not recognized")
+        #
+        # if COBID in self._COBID.HEARTBEAT.ALL:
+        #     status = int.from_bytes(data, 'little', signed=True)
+        #     nodeid = COBID - 0x700
+        #     if status == 0x85 or status == 0x05:
+        #         self._STATUS_PERIODIC[nodeid-1] = 'OPERATIONAL'
+        #     elif status == 0x84 or status == 0x04:
+        #         self._STATUS_PERIODIC[nodeid-1] = 'STOPPED'
+        #     elif status == 0xFF or status == 0x7F:
+        #         self._STATUS_PERIODIC[nodeid-1] = 'PRE-OPERATIONAL'
+        #     else:
+        #         self._STATUS_PERIODIC[nodeid-1] = 'UNKNOWN'
 def main():
     rclpy.init()
-    ctrl = ROBUROC_CTRL()
+    ctrl = RobuROC_CTRL()
     ctrl.setup()
 
     try:
         time.sleep(1)
         rclpy.spin(ctrl)
-        print(ctrl.Velocity)
     except Exception as e:
         print(e)
     finally:
         ctrl.destroy_node()
         rclpy.shutdown()
 if __name__ == '__main__':
-    ctrl = ROBUROC_CTRL()
-    ctrl.setup()
-
-    while True:
-        print("yay!")
-        print(ctrl.Velocity)
+    main()
