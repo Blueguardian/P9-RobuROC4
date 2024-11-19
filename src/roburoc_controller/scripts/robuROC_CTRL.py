@@ -6,6 +6,7 @@ from canopen_interfaces.srv import CANRead, CANConnection, CANPeriodicTask, CANS
 import rclpy.subscription, logging, time
 from rclpy.node import Node
 from sensor_msgs.msg import Joy
+from time import sleep
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -62,7 +63,7 @@ class RobuROC_CTRL(Node):
 
         # Set up subscriptions
         self.SubscriptionSub = self.create_subscription(CANSubscription, 'CANSubscription', self.Subscription_CB, 10)
-        self.VelSub = self.create_subscription(Joy, 'joy', self.setSpeed, 10)
+        self.VelSub = self.create_subscription(Joy, '/joy', self.setSpeed, 10)
 
         # Set up interface variables
         self._CAN_NODES = []
@@ -80,24 +81,31 @@ class RobuROC_CTRL(Node):
             rclpy.spin_until_future_complete(self, response)
             self._CONNECTED = response.result().success
             self._CAN_NODES.extend(response.result().node_list)
-
+            self.logger.info(f"Connected to nodes: {self._CAN_NODES}")
         if self._CONNECTED == True:
+            # Reset all drives
+            # node.nmt.send_command(0x81, 0)
+            self.NMT_Write([self._CTW.RESET])
+            # Set deceleration on all drives
+            # self.NMT_Write([self._CTW.TURNON])
+            # # self.SDO_Write(node, [0x2064, 0x04], [0x80, 0x4F, 0x12])
+            # # Enable all drives
+            # # node.nmt.send_command(0x01, 0)
+            # self.NMT_Write([self._CTW.ENABLE])
+            # # Turn on all drives
+            # # node.nmt.send_command(0x07, 0)
+            # self.NMT_Write([self._CTW.TURNON])
+            # Enable operatiom on all drives
+            # node.nmt.send_command(0x0F, 0)
+            self.NMT_Write([self._CTW.ENABLE_OP])
+            sleep(2)
+
+            # self.NMT_Write([self._CTW.ENABLE_OP])
+            self.NMT_Write([self._CTW.ENABLE])
             for node in self._CAN_NODES:
-                # Reset all drives
-                # node.nmt.send_command(0x81, 0)
-                self.NMT_Write(node, [self._CTW.RESET])
-                # Set deceleration on all drives
-                self.SDO_Write(node, [0x20, 0x64, 0x04], [0x80, 0x4F, 0x12])
-                # Enable all drives
-                # node.nmt.send_command(0x01, 0)
-                self.NMT_Write(node, [self._CTW.ENABLE])
-                # Turn on all drives
-                # node.nmt.send_command(0x07, 0)
-                self.NMT_Write(node, [self._CTW.TURNON])
-                # Enable operatiom on all drives
-                # node.nmt.send_command(0x0F, 0)
-                self.NMT_Write(node, [self._CTW.ENABLE_OP])
                 # self.CAN.NMTwrite(node.id, self._CTW.ENABLE_OP)
+                # self.SDO_Write(node - 1, [0x2062, 0x00], [0x80, 0x4F, 0x12])
+                self.SDO_Write(node-1, [0x6040, 0x00], [0x0F, 0x00, 0x00, 0x00])
 
             if not self._PERIODIC:
                 self.InitPeriodic()
@@ -128,9 +136,9 @@ class RobuROC_CTRL(Node):
         success_heart = []
 
         for node in self._CAN_NODES:
-            success_vel.extend(self.Subscribe(self._COBID.ACT_VELOCITY.ALL[node]))
-            success_cur.extend(self.Subscribe(self._COBID.ACT_CURRENT.ALL[node]))
-            success_heart.extend(self.Subscribe(self._COBID.HEARTBEAT.ALL[node]))
+            success_vel.append(self.Subscribe(self._COBID.ACT_VELOCITY.ALL[node-1]))
+            success_cur.append(self.Subscribe(self._COBID.ACT_CURRENT.ALL[node-1]))
+            success_heart.append(self.Subscribe(self._COBID.HEARTBEAT.ALL[node-1]))
 
         self.logger.debug(f"Successfully subcribed to Velocity for nodes [1, 2, 3, 4]:{success_vel}, Current: {success_cur}, Heartbeat: {success_heart}")
         if all(success_vel) and all(success_cur) and all(success_heart):
@@ -145,22 +153,20 @@ class RobuROC_CTRL(Node):
         :param type: Speed representation, current supported values: ['MPS', 'RPM']
         :return: None
         """
-        if type(message) == type(Joy):
-            if self._DEADMAN_SWITCH == True:
-                left = round(message.axes[1] + message.axes[0] / 4, 4) * 2
-                right = round(message.axes[1] - message.axes[0] / 4, 4) * 2
+        if message.buttons[2] == 1:
+            left = round(message.axes[1] + message.axes[0] / 4, 4) * 2
+            right = round(message.axes[1] - message.axes[0] / 4, 4) * 2
+            vel_MPS = int(left * (self._SCALE_VELOCITY / self._SCALE_RPM_TO_MPS))
+            vel2_MPS = int(-right * (self._SCALE_VELOCITY / self._SCALE_RPM_TO_MPS))
+            self.logger.info(f"Sending velocity commands: {vel_MPS}")
+            vel_MPS = list(bytearray(vel_MPS.to_bytes(4, byteorder='little', signed=True)))
+            vel2_MPS = list(bytearray(vel2_MPS.to_bytes(4, byteorder='little', signed=True)))
+            self.SDO_Write(0,[0x60FF, 0x00], vel_MPS)
+            self.SDO_Write(1, [0x60FF, 0x00], vel2_MPS)
+            self.SDO_Write(2, [0x60FF, 0x00], vel2_MPS)
+            self.SDO_Write(3, [0x60FF, 0x00], vel_MPS)
 
-                vel_MPS = int(left * (self._SCALE_VELOCITY / self._SCALE_RPM_TO_MPS))
-                vel2_MPS = int(-right * (self._SCALE_VELOCITY / self._SCALE_RPM_TO_MPS))
-        #
-                vel_MPS = list(bytearray(vel_MPS.to_bytes(4, byteorder='little', signed=True)))
-                vel2_MPS = list(bytearray(vel2_MPS.to_bytes(4, byteorder='little', signed=True)))
-                self.NMT_Write(0x514, vel_MPS)
-                self.NMT_Write(0x513, vel2_MPS)
-                self.NMT_Write(0x512, vel2_MPS)
-                self.NMT_Write(0x511, vel_MPS)
-            if message.buttons[2] == 1:
-                self._DEADMAN_SWITCH = True
+
         # network.send_message(0x514, vel_MPS)
         # network.send_message(0x513, vel2_MPS)
         # network.send_message(0x512, vel2_MPS)
@@ -187,14 +193,18 @@ class RobuROC_CTRL(Node):
 
 #             data = list(speed.to_bytes(4, byteorder='little', signed=True))
 #             self.CAN.SDOwrite(node.id, [0x60, 0xFF, 0x00], data)
-    def brake(self, node_id):
+    def brake(self):
         """
         Method for braking the RobuROC4 when velocity is set to 0.
         :param node_id: The node for which to change the state to Quickstop
         :return: None
         """
+        self.NMT_Write([self._CTW.QUICKSTOP])
+        self.NMT_Write([self._CTW.ENABLE])
         for node in self._CAN_NODES:
-            self.NMT_Write(node, [self._CTW.QUICKSTOP])
+            # self.CAN.NMTwrite(node.id, self._CTW.ENABLE_OP)
+            # self.SDO_Write(node - 1, [0x2062, 0x00], [0x80, 0x4F, 0x12])
+            self.SDO_Write(node-1, [0x6040, 0x00], [0x0F, 0x00, 0x00, 0x00])
     def recover(self):
         """
         Recovery method for when a software related issue has arisen. Will not reset the emergency stop
@@ -202,11 +212,16 @@ class RobuROC_CTRL(Node):
         :return: None
         TODO: Enable status bit check to enable proper recovery
         """
+        self.NMT_Write([self._CTW.RESET])
+        self.NMT_Write([self._CTW.ENABLE_OP])
+        sleep(2)
+        # self.NMT_Write([self._CTW.ENABLE_OP])
+        self.NMT_Write([self._CTW.ENABLE])
         for node in self._CAN_NODES:
-            if self._STATUS_PERIODIC[node.id] == 'STOPPED' or self._STATUS_PERIODIC[node.id] == 'UNKNOWN':
-                self.NMT_Write(node.id, [self._CTW.ENABLE])
-                self.NMT_Write(node.id, [self._CTW.ENABLE_OP])
-                self.NMT_Write(node.id, [self._CTW.TURNON])
+            # self.CAN.NMTwrite(node.id, self._CTW.ENABLE_OP)
+            # self.SDO_Write(node - 1, [0x2062, 0x00], [0x80, 0x4F, 0x12])
+            self.SDO_Write(node-1, [0x6040, 0x00], [0x0F, 0x00, 0x00, 0x00])
+
     def AddPeriodicTask(self, COBID: int, data: list, period: float):
         """
 
@@ -244,9 +259,9 @@ class RobuROC_CTRL(Node):
         :param COBID: COBID of the desired object
         :return: None
         """
-        Subscribe_req = CANSubscribe
+        Subscribe_req = CANSubscribe.Request()
         Subscribe_req.command = "Add"
-        Subscribe_req.COBID = COBID
+        Subscribe_req.cobid = COBID
         response = self.SubscribeSrvCli.call_async(Subscribe_req)
         rclpy.spin_until_future_complete(self, response)
         return response.result().success
@@ -256,9 +271,9 @@ class RobuROC_CTRL(Node):
                 :param COBID: COBID of the desired object
                 :return: None
                 """
-        Subscribe_req = CANSubscribe
+        Subscribe_req = CANSubscribe.Request()
         Subscribe_req.command = "Remove"
-        Subscribe_req.COBID = COBID
+        Subscribe_req.cobid = COBID
         success = False
         i = 0
 
@@ -270,7 +285,7 @@ class RobuROC_CTRL(Node):
                 break
             else:
                 response = self.SubscribeSrvCli.call_async(Subscribe_req)
-    def NMT_Write(self, node_id: int, data: list):
+    def NMT_Write(self, data: list):
         """
         NMT write "override" method, to write NMT messages to the canbus node
         for readability
@@ -278,9 +293,8 @@ class RobuROC_CTRL(Node):
         :param data:
         :return:
         """
-        NMT_msg = CANWrite
+        NMT_msg = CANWrite()
         NMT_msg.command = "NMT"
-        NMT_msg.node_id = node_id
         NMT_msg.data = data
         self.WritePub.publish(NMT_msg)
     def SDO_Write(self, node_id: int, indices: list, data: list):
@@ -292,7 +306,7 @@ class RobuROC_CTRL(Node):
         :return:
         """
 
-        SDO_msg = CANWrite
+        SDO_msg = CANWrite()
         SDO_msg.command = "SDO"
         SDO_msg.node_id = node_id
         SDO_msg.indices = indices
@@ -307,9 +321,10 @@ class RobuROC_CTRL(Node):
         :return:
         """
 
-        PDO_msg = CANWrite
+        PDO_msg = CANWrite()
         PDO_msg.command = "PDO"
         PDO_msg.cobid = COBID
+        PDO_msg.node_id
         PDO_msg.data = data
         self.WritePub.publish(PDO_msg)
     def Subscription_CB(self, message):

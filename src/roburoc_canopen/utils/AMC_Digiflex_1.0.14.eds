@@ -1049,6 +1049,11 @@ AccessType=ro
 DefaultValue=0x20410210
 PDOMapping=0
 
+[1619]
+ParameterName=Dummy
+ObjectType=0x9
+SubNumber=2
+
 [1620]
 ParameterName=27th Receive PDO Mapping Parameter
 ObjectType=0x9

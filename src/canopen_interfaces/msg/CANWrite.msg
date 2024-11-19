@@ -1,5 +1,5 @@
 string command
 int16 cobid
-int16 node_id
-std_msgs/Int32MultiArray indices
-std_msgs/Int32MultiArray data
+int8 node_id
+int32[] indices
+int32[] data

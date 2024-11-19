@@ -1,8 +1,8 @@
 string command "SDO"
 int16 cobid
 int8 node_id
-std_msgs/Int32MultiArray indices
+int32[] indices
 ---
-std_msgs/Int32MultiArray indices
-std_msgs/Int32MultiArray data
+int32[] indices
+int32[] data
 bool success
