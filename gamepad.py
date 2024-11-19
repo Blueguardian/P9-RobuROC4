@@ -15,22 +15,25 @@ import sys
 class Controller:
     _ID_NUM = 0
     _SYSTEM_ID = None
-    _BUTTONS = {'A': 0,
-                'B': 1,
-                'X': 2,
-                'Y': 3,
-                'LEFT_BUMP': 4,
-                'RIGHT_BUMP': 5,
-                'BACK': 6,
-                'START': 7,
-                'LEFT_STICK_BTN': 8,
-                'RIGHT_STICK_BTN': 9}
-    _AXES = {'LEFT_STICK_X': 0,
-             'LEFT_STICK_Y': 1,
-             'RIGHT_STICK_X': 2,
-             'RIGHT_STICK_Y': 3,
-             'LEFT_TRIGGER': 4,
-             'RIGHT_TRIGGER': 5}
+    # buttons
+    A = 0
+    B = 1
+    X = 2
+    Y = 3
+    LEFT_BUMP = 4
+    RIGHT_BUMP = 5
+    BACK = 6
+    START = 7
+    # GUIDE = 8
+    LEFT_STICK_BTN = 9
+    RIGHT_STICK_BTN = 10
+    # axes
+    LEFT_STICK_X = 0
+    LEFT_STICK_Y = 1
+    RIGHT_STICK_X = 3
+    RIGHT_STICK_Y = 4
+    LEFT_TRIGGER = 2
+    RIGHT_TRIGGER = 5
 
     def __init__(self, dead_zone=0.05):
         """
@@ -39,7 +42,7 @@ class Controller:
         Args:
             dead_zone: The size of dead zone for the analog sticks (default 0.15)
         """
-
+        pygame.joystick.init()
         self.joystick = pygame.joystick.Joystick(Controller._ID_NUM)
         self.joystick.init()
         self.dead_zone = dead_zone
@@ -63,6 +66,8 @@ class Controller:
     @property
     def button_active(self, button:str):
         self.joystick.get_button(self._BUTTONS[button])
+
+
 
     def dead_zone_adjustment(self, value):
         """
@@ -89,16 +94,17 @@ class Controller:
         Returns:
             A tuple with the state of each button. 1 is pressed, 0 is unpressed.
         """
-        return (self.joystick.get_button(self.BUTTONS('A')),
-                self.joystick.get_button(self.BUTTONS('B')),
-                self.joystick.get_button(self.BUTTONS('X')),
-                self.joystick.get_button(self.BUTTONS('Y')),
-                self.joystick.get_button(self.BUTTONS('LEFT_BUMP')),
-                self.joystick.get_button(self.BUTTONS('RIGHT_BUMP')),
-                self.joystick.get_button(self.BUTTONS('BACK')),
-                self.joystick.get_button(self.BUTTONS('START')),
-                self.joystick.get_button(self.BUTTONS('LEFT_STICK_BTN')),
-                self.joystick.get_button(self.BUTTONS('RIGHT_STICK_BTN')))
+        return (self.joystick.get_button(self.A),
+                self.joystick.get_button(self.B),
+                self.joystick.get_button(self.X),
+                self.joystick.get_button(self.Y),
+                self.joystick.get_button(self.LEFT_BUMP),
+                self.joystick.get_button(self.RIGHT_BUMP),
+                self.joystick.get_button(self.BACK),
+                self.joystick.get_button(self.START),
+                0,  # Unused, since Guide only works on Linux
+                self.joystick.get_button(self.LEFT_STICK_BTN),
+                self.joystick.get_button(self.RIGHT_STICK_BTN))
     def get_left_stick(self):
         """
         Gets the state of the left analog stick.
