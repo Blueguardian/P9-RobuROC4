@@ -7,6 +7,15 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(ament_cmake_python REQUIRED)
+
+find_package(realsense2_description REQUIRED)
+find_package(gazebo_msgs)
+find_package(velodyne_description)
+find_package(velodyne_gazebo_plugins)
+find_package(realsense_gazebo_plugin)
+# ...
+ament_python_install_package(${PROJECT_NAME})
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
@@ -27,5 +36,8 @@ install(
   DIRECTORY description launch worlds meshes scripts
   DESTINATION share/${PROJECT_NAME}
 )
-
+install(
+    PROGRAMS scripts/publish_odom.py
+    DESTINATION lib/${PROJECT_NAME}
+)
 ament_package()

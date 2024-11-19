@@ -197,6 +197,32 @@ RobuROC_sim_uninstall/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RobuROC_sim_uninstall.dir/build.make CMakeFiles/RobuROC_sim_uninstall.dir/build
 .PHONY : RobuROC_sim_uninstall/fast
 
+#=============================================================================
+# Target rules for targets named ament_cmake_python_copy_RobuROC_sim
+
+# Build rule for target.
+ament_cmake_python_copy_RobuROC_sim: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ament_cmake_python_copy_RobuROC_sim
+.PHONY : ament_cmake_python_copy_RobuROC_sim
+
+# fast build rule for target.
+ament_cmake_python_copy_RobuROC_sim/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ament_cmake_python_copy_RobuROC_sim.dir/build.make CMakeFiles/ament_cmake_python_copy_RobuROC_sim.dir/build
+.PHONY : ament_cmake_python_copy_RobuROC_sim/fast
+
+#=============================================================================
+# Target rules for targets named ament_cmake_python_build_RobuROC_sim_egg
+
+# Build rule for target.
+ament_cmake_python_build_RobuROC_sim_egg: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ament_cmake_python_build_RobuROC_sim_egg
+.PHONY : ament_cmake_python_build_RobuROC_sim_egg
+
+# fast build rule for target.
+ament_cmake_python_build_RobuROC_sim_egg/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ament_cmake_python_build_RobuROC_sim_egg.dir/build.make CMakeFiles/ament_cmake_python_build_RobuROC_sim_egg.dir/build
+.PHONY : ament_cmake_python_build_RobuROC_sim_egg/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -211,6 +237,8 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... test"
 	@echo "... RobuROC_sim_uninstall"
+	@echo "... ament_cmake_python_build_RobuROC_sim_egg"
+	@echo "... ament_cmake_python_copy_RobuROC_sim"
 	@echo "... uninstall"
 .PHONY : help
 

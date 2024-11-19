@@ -43,6 +43,30 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/RobuROC_sim/environment" TYPE FILE FILES "/home/julian/model/P9-RobuROC4/build/RobuROC_sim/ament_cmake_environment_hooks/pythonpath.sh")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/RobuROC_sim/environment" TYPE FILE FILES "/home/julian/model/P9-RobuROC4/build/RobuROC_sim/ament_cmake_environment_hooks/pythonpath.dsv")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/local/lib/python3.10/dist-packages/RobuROC_sim-0.0.0-py3.10.egg-info" TYPE DIRECTORY FILES "/home/julian/model/P9-RobuROC4/build/RobuROC_sim/ament_cmake_python/RobuROC_sim/RobuROC_sim.egg-info/")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/local/lib/python3.10/dist-packages/RobuROC_sim" TYPE DIRECTORY FILES "/home/julian/model/P9-RobuROC4/src/RobuROC_sim/src/RobuROC_sim/" REGEX "/[^/]*\\.pyc$" EXCLUDE REGEX "/\\_\\_pycache\\_\\_$" EXCLUDE)
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  execute_process(
+        COMMAND
+        "/usr/bin/python3" "-m" "compileall"
+        "/home/julian/model/P9-RobuROC4/install/RobuROC_sim/local/lib/python3.10/dist-packages/RobuROC_sim"
+      )
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/RobuROC_sim" TYPE DIRECTORY FILES
     "/home/julian/model/P9-RobuROC4/src/RobuROC_sim/src/description"
     "/home/julian/model/P9-RobuROC4/src/RobuROC_sim/src/launch"
@@ -50,6 +74,10 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
     "/home/julian/model/P9-RobuROC4/src/RobuROC_sim/src/meshes"
     "/home/julian/model/P9-RobuROC4/src/RobuROC_sim/src/scripts"
     )
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/RobuROC_sim" TYPE PROGRAM FILES "/home/julian/model/P9-RobuROC4/src/RobuROC_sim/src/scripts/publish_odom.py")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)

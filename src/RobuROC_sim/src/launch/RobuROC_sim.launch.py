@@ -2,6 +2,7 @@ import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription
+from launch.actions import DeclareLaunchArgument
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 
@@ -24,8 +25,11 @@ def generate_launch_description():
     # robot_description_raw = xacro.process_file(xacro_file).toxml()
 
 
-    modelFileRelativePath = 'description/robot/RobuROC_model.urdf.xacro'
-    worldFileRelativePath = 'worlds/empty_world.world'
+    modelFileRelativePath = 'description/RobuROC_model.urdf.xacro'
+    worldFileRelativePath = 'worlds/RobuROC_env.world'
+    # worldFileRelativePath = 'worlds/empty_world.world'
+
+    pkg_project = get_package_share_directory(namePackage)
 
     pathModelFile = os.path.join(get_package_share_directory(namePackage),modelFileRelativePath)
 
@@ -46,23 +50,24 @@ def generate_launch_description():
         output='screen'
     )
 
-    nodeRobotStatePublisher = Node(
+    node_robot_state_publisher = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
-        output='screen',
+        # output='screen',
+        output='both',
         parameters=[{'robot_description':robotDescription,
         'use_sim_time': True}] # add other parameters here if required
     )
-    joint_state_publisher = Node(
-        package='joint_state_publisher',
-        executable='joint_state_publisher',
-        output='screen', # add other parameters here if required
-    )    
-    joint_state_publisher_gui = Node(
-        package='joint_state_publisher_gui',
-        executable='joint_state_publisher_gui',
-        output='screen', # add other parameters here if required
-    )  
+    # joint_state_publisher = Node(
+    #     package='joint_state_publisher',
+    #     executable='joint_state_publisher',
+    #     output='both', # add other parameters here if required
+    # )    
+    # joint_state_publisher_gui = Node(
+    #     package='joint_state_publisher_gui',
+    #     executable='joint_state_publisher_gui',
+    #     output='screen', # add other parameters here if required
+    # )  
     rviz = Node(
             package='rviz2',
             namespace='',
@@ -71,13 +76,30 @@ def generate_launch_description():
             output='screen',
             arguments=['-d', str(my_rviz_path)]
     )
+
+    # Bridge ROS topics and Gazebo messages for establishing communication
+    # bridge = Node(
+    #     package='ros_gz_bridge',
+    #     executable='parameter_bridge',
+    #     parameters=[{
+    #         'config_file': os.path.join(pkg_project, 'rviz', 'ros_gz_bridge.yaml'),
+    #         'qos_overrides./tf_static.publisher.durability': 'transient_local',
+    #     }],
+    #     output='screen'
+    # )
     # Launch the nodes
     return LaunchDescription([
+        DeclareLaunchArgument(
+            'use_sim_time',
+            default_value='false',
+            description='Use sim time if true'),        
+        
         gazeboLaunch,
         spawnModelNode,
-        nodeRobotStatePublisher,
-        joint_state_publisher,
-        joint_state_publisher_gui,
+        node_robot_state_publisher,
+        # joint_state_publisher,
+        # joint_state_publisher_gui,
         rviz
+        # bridge
     ])
 

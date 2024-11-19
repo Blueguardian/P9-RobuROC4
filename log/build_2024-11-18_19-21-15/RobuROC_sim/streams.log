@@ -1,0 +1,73 @@
+[0.018s] Invoking command in '/home/julian/model/P9-RobuROC4/build/RobuROC_sim': CMAKE_PREFIX_PATH=/home/julian/model/P9-RobuROC4/install/velodyne_gazebo_plugins:/home/julian/model/P9-RobuROC4/install/RobuROC_sim:/opt/ros/humble /usr/bin/cmake --build /home/julian/model/P9-RobuROC4/build/RobuROC_sim -- -j16 -l16
+[0.128s] Built target ament_cmake_python_copy_RobuROC_sim
+[0.448s] running egg_info
+[0.449s] writing RobuROC_sim.egg-info/PKG-INFO
+[0.449s] writing dependency_links to RobuROC_sim.egg-info/dependency_links.txt
+[0.450s] writing top-level names to RobuROC_sim.egg-info/top_level.txt
+[0.452s] reading manifest file 'RobuROC_sim.egg-info/SOURCES.txt'
+[0.453s] writing manifest file 'RobuROC_sim.egg-info/SOURCES.txt'
+[0.502s] Built target ament_cmake_python_build_RobuROC_sim_egg
+[0.522s] Invoked command in '/home/julian/model/P9-RobuROC4/build/RobuROC_sim' returned '0': CMAKE_PREFIX_PATH=/home/julian/model/P9-RobuROC4/install/velodyne_gazebo_plugins:/home/julian/model/P9-RobuROC4/install/RobuROC_sim:/opt/ros/humble /usr/bin/cmake --build /home/julian/model/P9-RobuROC4/build/RobuROC_sim -- -j16 -l16
+[0.590s] Invoking command in '/home/julian/model/P9-RobuROC4/build/RobuROC_sim': CMAKE_PREFIX_PATH=/home/julian/model/P9-RobuROC4/install/velodyne_gazebo_plugins:/home/julian/model/P9-RobuROC4/install/RobuROC_sim:/opt/ros/humble /usr/bin/cmake --install /home/julian/model/P9-RobuROC4/build/RobuROC_sim
+[0.601s] -- Install configuration: ""
+[0.601s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/environment/pythonpath.sh
+[0.602s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/environment/pythonpath.dsv
+[0.602s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/local/lib/python3.10/dist-packages/RobuROC_sim-0.0.0-py3.10.egg-info
+[0.602s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/local/lib/python3.10/dist-packages/RobuROC_sim-0.0.0-py3.10.egg-info/SOURCES.txt
+[0.602s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/local/lib/python3.10/dist-packages/RobuROC_sim-0.0.0-py3.10.egg-info/top_level.txt
+[0.603s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/local/lib/python3.10/dist-packages/RobuROC_sim-0.0.0-py3.10.egg-info/PKG-INFO
+[0.603s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/local/lib/python3.10/dist-packages/RobuROC_sim-0.0.0-py3.10.egg-info/dependency_links.txt
+[0.603s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/local/lib/python3.10/dist-packages/RobuROC_sim
+[0.603s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/local/lib/python3.10/dist-packages/RobuROC_sim/publish_odom.py
+[0.603s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/local/lib/python3.10/dist-packages/RobuROC_sim/__init__.py
+[0.650s] Listing '/home/julian/model/P9-RobuROC4/install/RobuROC_sim/local/lib/python3.10/dist-packages/RobuROC_sim'...
+[0.657s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description
+[0.658s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/RobuROC_model.urdf.xacro
+[0.658s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/test.urdf.xacro
+[0.658s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/lidar_vlp_16v2.xacro
+[0.659s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/lidar.xacro
+[0.659s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/_d435_v1.gazebo.xacro
+[0.659s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/VLP-16.urdf.xacro
+[0.659s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/lidar_vlp_16.xacro
+[0.660s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/camera.xacro
+[0.660s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/real_sense_cameras.xacro
+[0.660s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/camera_depth.xacro
+[0.660s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/include_RobuROC.xacro
+[0.661s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/_d435.gazebo.xacro
+[0.661s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/RobuROC_gazebo_sim.xacro
+[0.661s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/description/RobuROC_core.urdf.xacro
+[0.661s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/launch
+[0.662s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/launch/test.launch.py
+[0.662s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/launch/RobuROC_sim.launch.py
+[0.662s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/worlds
+[0.663s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/worlds/RobuROC_env.world
+[0.663s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/worlds/empty_world
+[0.663s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/meshes
+[0.664s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/meshes/VLP16_scan.stl
+[0.664s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/meshes/VLP16_base_1.dae
+[0.664s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/meshes/VLP16_base_2.stl
+[0.664s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/meshes/chassis.STL
+[0.665s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/meshes/VLP16_base_1.stl
+[0.665s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/meshes/VLP16_base_2.dae
+[0.665s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/meshes/d435.dae
+[0.665s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/meshes/wheel.STL
+[0.665s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/meshes/VLP16_scan.dae
+[0.666s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/scripts
+[0.666s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/scripts/publish_odom.py
+[0.666s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/lib/RobuROC_sim/publish_odom.py
+[0.666s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/ament_index/resource_index/package_run_dependencies/RobuROC_sim
+[0.666s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/ament_index/resource_index/parent_prefix_path/RobuROC_sim
+[0.667s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/environment/ament_prefix_path.sh
+[0.667s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/environment/ament_prefix_path.dsv
+[0.667s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/environment/path.sh
+[0.667s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/environment/path.dsv
+[0.668s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/local_setup.bash
+[0.668s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/local_setup.sh
+[0.668s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/local_setup.zsh
+[0.668s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/local_setup.dsv
+[0.668s] -- Installing: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/package.dsv
+[0.669s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/ament_index/resource_index/packages/RobuROC_sim
+[0.669s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/cmake/RobuROC_simConfig.cmake
+[0.669s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/cmake/RobuROC_simConfig-version.cmake
+[0.670s] -- Up-to-date: /home/julian/model/P9-RobuROC4/install/RobuROC_sim/share/RobuROC_sim/package.xml
+[0.672s] Invoked command in '/home/julian/model/P9-RobuROC4/build/RobuROC_sim' returned '0': CMAKE_PREFIX_PATH=/home/julian/model/P9-RobuROC4/install/velodyne_gazebo_plugins:/home/julian/model/P9-RobuROC4/install/RobuROC_sim:/opt/ros/humble /usr/bin/cmake --install /home/julian/model/P9-RobuROC4/build/RobuROC_sim

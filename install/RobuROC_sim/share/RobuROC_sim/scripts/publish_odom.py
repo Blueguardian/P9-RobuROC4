@@ -13,18 +13,18 @@ class MC(Node):
         
         # Parameters and initialization
         self.track_width = 0.5  # example value, set appropriately
-        self.sub = self.create_subscription(Twist, '/odom', self.odom_callback, 10)
-        self.pub = self.create_publisher(Twist, '\cmd_vel', 10)
+        self.sub = self.create_subscription(Twist, '/cmd_vel', self.odom_callback, 10)
+        self.pub = self.create_publisher(Twist, '/odom', 10)
 
     def odom_callback(self, twist_msg):
         # Calculate wheel speeds based on received Twist message
         self.pub.publish(twist_msg)
 
-    def run(self):
-        # Main loop to keep running the command loop and odometry loop
-        while rclpy.ok():
-            self.cmdvel_loop()
-            self.odom_loop()
+    # def run(self):
+    #     # Main loop to keep running the command loop and odometry loop
+    #     while rclpy.ok():
+    #         self.cmdvel_loop()
+    #         self.odom_loop()
 
 def main(args=None):
     rclpy.init(args=args)
@@ -35,7 +35,7 @@ def main(args=None):
     executor.add_node(node)
 
     try:
-        node.run()
+        rclpy.spin(node)
     except KeyboardInterrupt:
         pass
     finally:

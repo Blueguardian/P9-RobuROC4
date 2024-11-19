@@ -5,12 +5,11 @@
   <version>0.0.0</version>
   <description>TODO: Package description</description>
   <maintainer email="es-24-rob-9-962@student.aau.dk">ROB962</maintainer>
-  <license>TODO: License declaration</license>
+  <license>Apache-2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
-  <buildtool_depend>ament_python</buildtool_depend>
-
-
+  <buildtool_depend>ament_cmake_python</buildtool_depend>
+  
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
 
@@ -22,6 +21,18 @@
   <exec_depend>rclpy</exec_depend>
   <exec_depend>std_msgs</exec_depend>
   <exec_depend>geometry_msgs</exec_depend>
+  <depend>sensor_msgs</depend>
+  <depend>image_transport</depend>
+  <depend>camera_info_manager</depend>
+
+
+  <depend>realsense2_description</depend>
+  <!-- <depend>realsense2_description</depend> -->
+  <depend>vision_msgs</depend>
+  <exec_depend>realsense_gazebo_plugin</exec_depend>
+  <depend>velodyne_gazebo_plugins</depend>
+  <depend>velodyne_description</depend>
+  
 
   <export>
     <build_type>ament_cmake</build_type>
