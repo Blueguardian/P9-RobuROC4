@@ -17,6 +17,9 @@ class CTW:
     # CANBus Reset ControlWord
     RESET = 0x81
 
+    # CANBus Reset after Error
+    RESET_AE = 0x80
+
     # CANBus Shutdown ControlWord
     SHUTDOWN = 0x06
 
