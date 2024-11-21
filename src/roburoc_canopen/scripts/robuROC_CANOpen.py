@@ -18,6 +18,7 @@ Copyright 2024 Thomas Schou Sørensen, Julian Witold Wagner and César Zacharie 
    See the License for the specific language governing permissions and
    limitations under the License.
 """
+from multiprocessing.managers import Value
 
 import canopen, os, asyncio, logging
 from canopen import SdoCommunicationError
@@ -78,7 +79,6 @@ class RobuROC_Canopen(Node):
 
     def __init__(self):
         """
-        TODO: Implement ros parameters
         """
         super().__init__("ROC_CAN")
         self.declare_parameter('bustype', 'pcan')
@@ -121,10 +121,7 @@ class RobuROC_Canopen(Node):
         Callback function for connection signals, depending on the signal received (Connect or Disconnect), the node
         will call the corresponding method. Each method is called up to 10 times, and after that will return unsuccessful
         :request.std_msgs/String command: "Connect" or "Disconnect", otherwise will return error
-        :request.std_msgs/String bustype: If "Connect" desired bustype for canopen
-        :request.std_msgs/String channel: If "Connect" desired channel for bustype
-        :request.int32 bitrate: If "Connect" desired bitrate for connection
-        :return: Bool Success
+        :return: request.success [bool] Whether the connection was successful or not
         """
 
         if request.command == "Connect":
@@ -152,8 +149,6 @@ class RobuROC_Canopen(Node):
         :param channel: Connection channel (or object), defined bu the interface to the CANBus
         :param bitrate: The bitrate for the connection
         :return: Bool: true or false for connection
-
-        TODO: Implement ros parameters, use as inputs for bustype, channel and bitrate (Reduce msg structure)
         """
 
         if not self._CONNECTED:
@@ -162,15 +157,16 @@ class RobuROC_Canopen(Node):
                 self._CONNECTED = True
                 if len (self.CAN_NODES) == 0:
                     try:
+                        # Need at least four nodes to ensure all drives are connected
                         while len(self.CAN_NETWORK.scanner.nodes) < 4:
                             self.CAN_NETWORK.scanner.search()
-                            sleep(1)
-                        temp_list = []
+                            sleep(1) # Provide the scanner time to find nodes
+                        node_list = []
                         for node in self.CAN_NETWORK.scanner.nodes:
                             node = self.CAN_NETWORK.add_node(node, self._DRIVE_CONFIG)
                             self.CAN_NODES.append(node)
-                            temp_list.append(node.id)
-                        self.logger.info(f"Connected to CANBus with nodes: {temp_list}")
+                            node_list.append(node.id)
+                        self.logger.info(f"Connected to CANBus with nodes: {node_list}")
                     except Exception as e:
                         self.logger.error(f"Unable to initialize nodes, Error: {e}")
                         self._CONNECTED = False
@@ -202,41 +198,59 @@ class RobuROC_Canopen(Node):
                 self.logger.error(f"Unable to disconnect from CAN Bus, Error: {error}")
             finally:
                 self.CAN_NODES.clear()
+                self.CAN_NETWORK.scanner.nodes.clear()
                 return not self._CONNECTED
         else:
             return True
     def PeriodicTask_CB(self, request, response):
         """
-        Callback method for periodic tasks, either adds or removes a periodic task depending on the command
-        specified.
-        :param request.command: Either "Periodic" or "RemovePeriodic"
-        :param request.cobid: COBID of PDO to periodically send data to or of task to remove
-        :param request.data:  Data to send to PDO or of task to remove
-        :param request.period: If command "Periodic", period between transmits
-        :param response.success: Bool success of command
+        Callback method for periodic tasks. Adds or removes a periodic task based on the specified command.
+
+        :param request.command: "Add" to add a periodic task or "Remove" to remove one.
+        :param request.cobid: (Optional) COBID of PDO to send data to or identify the task to remove.
+        :param request.data: (Optional) Data to send to the PDO or identify the task to remove.
+        :param request.period: (Optional) Period between transmissions for "Add" command.
+        :param response.success: Boolean indicating the success of the command.
         :return: response
         """
-        if request.command == "Add":
-            if any(value is not None for value in [request.cobid, request.data, request.period]):
-                kwargs = {key: value for key, value in {'COBID': request.cobid, 'data': request.data,
-                                                        'period': request.period}.items() if value is not None}
-                response.success = self.PeriodicTask(**kwargs)
-                return response
+
+        try:
+            command = request.command #Has to exist
+            cobid = getattr(request, "cobid", None)
+            data = getattr(request, "data", None)
+            period = getattr(request, "period", None)
+
+            if request.command == "Add":
+                if cobid and data and period:
+                    kwargs = {k: getattr(request, k) for k in ['cobid', 'data', 'period'] if hasattr(request, k)}
+                    response.success = self.PeriodicTask(**kwargs)
+                    return response
+                else:
+                    raise ValueError("Missing parameters for Subscription")
+            elif request.command == "Remove":
+                    if cobid and data:
+                        response.success = self.RemovePeriodicTask(cobid, data)
+                    else:
+                        response.success = self.RemovePeriodicTask(cobid)
             else:
-                response.success = self.PeriodicTask(request.cobid, request.data)
-                return response
-        elif request.command == "Remove":
-            response.success = self.RemovePeriodicTask(request.cobid, request.data)
-            return response
-        else:
-            self.logger.error(f"Unknown command {request.command} specified")
+                raise ValueError(f"Unknown command '{command}' specified.")
+        except AttributeError as e:
+            self.logger.error(f"Missing attribute in request, error {e}")
             response.success = False
+        except ValueError as e:
+            self.logger.error(f"Missing parameter(s) for request, error {e}")
+            response.success = False
+        except Exception as e:
+            self.logger.error(f"Unknown error, {e}")
+            response.success = False
+        finally:
             return response
-    def PeriodicTask(self, COBID: int, data: list, period: float = 0.2):
+
+    def PeriodicTask(self, cobid: int, data: list, period: float = 0.2):
         """
         Adds a CANOpen periodically sent message, e.g. for heartbeat. This task is stored should it later be
         required to be stopped.
-        :param COBID: COBID of the intended target
+        :param cobid: COBID of the intended target
         :param data: Data to be sent periodically
         :param period: The period between messages in seconds
         :return: Bool: True or False for successful periodic task addition
@@ -249,15 +263,14 @@ class RobuROC_Canopen(Node):
             data.reverse()
             sent_data = bytearray(data)
         try:
-            task = self.CAN_NETWORK.send_periodic(COBID, sent_data, period)
+            task = self.CAN_NETWORK.send_periodic(cobid, sent_data, period)
             self._CAN_PERIODICTASK.append(task)
-            index = self._CAN_PERIODICTASK.index(task)
             return True
 
         except Exception as error:
             self.logger.error(f"Unable to send periodic task, Error: {error}")
             return False
-    def RemovePeriodicTask(self, COBID: int, data: list):
+    def RemovePeriodicTask(self, cobid: int, data: list = None):
         """
         Removes an existing Periodic task from the _CAN_PERIODICTASK list and stops it. Returns True if the tasks exists
         and is removed. Returns False if task either doesn't exist or is not removed.
@@ -266,23 +279,24 @@ class RobuROC_Canopen(Node):
         :return: Bool success
         """
         sent_data = None
-        data = list(data)
-        if len(data) <= 8:
-            # Zero-pad data if necessary
-            data += [0] * (8 - len(data))
-            data.reverse()
-            sent_data = bytearray(data)
+        if data is not None:
+            data = list(data)
+            if len(data) <= 8:
+                # Zero-pad data if necessary
+                data += [0] * (8 - len(data))
+                data.reverse()
+                sent_data = bytearray(data)
         i = 0
         try:
             for task in self._CAN_PERIODICTASK:
-                if task.can_id == COBID and task.data == sent_data:
+                if task.can_id == cobid and task.data == sent_data:
                     task.stop()
                     i =+ 1
             if i == 0:
-                self.logger.error(f"No tasks with COBID {COBID} with {data} exists")
-                return False
+                self.logger.info(f"No tasks with COBID {cobid} with {data} exists")
+                return True
             else:
-                self.logger.debug(f"Stopped {i} Periodic tasks, for {COBID} with {data}")
+                self.logger.debug(f"Stopped {i} Periodic tasks, for {cobid} with {data}")
                 return True
         except Exception as error:
             self.logger.error(f"Unable to remove Periodic task, Error: {error}")
@@ -389,7 +403,6 @@ class RobuROC_Canopen(Node):
         """
         self.CAN_NETWORK.check()
         data = list(data)
-        # data.reverse()
         success = False
         try:
             self.CAN_NODES[node_id].sdo.download(indices[0], indices[1], bytearray(data))
@@ -412,9 +425,6 @@ class RobuROC_Canopen(Node):
         data = list(data)
         if len(data) <= 8:
             data += [0] * (8 - len(data))
-            # Ensure little endian format of data
-            data.reverse()
-            # Convert to bytes
             written_data = bytearray(data)
             try:
                 self.CAN_NETWORK.send_message(COBID, written_data)
@@ -466,12 +476,11 @@ class RobuROC_Canopen(Node):
         :param pdo_index: A list of the index and subindex of the sdo as in [index bit 0, index bit 1, subindex bit], e.g. [0x60, 0x60, 0x00] for index 0x6060 subindex 0x00
         return: Returns data with callback with node id 0x580 + nodeid or None if an error occurs.
         """
-        self.CAN_NETWORK.check()
-        success = False
+        # self.CAN_NETWORK.check()
         try:
             data = self.CAN_NODES[node_id].sdo.download(indices[0], indices[1])
         except SdoCommunicationError as e:
-            self.logger.error(f"Error writing to SDO {indices[0]}:{indices[1]} in node {node_id}, error: {e}")
+            self.logger.info(f"Error writing to SDO {indices[0]}:{indices[1]} in node {node_id}, error: {e}")
             data = None
         finally:
             return data
