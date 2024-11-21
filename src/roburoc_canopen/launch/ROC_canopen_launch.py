@@ -8,6 +8,9 @@ def generate_launch_description():
             executable='robuROC_CANOpen.py',
             name='ROC_CAN',
             parameters=[
-                {'bustype':'pcan'}]
+                {'bustype':'pcan'},
+                {'channel':'PCAN_USBBUS1'},
+                {'bitrate':1000000}
+            ]
         )
     ])
