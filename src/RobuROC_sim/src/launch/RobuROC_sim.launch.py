@@ -16,6 +16,7 @@ def generate_launch_description():
 
     # Specify the name of the package and path to xacro file within the package
     namePackage = 'RobuROC_sim'
+    RTABPackage = 'rtabmap_launch'
     # Path to rviz config
     my_base_path = 'src/RobuROC_sim/src/rviz'   #path to all config files
     my_rviz_path = my_base_path+'/RobuROC_vis.rviz'       #config file for rviz
@@ -28,6 +29,7 @@ def generate_launch_description():
     modelFileRelativePath = 'description/RobuROC_model.urdf.xacro'
     worldFileRelativePath = 'worlds/RobuROC_env.world'
     # worldFileRelativePath = 'worlds/empty_world.world'
+    # worldFileRelativePath = 'worlds/moon.world'
 
     pkg_project = get_package_share_directory(namePackage)
 
@@ -76,17 +78,33 @@ def generate_launch_description():
             output='screen',
             arguments=['-d', str(my_rviz_path)]
     )
+    SLAM = IncludeLaunchDescription(
+                PythonLaunchDescriptionSource([os.path.join(
+                    get_package_share_directory(namePackage),'launch','online_async.launch.py'
+                )]), launch_arguments={'use_sim_time': 'true'}.items()
+    )
 
-    # Bridge ROS topics and Gazebo messages for establishing communication
-    # bridge = Node(
-    #     package='ros_gz_bridge',
-    #     executable='parameter_bridge',
-    #     parameters=[{
-    #         'config_file': os.path.join(pkg_project, 'rviz', 'ros_gz_bridge.yaml'),
-    #         'qos_overrides./tf_static.publisher.durability': 'transient_local',
-    #     }],
-    #     output='screen'
-    # )
+    RTAB = IncludeLaunchDescription(
+                PythonLaunchDescriptionSource([os.path.join(
+                    get_package_share_directory(RTABPackage),'launch','rtabmap.launch.py'
+                )]), launch_arguments={'rtabmap_args':"--delete_db_on_start",
+                                        'rgb_topic':'camera1/color/image_raw',
+                                        'depth_topic':'camera1/depth/image_raw',
+                                        'camera_info_topic':'camera1/color/camera_info',
+                                        'frame_id':'camera1_link',
+                                        'use_sim_time':'true',
+                                        'approx_sync':'true',
+                                        'qos':'2',
+                                        'queue_size':'30'}.items()
+    )
+
+    LIDAR = IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([os.path.join(
+                get_package_share_directory(namePackage),'launch','vel_16.launch.py'
+            )]), launch_arguments={'use_sim_time':'true',
+                                  'deskwing':'false'}.items()
+    )
+
     # Launch the nodes
     return LaunchDescription([
         DeclareLaunchArgument(
@@ -99,7 +117,10 @@ def generate_launch_description():
         node_robot_state_publisher,
         # joint_state_publisher,
         # joint_state_publisher_gui,
-        rviz
-        # bridge
+        rviz,
+        LIDAR
+        # RTAB,
+        # SLAM
     ])
 
+#  ros2 launch slam_toolbox online_async_launch.py params_file:=./src/RobuROC_sim/src/config/mapper_params_online_async.yaml use_sim_time:=true

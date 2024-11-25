@@ -1,4 +1,4 @@
-# RobuROC simulation
+# RobuROC simulation - Navigation
 This is simulation of the RobuROC platform in Gazebo simulator.
 The output from sensors are being visualised in Rviz
 
