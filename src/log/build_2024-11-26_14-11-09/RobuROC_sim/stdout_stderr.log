@@ -1,0 +1,210 @@
+-- The C compiler identification is GNU 12.3.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 1.3.10 (/opt/ros/humble/share/ament_cmake/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+-- Found realsense2_description: 4.55.1 (/opt/ros/humble/share/realsense2_description/cmake)
+-- Found gazebo_msgs: 3.7.0 (/opt/ros/humble/share/gazebo_msgs/cmake)
+-- Found rosidl_generator_c: 3.1.5 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+-- Found rosidl_adapter: 3.1.5 (/opt/ros/humble/share/rosidl_adapter/cmake)
+-- Found rosidl_generator_cpp: 3.1.5 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[33mCMake Warning at CMakeLists.txt:14 (find_package):
+  By not providing "Findvelodyne_description.cmake" in CMAKE_MODULE_PATH this
+  project has asked CMake to find a package configuration file provided by
+  "velodyne_description", but CMake did not find one.
+
+  Could not find a package configuration file provided by
+  "velodyne_description" with any of the following names:
+
+    velodyne_descriptionConfig.cmake
+    velodyne_description-config.cmake
+
+  Add the installation prefix of "velodyne_description" to CMAKE_PREFIX_PATH
+  or set "velodyne_description_DIR" to a directory containing one of the
+  above files.  If "velodyne_description" provides a separate development
+  package or SDK, be sure it has been installed.
+
+[0m
+-- Found velodyne_gazebo_plugins: 1.0.9 (/home/roburoc/PycharmProjects/P9-RobuROC4/src/install/velodyne_gazebo_plugins/share/velodyne_gazebo_plugins/cmake)
+-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+-- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  
+-- Found FastRTPS: /opt/ros/humble/include  
+-- Using RMW implementation 'rmw_fastrtps_cpp' as default
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Found PkgConfig: /usr/bin/pkg-config (found version "0.29.2") 
+-- Checking for module 'bullet>=2.82'
+--   Found bullet, version 3.05
+-- Found fcl: /usr/include (found suitable version "0.7.0", minimum required is "0.5.0") 
+-- Found assimp: /usr/include (found version "5.2.0") 
+-- Found DART: /usr/include (Required is at least version "6.6") found components: dart 
+-- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.74.0/BoostConfig.cmake (found suitable version "1.74.0", minimum required is "1.40.0") found components: thread system filesystem program_options regex iostreams date_time 
+-- Found Protobuf: /usr/lib/x86_64-linux-gnu/libprotobuf.so (found version "3.12.4") 
+-- Looking for ignition-math6 -- found version 6.15.1
+-- Searching for dependencies of ignition-math6
+-- Looking for OGRE...
+-- OGRE_PREFIX_WATCH changed.
+-- Checking for module 'OGRE'
+--   Found OGRE, version 1.9.0
+-- Found Ogre Ghadamon (1.9.0)
+-- Found OGRE: optimized;/usr/lib/x86_64-linux-gnu/libOgreMain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreMain.so
+-- Looking for OGRE_Paging...
+-- Found OGRE_Paging: optimized;/usr/lib/x86_64-linux-gnu/libOgrePaging.so;debug;/usr/lib/x86_64-linux-gnu/libOgrePaging.so
+-- Looking for OGRE_Terrain...
+-- Found OGRE_Terrain: optimized;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so
+-- Looking for OGRE_Property...
+-- Found OGRE_Property: optimized;/usr/lib/x86_64-linux-gnu/libOgreProperty.so;debug;/usr/lib/x86_64-linux-gnu/libOgreProperty.so
+-- Looking for OGRE_RTShaderSystem...
+-- Found OGRE_RTShaderSystem: optimized;/usr/lib/x86_64-linux-gnu/libOgreRTShaderSystem.so;debug;/usr/lib/x86_64-linux-gnu/libOgreRTShaderSystem.so
+-- Looking for OGRE_Volume...
+-- Found OGRE_Volume: optimized;/usr/lib/x86_64-linux-gnu/libOgreVolume.so;debug;/usr/lib/x86_64-linux-gnu/libOgreVolume.so
+-- Looking for OGRE_Overlay...
+-- Found OGRE_Overlay: optimized;/usr/lib/x86_64-linux-gnu/libOgreOverlay.so;debug;/usr/lib/x86_64-linux-gnu/libOgreOverlay.so
+-- Looking for ignition-math6 -- found version 6.15.1
+-- Looking for ignition-transport8 -- found version 8.2.1
+-- Searching for dependencies of ignition-transport8
+-- Found Protobuf: /usr/lib/x86_64-linux-gnu/libprotobuf.so (found suitable version "3.12.4", minimum required is "3") 
+-- Config-file not installed for ZeroMQ -- checking for pkg-config
+-- Checking for module 'libzmq >= 4'
+--   Found libzmq , version 4.3.4
+-- Found ZeroMQ: TRUE (Required is at least version "4") 
+-- Checking for module 'uuid'
+--   Found uuid, version 2.37.2
+-- Found UUID: TRUE  
+-- Looking for ignition-msgs5 -- found version 5.8.1
+-- Searching for dependencies of ignition-msgs5
+-- Looking for ignition-math6 -- found version 6.15.1
+-- Checking for module 'tinyxml2'
+--   Found tinyxml2, version 9.0.0
+-- Looking for ignition-msgs5 -- found version 5.8.1
+-- Looking for ignition-common3 -- found version 3.14.0
+-- Searching for dependencies of ignition-common3
+-- Looking for dlfcn.h - found
+-- Looking for libdl - found
+-- Found DL: TRUE  
+-- Found tinyobjloader: /usr/lib/x86_64-linux-gnu/cmake/tinyobjloader/tinyobjloader-config.cmake (found version "2.0.0") 
+-- Searching for <ignition-common3> component [graphics]
+-- Looking for ignition-common3-graphics -- found version 3.14.0
+-- Searching for dependencies of ignition-common3-graphics
+-- Looking for ignition-math6 -- found version 6.15.1
+-- Looking for ignition-fuel_tools4 -- found version 4.4.0
+-- Searching for dependencies of ignition-fuel_tools4
+-- Found CURL: /usr/lib/x86_64-linux-gnu/libcurl.so (found version "7.81.0")  
+-- Checking for module 'jsoncpp'
+--   Found jsoncpp, version 1.9.5
+-- Found JSONCPP: TRUE  
+-- Checking for module 'libzip'
+--   Found libzip, version 1.7.3
+-- Found ZIP: TRUE  
+-- Looking for ignition-common3 -- found version 3.14.0
+-- Looking for ignition-math6 -- found version 6.15.1
+-- Looking for ignition-msgs5 -- found version 5.8.1
+-- Gazebo version: 11.10
+-- Checking for module 'tbb'
+--   Found tbb, version 2021.5.0
+-- Found realsense_gazebo_plugin: 1.1.0 (/home/roburoc/PycharmProjects/P9-RobuROC4/src/install/realsense_gazebo_plugin/share/realsense_gazebo_plugin/cmake)
+WARNING: Package name "RobuROC_sim" does not follow the naming conventions. It should start with a lower case letter and only contain lower case letters, digits, underscores, and dashes.
+-- Found ament_lint_auto: 0.12.11 (/opt/ros/humble/share/ament_lint_auto/cmake)
+WARNING: Package name "RobuROC_sim" does not follow the naming conventions. It should start with a lower case letter and only contain lower case letters, digits, underscores, and dashes.
+-- Added test 'flake8' to check Python code syntax and style conventions
+-- Added test 'lint_cmake' to check CMake code style
+-- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+-- Added test 'xmllint' to check XML markup files
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/roburoc/PycharmProjects/P9-RobuROC4/src/build/RobuROC_sim
+Built target ament_cmake_python_copy_RobuROC_sim
+running egg_info
+creating RobuROC_sim.egg-info
+writing RobuROC_sim.egg-info/PKG-INFO
+writing dependency_links to RobuROC_sim.egg-info/dependency_links.txt
+writing top-level names to RobuROC_sim.egg-info/top_level.txt
+writing manifest file 'RobuROC_sim.egg-info/SOURCES.txt'
+reading manifest file 'RobuROC_sim.egg-info/SOURCES.txt'
+writing manifest file 'RobuROC_sim.egg-info/SOURCES.txt'
+Built target ament_cmake_python_build_RobuROC_sim_egg
+-- Install configuration: ""
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/environment/pythonpath.sh
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/environment/pythonpath.dsv
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/local/lib/python3.10/dist-packages/RobuROC_sim-0.0.0-py3.10.egg-info
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/local/lib/python3.10/dist-packages/RobuROC_sim-0.0.0-py3.10.egg-info/SOURCES.txt
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/local/lib/python3.10/dist-packages/RobuROC_sim-0.0.0-py3.10.egg-info/dependency_links.txt
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/local/lib/python3.10/dist-packages/RobuROC_sim-0.0.0-py3.10.egg-info/top_level.txt
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/local/lib/python3.10/dist-packages/RobuROC_sim-0.0.0-py3.10.egg-info/PKG-INFO
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/local/lib/python3.10/dist-packages/RobuROC_sim
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/local/lib/python3.10/dist-packages/RobuROC_sim/publish_odom.py
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/local/lib/python3.10/dist-packages/RobuROC_sim/__init__.py
+Listing '/home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/local/lib/python3.10/dist-packages/RobuROC_sim'...
+Compiling '/home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/local/lib/python3.10/dist-packages/RobuROC_sim/__init__.py'...
+Compiling '/home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/local/lib/python3.10/dist-packages/RobuROC_sim/publish_odom.py'...
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/description
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/description/camera_depth.xacro
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/description/lidar.xacro
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/description/_d435.gazebo.xacro
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/description/real_sense_cameras.xacro
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/description/VLP-16.urdf.xacro
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/description/RobuROC_model.urdf.xacro
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/description/RobuROC_core.urdf.xacro
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/description/lidar_vlp_16.xacro
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/description/camera.xacro
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/description/test.urdf.xacro
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/description/RobuROC_gazebo_sim.xacro
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/description/_d435_v2.gazebo.xacro
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/description/include_RobuROC.xacro
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/description/lidar_vlp_16v2.xacro
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/launch
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/launch/RobuROC_sim.launch.py
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/launch/rtabmap.launch.py
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/launch/rs_launch.py
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/launch/dual_camera.launch.py
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/launch/online_async.launch.py
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/launch/test.launch.py
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/launch/vel_16.launch.py
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/launch/master_launch.launch.py
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/worlds
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/worlds/empty_world
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/worlds/moon.world
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/worlds/RobuROC_env.world
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/meshes
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/meshes/VLP16_base_1.dae
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/meshes/VLP16_base_2.stl
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/meshes/VLP16_base_1.stl
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/meshes/wheel.STL
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/meshes/d435.dae
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/meshes/chassis.STL
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/meshes/VLP16_scan.stl
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/meshes/VLP16_base_2.dae
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/meshes/VLP16_scan.dae
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/scripts
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/scripts/publish_odom.py
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/lib/RobuROC_sim/publish_odom.py
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/ament_index/resource_index/package_run_dependencies/RobuROC_sim
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/ament_index/resource_index/parent_prefix_path/RobuROC_sim
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/environment/ament_prefix_path.sh
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/environment/ament_prefix_path.dsv
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/environment/path.sh
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/environment/path.dsv
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/local_setup.bash
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/local_setup.sh
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/local_setup.zsh
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/local_setup.dsv
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/package.dsv
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/ament_index/resource_index/packages/RobuROC_sim
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/cmake/RobuROC_simConfig.cmake
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/cmake/RobuROC_simConfig-version.cmake
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/src/install/RobuROC_sim/share/RobuROC_sim/package.xml

@@ -27,6 +27,7 @@
 
 
   <depend>realsense2_description</depend>
+  <depend>realsense2_camera</depend>
   <!-- <depend>realsense2_description</depend> -->
   <depend>vision_msgs</depend>
   <exec_depend>realsense_gazebo_plugin</exec_depend>
