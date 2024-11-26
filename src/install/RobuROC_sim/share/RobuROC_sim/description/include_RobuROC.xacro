@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+    <!-- This file is not a robot in and of itself, it just contains some useful tags that could be included in any robot -->
+    <!-- ######################################### -->
+    <!--                Chassis                    -->
+    <!-- ######################################### -->
+    <xacro:property name="box_y" value="0.54" />
+    <xacro:property name="box_x" value="0.925" />
+    <xacro:property name="box_z" value="0.304" />
+    <xacro:property name="box_m" value="100" />
+    <xacro:property name="box_off_z" value="0.484" />
+    <xacro:property name="chassis_vis_origin" value="0 0 ${box_off_z}" />
+    <xacro:property name="chassis_col_origin" value="0.0 0 ${box_off_z-box_z/2}" />
+    <!-- ######################################### -->
+    <!--                Wheels                     -->
+    <!-- ######################################### -->
+    <xacro:property name="cyl_l" value="0.1" />
+    <xacro:property name="cyl_r" value="0.28" />
+    <xacro:property name="cyl_m" value="10" />
+    <xacro:property name="cyl_off_x" value="0.3068" />
+    <xacro:property name="cyl_off_y" value="0.3425" />
+    <xacro:property name="cyl_off_z" value="${box_off_z-0.204}" />
+    <xacro:property name="rot_90" value="${pi/2}" />
+    <xacro:property name="max_vel" value="2" />
+    <xacro:property name="wheel_1_origin" value="${cyl_off_x} ${cyl_off_y} ${cyl_off_z}" />
+    <xacro:property name="wheel_2_origin" value="${cyl_off_x} ${-cyl_off_y} ${cyl_off_z}" />
+    <xacro:property name="wheel_3_origin" value="${-cyl_off_x} ${-cyl_off_y} ${cyl_off_z}" />
+    <xacro:property name="wheel_4_origin" value="${-cyl_off_x} ${cyl_off_y} ${cyl_off_z}" />
+    <!-- ######################################### -->
+    <!--                    STL                    -->
+    <!-- ######################################### -->
+    <xacro:property name="scale_factor" value="0.001" />
+    <xacro:property name="scale" value="${scale_factor} ${scale_factor} ${scale_factor}" />
+    <!-- ######################################### -->
+    <!--                    Camera                 -->
+    <!-- ######################################### -->
+    <xacro:property name="camera_off_x" value="0.6" />
+    <xacro:property name="camera_off_z" value="0.45" />
+    <xacro:property name="camera_rot" value="${16*pi/180}" />
+    <xacro:property name="camera_1_origin" value="${camera_off_x} 0 ${camera_off_z}" />
+    <xacro:property name="camera_2_origin" value="${-camera_off_x} 0 ${camera_off_z}" />
+    <xacro:property name="camera_1_rotation" value="0 ${camera_rot} 0" />
+    <xacro:property name="camera_2_rotation" value="0 ${camera_rot} ${pi}" />
+    <!-- ######################################### -->
+    <!--                    Lidar                  -->
+    <!-- ######################################### -->
+    <xacro:property name="lidar_off_x" value="0.12" />
+    <xacro:property name="lidar_off_z" value="${box_off_z+0.155}" />
+    <xacro:property name="lidar_origin" value="${lidar_off_x} 0 ${lidar_off_z}" />
+
+    <!-- Specify some colours -->
+
+    <material name="white">
+        <color rgba="1 1 1 1"/>
+    </material>
+
+    <material name="orange">
+        <color rgba="1 0.3 0.1 1"/>
+    </material>
+
+    <material name="blue">
+        <color rgba="0.2 0.2 1 1"/>
+    </material>
+
+    <material name="green">
+        <color rgba="0.2 1 0.2 1"/>
+    </material>
+
+    <material name="red">
+        <color rgba="1 0.2 0.2 1"/>
+    </material>
+
+    <material name="black">
+        <color rgba="0 0 0 1"/>
+    </material>  
+
+    <material name="grey">
+        <color rgba="0.5 0.5 0.5 1"/>
+    </material>    
+
+    <!-- Specify some standard inertial calculations https://en.wikipedia.org/wiki/List_of_moments_of_inertia -->
+    <!-- These make use of xacro's mathematical functionality -->
+
+    <xacro:macro name="inertial_sphere" params="mass radius *origin">
+        <inertial>
+            <xacro:insert_block name="origin"/>
+            <mass value="${mass}" />
+            <inertia ixx="${(2/5) * mass * (radius*radius)}" ixy="0.0" ixz="0.0"
+                    iyy="${(2/5) * mass * (radius*radius)}" iyz="0.0"
+                    izz="${(2/5) * mass * (radius*radius)}" />
+        </inertial>
+    </xacro:macro>  
+
+
+    <xacro:macro name="inertial_box" params="mass x y z *origin">
+        <inertial>
+            <xacro:insert_block name="origin"/>
+            <mass value="${mass}" />
+            <inertia ixx="${(1/12) * mass * (y*y+z*z)}" ixy="0.0" ixz="0.0"
+                    iyy="${(1/12) * mass * (x*x+z*z)}" iyz="0.0"
+                    izz="${(1/12) * mass * (x*x+y*y)}" />
+        </inertial>
+    </xacro:macro>
+
+
+    <xacro:macro name="inertial_cylinder" params="mass length radius *origin">
+        <inertial>
+            <xacro:insert_block name="origin"/>
+            <mass value="${mass}" />
+            <inertia ixx="${(1/12) * mass * (3*radius*radius + length*length)}" ixy="0.0" ixz="0.0"
+                    iyy="${(1/12) * mass * (3*radius*radius + length*length)}" iyz="0.0"
+                    izz="${(1/2) * mass * (radius*radius)}" />
+        </inertial>
+    </xacro:macro>
+
+
+</robot>

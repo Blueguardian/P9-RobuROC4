@@ -1,0 +1,17 @@
+// generated from rosidl_adapter/resource/srv.idl.em
+// with input from canopen_interfaces/srv/CANConnection.srv
+// generated code does not contain a copyright notice
+
+
+module canopen_interfaces {
+  module srv {
+    struct CANConnection_Request {
+      string command;
+    };
+    struct CANConnection_Response {
+      sequence<int8> node_list;
+
+      boolean success;
+    };
+  };
+};

@@ -1,0 +1,9 @@
+/home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_gamepad/CMakeFiles/uninstall.dir
+/home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_gamepad/CMakeFiles/roburoc_gamepad_uninstall.dir
+/home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_gamepad/CMakeFiles/test.dir
+/home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_gamepad/CMakeFiles/edit_cache.dir
+/home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_gamepad/CMakeFiles/rebuild_cache.dir
+/home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_gamepad/CMakeFiles/list_install_components.dir
+/home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_gamepad/CMakeFiles/install.dir
+/home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_gamepad/CMakeFiles/install/local.dir
+/home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_gamepad/CMakeFiles/install/strip.dir

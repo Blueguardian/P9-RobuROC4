@@ -10,6 +10,7 @@ find_package(ament_cmake REQUIRED)
 find_package(ament_cmake_python REQUIRED)
 
 find_package(realsense2_description REQUIRED)
+find_package(realsense2_camera REQUIRED)
 find_package(gazebo_msgs)
 find_package(velodyne_description)
 find_package(velodyne_gazebo_plugins)

@@ -1,0 +1,6 @@
+/home/roburoc/PycharmProjects/P9-RobuROC4/build/canopen_interfaces/rosidl_adapter/canopen_interfaces:msg/CANWrite.idl
+/home/roburoc/PycharmProjects/P9-RobuROC4/build/canopen_interfaces/rosidl_adapter/canopen_interfaces:msg/CANSubscription.idl
+/home/roburoc/PycharmProjects/P9-RobuROC4/build/canopen_interfaces/rosidl_adapter/canopen_interfaces:srv/CANSubscribe.idl
+/home/roburoc/PycharmProjects/P9-RobuROC4/build/canopen_interfaces/rosidl_adapter/canopen_interfaces:srv/CANPeriodicTask.idl
+/home/roburoc/PycharmProjects/P9-RobuROC4/build/canopen_interfaces/rosidl_adapter/canopen_interfaces:srv/CANRead.idl
+/home/roburoc/PycharmProjects/P9-RobuROC4/build/canopen_interfaces/rosidl_adapter/canopen_interfaces:srv/CANConnection.idl

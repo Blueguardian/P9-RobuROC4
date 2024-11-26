@@ -1,0 +1,87 @@
+-- The C compiler identification is GNU 12.3.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 1.3.10 (/opt/ros/humble/share/ament_cmake/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+-- Found rclpy: 3.3.14 (/opt/ros/humble/share/rclpy/cmake)
+-- Found canopen_interfaces: 0.0.0 (/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/cmake)
+-- Found rosidl_generator_c: 3.1.5 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+-- Found rosidl_adapter: 3.1.5 (/opt/ros/humble/share/rosidl_adapter/cmake)
+-- Found rosidl_generator_cpp: 3.1.5 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found ament_lint_auto: 0.12.11 (/opt/ros/humble/share/ament_lint_auto/cmake)
+-- Added test 'flake8' to check Python code syntax and style conventions
+-- Added test 'lint_cmake' to check CMake code style
+-- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+-- Added test 'xmllint' to check XML markup files
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_canopen
+Built target ament_cmake_python_copy_utils
+running egg_info
+creating utils.egg-info
+writing utils.egg-info/PKG-INFO
+writing dependency_links to utils.egg-info/dependency_links.txt
+writing top-level names to utils.egg-info/top_level.txt
+writing manifest file 'utils.egg-info/SOURCES.txt'
+reading manifest file 'utils.egg-info/SOURCES.txt'
+writing manifest file 'utils.egg-info/SOURCES.txt'
+Built target ament_cmake_python_build_utils_egg
+-- Install configuration: ""
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/lib/roburoc_canopen/robuROC_CANOpen.py
+-- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/lib/roburoc_canopen
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/lib/roburoc_canopen/gamepad_buttons.py
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/lib/roburoc_canopen/COBID.py
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/lib/roburoc_canopen/CTW.py
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/lib/roburoc_canopen/__pycache__
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/lib/roburoc_canopen/__pycache__/gamepad_buttons.cpython-310.pyc
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/lib/roburoc_canopen/__pycache__/__init__.cpython-310.pyc
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/lib/roburoc_canopen/__init__.py
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/lib/roburoc_canopen/AMC_Digiflex_1.0.14.eds
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/ROC_canopen_launch.py
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/__init__.py
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/launch
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/environment/pythonpath.sh
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/environment/pythonpath.dsv
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/local/lib/python3.10/dist-packages/utils-0.0.0-py3.10.egg-info
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/local/lib/python3.10/dist-packages/utils-0.0.0-py3.10.egg-info/SOURCES.txt
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/local/lib/python3.10/dist-packages/utils-0.0.0-py3.10.egg-info/dependency_links.txt
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/local/lib/python3.10/dist-packages/utils-0.0.0-py3.10.egg-info/top_level.txt
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/local/lib/python3.10/dist-packages/utils-0.0.0-py3.10.egg-info/PKG-INFO
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/local/lib/python3.10/dist-packages/utils
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/local/lib/python3.10/dist-packages/utils/gamepad_buttons.py
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/local/lib/python3.10/dist-packages/utils/COBID.py
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/local/lib/python3.10/dist-packages/utils/CTW.py
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/local/lib/python3.10/dist-packages/utils/__init__.py
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/local/lib/python3.10/dist-packages/utils/AMC_Digiflex_1.0.14.eds
+Listing '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/local/lib/python3.10/dist-packages/utils'...
+Compiling '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/local/lib/python3.10/dist-packages/utils/COBID.py'...
+Compiling '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/local/lib/python3.10/dist-packages/utils/CTW.py'...
+Compiling '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/local/lib/python3.10/dist-packages/utils/__init__.py'...
+Compiling '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/local/lib/python3.10/dist-packages/utils/gamepad_buttons.py'...
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/ament_index/resource_index/package_run_dependencies/roburoc_canopen
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/ament_index/resource_index/parent_prefix_path/roburoc_canopen
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/environment/ament_prefix_path.sh
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/environment/ament_prefix_path.dsv
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/environment/path.sh
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/environment/path.dsv
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/local_setup.bash
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/local_setup.sh
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/local_setup.zsh
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/local_setup.dsv
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/package.dsv
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/ament_index/resource_index/packages/roburoc_canopen
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/cmake/roburoc_canopenConfig.cmake
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/cmake/roburoc_canopenConfig-version.cmake
+-- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/package.xml

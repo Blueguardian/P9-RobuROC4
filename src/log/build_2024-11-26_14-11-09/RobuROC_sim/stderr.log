@@ -1,0 +1,19 @@
+[33mCMake Warning at CMakeLists.txt:14 (find_package):
+  By not providing "Findvelodyne_description.cmake" in CMAKE_MODULE_PATH this
+  project has asked CMake to find a package configuration file provided by
+  "velodyne_description", but CMake did not find one.
+
+  Could not find a package configuration file provided by
+  "velodyne_description" with any of the following names:
+
+    velodyne_descriptionConfig.cmake
+    velodyne_description-config.cmake
+
+  Add the installation prefix of "velodyne_description" to CMAKE_PREFIX_PATH
+  or set "velodyne_description_DIR" to a directory containing one of the
+  above files.  If "velodyne_description" provides a separate development
+  package or SDK, be sure it has been installed.
+
+[0m
+WARNING: Package name "RobuROC_sim" does not follow the naming conventions. It should start with a lower case letter and only contain lower case letters, digits, underscores, and dashes.
+WARNING: Package name "RobuROC_sim" does not follow the naming conventions. It should start with a lower case letter and only contain lower case letters, digits, underscores, and dashes.

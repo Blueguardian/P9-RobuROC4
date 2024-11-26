@@ -16,6 +16,10 @@ def generate_launch_description():
 
     # Specify the name of the package and path to xacro file within the package
     namePackage = 'RobuROC_sim'
+    RTABPackage = 'rtabmap_launch'
+    d345Package = 'realsense2_camera'
+    PointcloudPackage = 'velodyne_pointcloud'
+    VelDriverPackage = 'velodyne_driver'
     # Path to rviz config
     my_base_path = 'src/RobuROC_sim/src/rviz'   #path to all config files
     my_rviz_path = my_base_path+'/RobuROC_vis.rviz'       #config file for rviz
@@ -28,6 +32,7 @@ def generate_launch_description():
     modelFileRelativePath = 'description/RobuROC_model.urdf.xacro'
     worldFileRelativePath = 'worlds/RobuROC_env.world'
     # worldFileRelativePath = 'worlds/empty_world.world'
+    # worldFileRelativePath = 'worlds/moon.world'
 
     pkg_project = get_package_share_directory(namePackage)
 
@@ -54,39 +59,92 @@ def generate_launch_description():
         package='robot_state_publisher',
         executable='robot_state_publisher',
         # output='screen',
-        output='both',
+        output='screen',
         parameters=[{'robot_description':robotDescription,
         'use_sim_time': True}] # add other parameters here if required
     )
-    # joint_state_publisher = Node(
-    #     package='joint_state_publisher',
-    #     executable='joint_state_publisher',
-    #     output='both', # add other parameters here if required
-    # )    
+    joint_state_publisher = Node(
+        package='joint_state_publisher',
+        executable='joint_state_publisher',
+        output='screen', # add other parameters here if required
+    )    
     # joint_state_publisher_gui = Node(
-    #     package='joint_state_publisher_gui',
-    #     executable='joint_state_publisher_gui',
-    #     output='screen', # add other parameters here if required
+        # package='joint_state_publisher_gui',
+        # executable='joint_state_publisher_gui',
+        # output='screen', # add other parameters here if required
     # )  
     rviz = Node(
             package='rviz2',
-            namespace='',
+            # namespace='',
             executable='rviz2',
             name='rviz2',
             output='screen',
             arguments=['-d', str(my_rviz_path)]
     )
-
-    # Bridge ROS topics and Gazebo messages for establishing communication
-    # bridge = Node(
-    #     package='ros_gz_bridge',
-    #     executable='parameter_bridge',
-    #     parameters=[{
-    #         'config_file': os.path.join(pkg_project, 'rviz', 'ros_gz_bridge.yaml'),
-    #         'qos_overrides./tf_static.publisher.durability': 'transient_local',
-    #     }],
-    #     output='screen'
+    # SLAM = IncludeLaunchDescription(
+    #             PythonLaunchDescriptionSource([os.path.join(
+    #                 get_package_share_directory(namePackage),'launch','online_async.launch.py'
+    #             )]), launch_arguments={'use_sim_time': 'true'}.items()
     # )
+
+    # RTAB = IncludeLaunchDescription(
+    #             PythonLaunchDescriptionSource([os.path.join(
+    #                 get_package_share_directory(RTABPackage),'launch','rtabmap.launch.py'
+    #             )]), launch_arguments={'rtabmap_args':"--delete_db_on_start",
+    #                                     'rgb_topic':'camera1/color/image_raw',
+    #                                     'depth_topic':'camera1/depth/image_raw',
+    #                                     'camera_info_topic':'camera1/color/camera_info',
+    #                                     'frame_id':'camera1_link',
+    #                                     'use_sim_time':'true',
+    #                                     'approx_sync':'true',
+    #                                     'qos':'2',
+    #                                     'queue_size':'30'}.items()
+    # )
+    # 
+    # LIDAR = IncludeLaunchDescription(
+    #         PythonLaunchDescriptionSource([os.path.join(
+    #             get_package_share_directory(namePackage),'launch','vel_16.launch.py'
+    #         )]), launch_arguments={'use_sim_time':'true',
+    #                               'deskwing':'false'}.items()
+    # )
+
+    realsense = IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([os.path.join(
+                get_package_share_directory(d345Package),'examples', 'dual_camera','rs_dual_camera_launch.py'
+            )]), launch_arguments={'serial_no1':"'034422070675'",
+                                   'camera_name':'camera1',
+                                   'camera_namespace':'camera1',
+                                   'serial_no2':"'829212072207'",
+                                   'camera_name':'camera2',
+                                   'camera_namespace':'camera2'}.items()
+                                #    'tf.translation.x':-1.2
+                                #    tf.translation.y:=0.075
+                                #    tf.translation.z:=-0.4
+                                #    tf.rotation.yaw:=-180
+                                #    tf.rotation.pitch:=31.0
+                                #    tf.rotation.roll:=1.0
+                            
+    )
+
+    # Dual_camera = IncludeLaunchDescription(
+    #         PythonLaunchDescriptionSource([os.path.join(
+    #             get_package_share_directory(namePackage),'launch','dual_camera.launch.py'
+    #         )]), launch_arguments={'use_sim_time':'true',
+    #                               'deskwing':'false'}.items
+    # )
+
+    Pointcloud = IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([os.path.join(
+                get_package_share_directory(PointcloudPackage),'launch','velodyne_transform_node-VLP16-launch.py'
+            )])
+    )
+
+    VelDriver = IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([os.path.join(
+                get_package_share_directory(VelDriverPackage),'launch','velodyne_driver_node-VLP16-launch.py'
+            )]),launch_arguments={}.items()
+    )    
+
     # Launch the nodes
     return LaunchDescription([
         DeclareLaunchArgument(
@@ -94,12 +152,20 @@ def generate_launch_description():
             default_value='false',
             description='Use sim time if true'),        
         
-        gazeboLaunch,
-        spawnModelNode,
+        # gazeboLaunch,
+        # spawnModelNode,
         node_robot_state_publisher,
-        # joint_state_publisher,
+        joint_state_publisher,
         # joint_state_publisher_gui,
-        rviz
-        # bridge
+        rviz,
+        realsense,
+        Pointcloud,
+        VelDriver
+        # Dual_camera
+        # LIDAR
+        # RTAB,
+        # SLAM
+
     ])
 
+#  ros2 launch slam_toolbox online_async_launch.py params_file:=./src/RobuROC_sim/src/config/mapper_params_online_async.yaml use_sim_time:=true

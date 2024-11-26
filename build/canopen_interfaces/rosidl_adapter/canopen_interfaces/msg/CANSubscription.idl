@@ -1,0 +1,14 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from canopen_interfaces/msg/CANSubscription.msg
+// generated code does not contain a copyright notice
+
+
+module canopen_interfaces {
+  module msg {
+    struct CANSubscription {
+      int16 cobid;
+
+      sequence<int32> data;
+    };
+  };
+};
