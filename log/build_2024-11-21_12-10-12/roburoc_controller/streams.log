@@ -1,0 +1,23 @@
+[0.008s] Invoking command in '/home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_controller': CMAKE_PREFIX_PATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen:/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces:/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_gamepad:/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller:/opt/ros/humble /usr/bin/cmake --build /home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_controller -- -j12 -l12
+[0.038s] Invoked command in '/home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_controller' returned '0': CMAKE_PREFIX_PATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen:/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces:/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_gamepad:/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller:/opt/ros/humble /usr/bin/cmake --build /home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_controller -- -j12 -l12
+[0.053s] Invoking command in '/home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_controller': CMAKE_PREFIX_PATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen:/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces:/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_gamepad:/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller:/opt/ros/humble /usr/bin/cmake --install /home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_controller
+[0.058s] -- Install configuration: ""
+[0.058s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/lib/roburoc_controller/robuROC_CTRL.py
+[0.058s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller
+[0.059s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/RobuROC_Controller_launch.py
+[0.059s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/ament_index/resource_index/package_run_dependencies/roburoc_controller
+[0.059s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/ament_index/resource_index/parent_prefix_path/roburoc_controller
+[0.059s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/environment/ament_prefix_path.sh
+[0.059s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/environment/ament_prefix_path.dsv
+[0.059s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/environment/path.sh
+[0.059s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/environment/path.dsv
+[0.059s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/local_setup.bash
+[0.059s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/local_setup.sh
+[0.059s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/local_setup.zsh
+[0.059s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/local_setup.dsv
+[0.059s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/package.dsv
+[0.059s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/ament_index/resource_index/packages/roburoc_controller
+[0.059s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/cmake/roburoc_controllerConfig.cmake
+[0.059s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/cmake/roburoc_controllerConfig-version.cmake
+[0.059s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/package.xml
+[0.060s] Invoked command in '/home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_controller' returned '0': CMAKE_PREFIX_PATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen:/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces:/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_gamepad:/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller:/opt/ros/humble /usr/bin/cmake --install /home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_controller

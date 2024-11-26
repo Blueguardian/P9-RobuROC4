@@ -1,0 +1,332 @@
+[0.093s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[0.093s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=12, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0x7c38faf0afe0>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7c38fb013c10>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7c38fb013c10>>, mixin_verb=('build',))
+[0.260s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.260s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.260s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.260s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.260s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.260s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.260s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/roburoc/PycharmProjects/P9-RobuROC4'
+[0.261s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.261s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.261s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.261s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.261s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.261s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.261s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.261s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.261s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.271s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.271s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.271s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.271s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.271s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.271s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup) by extensions ['ignore', 'ignore_ament_install']
+[0.271s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup) by extension 'ignore'
+[0.271s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup) by extension 'ignore_ament_install'
+[0.271s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup) by extensions ['colcon_pkg']
+[0.271s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup) by extension 'colcon_pkg'
+[0.271s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup) by extensions ['colcon_meta']
+[0.271s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup) by extension 'colcon_meta'
+[0.271s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup) by extensions ['ros']
+[0.272s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup) by extension 'ros'
+[0.272s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup) by extensions ['cmake', 'python']
+[0.272s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup) by extension 'cmake'
+[0.272s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup) by extension 'python'
+[0.272s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup) by extensions ['python_setup_py']
+[0.272s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup) by extension 'python_setup_py'
+[0.272s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup/system) by extensions ['ignore', 'ignore_ament_install']
+[0.272s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup/system) by extension 'ignore'
+[0.272s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup/system) by extension 'ignore_ament_install'
+[0.272s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup/system) by extensions ['colcon_pkg']
+[0.272s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup/system) by extension 'colcon_pkg'
+[0.272s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup/system) by extensions ['colcon_meta']
+[0.272s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup/system) by extension 'colcon_meta'
+[0.272s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup/system) by extensions ['ros']
+[0.272s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup/system) by extension 'ros'
+[0.272s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup/system) by extensions ['cmake', 'python']
+[0.272s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup/system) by extension 'cmake'
+[0.272s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup/system) by extension 'python'
+[0.272s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup/system) by extensions ['python_setup_py']
+[0.272s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup/system) by extension 'python_setup_py'
+[0.272s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup/system/__pycache__) by extensions ['ignore', 'ignore_ament_install']
+[0.273s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup/system/__pycache__) by extension 'ignore'
+[0.273s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup/system/__pycache__) by extension 'ignore_ament_install'
+[0.273s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup/system/__pycache__) by extensions ['colcon_pkg']
+[0.273s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup/system/__pycache__) by extension 'colcon_pkg'
+[0.273s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup/system/__pycache__) by extensions ['colcon_meta']
+[0.273s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup/system/__pycache__) by extension 'colcon_meta'
+[0.273s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup/system/__pycache__) by extensions ['ros']
+[0.273s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup/system/__pycache__) by extension 'ros'
+[0.273s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup/system/__pycache__) by extensions ['cmake', 'python']
+[0.273s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup/system/__pycache__) by extension 'cmake'
+[0.273s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup/system/__pycache__) by extension 'python'
+[0.273s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup/system/__pycache__) by extensions ['python_setup_py']
+[0.273s] Level 1:colcon.colcon_core.package_identification:_identify(RobuROC4-Backup/system/__pycache__) by extension 'python_setup_py'
+[0.273s] Level 1:colcon.colcon_core.package_identification:_identify(__pycache__) by extensions ['ignore', 'ignore_ament_install']
+[0.273s] Level 1:colcon.colcon_core.package_identification:_identify(__pycache__) by extension 'ignore'
+[0.273s] Level 1:colcon.colcon_core.package_identification:_identify(__pycache__) by extension 'ignore_ament_install'
+[0.273s] Level 1:colcon.colcon_core.package_identification:_identify(__pycache__) by extensions ['colcon_pkg']
+[0.273s] Level 1:colcon.colcon_core.package_identification:_identify(__pycache__) by extension 'colcon_pkg'
+[0.273s] Level 1:colcon.colcon_core.package_identification:_identify(__pycache__) by extensions ['colcon_meta']
+[0.273s] Level 1:colcon.colcon_core.package_identification:_identify(__pycache__) by extension 'colcon_meta'
+[0.273s] Level 1:colcon.colcon_core.package_identification:_identify(__pycache__) by extensions ['ros']
+[0.273s] Level 1:colcon.colcon_core.package_identification:_identify(__pycache__) by extension 'ros'
+[0.273s] Level 1:colcon.colcon_core.package_identification:_identify(__pycache__) by extensions ['cmake', 'python']
+[0.273s] Level 1:colcon.colcon_core.package_identification:_identify(__pycache__) by extension 'cmake'
+[0.274s] Level 1:colcon.colcon_core.package_identification:_identify(__pycache__) by extension 'python'
+[0.274s] Level 1:colcon.colcon_core.package_identification:_identify(__pycache__) by extensions ['python_setup_py']
+[0.274s] Level 1:colcon.colcon_core.package_identification:_identify(__pycache__) by extension 'python_setup_py'
+[0.274s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.274s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.274s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.274s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.274s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.274s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.274s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.274s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.274s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.274s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[0.274s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(src/canopen_interfaces) by extensions ['ignore', 'ignore_ament_install']
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(src/canopen_interfaces) by extension 'ignore'
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(src/canopen_interfaces) by extension 'ignore_ament_install'
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(src/canopen_interfaces) by extensions ['colcon_pkg']
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(src/canopen_interfaces) by extension 'colcon_pkg'
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(src/canopen_interfaces) by extensions ['colcon_meta']
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(src/canopen_interfaces) by extension 'colcon_meta'
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(src/canopen_interfaces) by extensions ['ros']
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(src/canopen_interfaces) by extension 'ros'
+[0.277s] DEBUG:colcon.colcon_core.package_identification:Package 'src/canopen_interfaces' with type 'ros.ament_cmake' and name 'canopen_interfaces'
+[0.277s] Level 1:colcon.colcon_core.package_identification:_identify(src/roburoc_canopen) by extensions ['ignore', 'ignore_ament_install']
+[0.278s] Level 1:colcon.colcon_core.package_identification:_identify(src/roburoc_canopen) by extension 'ignore'
+[0.278s] Level 1:colcon.colcon_core.package_identification:_identify(src/roburoc_canopen) by extension 'ignore_ament_install'
+[0.278s] Level 1:colcon.colcon_core.package_identification:_identify(src/roburoc_canopen) by extensions ['colcon_pkg']
+[0.278s] Level 1:colcon.colcon_core.package_identification:_identify(src/roburoc_canopen) by extension 'colcon_pkg'
+[0.278s] Level 1:colcon.colcon_core.package_identification:_identify(src/roburoc_canopen) by extensions ['colcon_meta']
+[0.278s] Level 1:colcon.colcon_core.package_identification:_identify(src/roburoc_canopen) by extension 'colcon_meta'
+[0.278s] Level 1:colcon.colcon_core.package_identification:_identify(src/roburoc_canopen) by extensions ['ros']
+[0.278s] Level 1:colcon.colcon_core.package_identification:_identify(src/roburoc_canopen) by extension 'ros'
+[0.278s] DEBUG:colcon.colcon_core.package_identification:Package 'src/roburoc_canopen' with type 'ros.ament_cmake' and name 'roburoc_canopen'
+[0.279s] Level 1:colcon.colcon_core.package_identification:_identify(src/roburoc_controller) by extensions ['ignore', 'ignore_ament_install']
+[0.279s] Level 1:colcon.colcon_core.package_identification:_identify(src/roburoc_controller) by extension 'ignore'
+[0.279s] Level 1:colcon.colcon_core.package_identification:_identify(src/roburoc_controller) by extension 'ignore_ament_install'
+[0.279s] Level 1:colcon.colcon_core.package_identification:_identify(src/roburoc_controller) by extensions ['colcon_pkg']
+[0.279s] Level 1:colcon.colcon_core.package_identification:_identify(src/roburoc_controller) by extension 'colcon_pkg'
+[0.279s] Level 1:colcon.colcon_core.package_identification:_identify(src/roburoc_controller) by extensions ['colcon_meta']
+[0.279s] Level 1:colcon.colcon_core.package_identification:_identify(src/roburoc_controller) by extension 'colcon_meta'
+[0.279s] Level 1:colcon.colcon_core.package_identification:_identify(src/roburoc_controller) by extensions ['ros']
+[0.279s] Level 1:colcon.colcon_core.package_identification:_identify(src/roburoc_controller) by extension 'ros'
+[0.279s] DEBUG:colcon.colcon_core.package_identification:Package 'src/roburoc_controller' with type 'ros.ament_cmake' and name 'roburoc_controller'
+[0.280s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.280s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.280s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.280s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.280s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.306s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.306s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.309s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 473 installed packages in /opt/ros/humble
+[0.311s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.361s] Level 5:colcon.colcon_core.verb:set package 'canopen_interfaces' build argument 'cmake_args' from command line to 'None'
+[0.361s] Level 5:colcon.colcon_core.verb:set package 'canopen_interfaces' build argument 'cmake_target' from command line to 'None'
+[0.361s] Level 5:colcon.colcon_core.verb:set package 'canopen_interfaces' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.361s] Level 5:colcon.colcon_core.verb:set package 'canopen_interfaces' build argument 'cmake_clean_cache' from command line to 'False'
+[0.361s] Level 5:colcon.colcon_core.verb:set package 'canopen_interfaces' build argument 'cmake_clean_first' from command line to 'False'
+[0.361s] Level 5:colcon.colcon_core.verb:set package 'canopen_interfaces' build argument 'cmake_force_configure' from command line to 'False'
+[0.361s] Level 5:colcon.colcon_core.verb:set package 'canopen_interfaces' build argument 'ament_cmake_args' from command line to 'None'
+[0.361s] Level 5:colcon.colcon_core.verb:set package 'canopen_interfaces' build argument 'catkin_cmake_args' from command line to 'None'
+[0.361s] Level 5:colcon.colcon_core.verb:set package 'canopen_interfaces' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.361s] DEBUG:colcon.colcon_core.verb:Building package 'canopen_interfaces' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/roburoc/PycharmProjects/P9-RobuROC4/build/canopen_interfaces', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces', 'merge_install': False, 'path': '/home/roburoc/PycharmProjects/P9-RobuROC4/src/canopen_interfaces', 'symlink_install': False, 'test_result_base': None}
+[0.362s] Level 5:colcon.colcon_core.verb:set package 'roburoc_canopen' build argument 'cmake_args' from command line to 'None'
+[0.362s] Level 5:colcon.colcon_core.verb:set package 'roburoc_canopen' build argument 'cmake_target' from command line to 'None'
+[0.362s] Level 5:colcon.colcon_core.verb:set package 'roburoc_canopen' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.362s] Level 5:colcon.colcon_core.verb:set package 'roburoc_canopen' build argument 'cmake_clean_cache' from command line to 'False'
+[0.362s] Level 5:colcon.colcon_core.verb:set package 'roburoc_canopen' build argument 'cmake_clean_first' from command line to 'False'
+[0.362s] Level 5:colcon.colcon_core.verb:set package 'roburoc_canopen' build argument 'cmake_force_configure' from command line to 'False'
+[0.362s] Level 5:colcon.colcon_core.verb:set package 'roburoc_canopen' build argument 'ament_cmake_args' from command line to 'None'
+[0.362s] Level 5:colcon.colcon_core.verb:set package 'roburoc_canopen' build argument 'catkin_cmake_args' from command line to 'None'
+[0.362s] Level 5:colcon.colcon_core.verb:set package 'roburoc_canopen' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.362s] DEBUG:colcon.colcon_core.verb:Building package 'roburoc_canopen' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_canopen', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen', 'merge_install': False, 'path': '/home/roburoc/PycharmProjects/P9-RobuROC4/src/roburoc_canopen', 'symlink_install': False, 'test_result_base': None}
+[0.362s] Level 5:colcon.colcon_core.verb:set package 'roburoc_controller' build argument 'cmake_args' from command line to 'None'
+[0.362s] Level 5:colcon.colcon_core.verb:set package 'roburoc_controller' build argument 'cmake_target' from command line to 'None'
+[0.362s] Level 5:colcon.colcon_core.verb:set package 'roburoc_controller' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.362s] Level 5:colcon.colcon_core.verb:set package 'roburoc_controller' build argument 'cmake_clean_cache' from command line to 'False'
+[0.362s] Level 5:colcon.colcon_core.verb:set package 'roburoc_controller' build argument 'cmake_clean_first' from command line to 'False'
+[0.362s] Level 5:colcon.colcon_core.verb:set package 'roburoc_controller' build argument 'cmake_force_configure' from command line to 'False'
+[0.362s] Level 5:colcon.colcon_core.verb:set package 'roburoc_controller' build argument 'ament_cmake_args' from command line to 'None'
+[0.362s] Level 5:colcon.colcon_core.verb:set package 'roburoc_controller' build argument 'catkin_cmake_args' from command line to 'None'
+[0.362s] Level 5:colcon.colcon_core.verb:set package 'roburoc_controller' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.362s] DEBUG:colcon.colcon_core.verb:Building package 'roburoc_controller' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_controller', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller', 'merge_install': False, 'path': '/home/roburoc/PycharmProjects/P9-RobuROC4/src/roburoc_controller', 'symlink_install': False, 'test_result_base': None}
+[0.363s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.364s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.364s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/roburoc/PycharmProjects/P9-RobuROC4/src/canopen_interfaces' with build type 'ament_cmake'
+[0.364s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/roburoc/PycharmProjects/P9-RobuROC4/src/canopen_interfaces'
+[0.366s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.366s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.366s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.373s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/roburoc/PycharmProjects/P9-RobuROC4/build/canopen_interfaces': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/roburoc/PycharmProjects/P9-RobuROC4/build/canopen_interfaces -- -j12 -l12
+[0.683s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/roburoc/PycharmProjects/P9-RobuROC4/build/canopen_interfaces' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/roburoc/PycharmProjects/P9-RobuROC4/build/canopen_interfaces -- -j12 -l12
+[0.783s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/roburoc/PycharmProjects/P9-RobuROC4/build/canopen_interfaces': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/roburoc/PycharmProjects/P9-RobuROC4/build/canopen_interfaces
+[0.830s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(canopen_interfaces)
+[0.834s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces' for CMake module files
+[0.835s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces' for CMake config files
+[0.836s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/roburoc/PycharmProjects/P9-RobuROC4/build/canopen_interfaces' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/roburoc/PycharmProjects/P9-RobuROC4/build/canopen_interfaces
+[0.836s] Level 1:colcon.colcon_core.shell:create_environment_hook('canopen_interfaces', 'cmake_prefix_path')
+[0.836s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/hook/cmake_prefix_path.ps1'
+[0.837s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/hook/cmake_prefix_path.dsv'
+[0.837s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/hook/cmake_prefix_path.sh'
+[0.838s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/lib'
+[0.838s] Level 1:colcon.colcon_core.shell:create_environment_hook('canopen_interfaces', 'ld_library_path_lib')
+[0.838s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/hook/ld_library_path_lib.ps1'
+[0.839s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/hook/ld_library_path_lib.dsv'
+[0.839s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/hook/ld_library_path_lib.sh'
+[0.839s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/bin'
+[0.839s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/lib/pkgconfig/canopen_interfaces.pc'
+[0.840s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/lib/python3.10/site-packages'
+[0.840s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/bin'
+[0.840s] INFO:colcon.colcon_core.shell:Creating package script '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/package.ps1'
+[0.841s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/package.dsv'
+[0.841s] INFO:colcon.colcon_core.shell:Creating package script '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/package.sh'
+[0.842s] INFO:colcon.colcon_core.shell:Creating package script '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/package.bash'
+[0.843s] INFO:colcon.colcon_core.shell:Creating package script '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/package.zsh'
+[0.844s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/colcon-core/packages/canopen_interfaces)
+[0.938s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(canopen_interfaces)
+[0.938s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces' for CMake module files
+[0.938s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces' for CMake config files
+[0.939s] Level 1:colcon.colcon_core.shell:create_environment_hook('canopen_interfaces', 'cmake_prefix_path')
+[0.939s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/hook/cmake_prefix_path.ps1'
+[0.939s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/hook/cmake_prefix_path.dsv'
+[0.939s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/hook/cmake_prefix_path.sh'
+[0.940s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/lib'
+[0.940s] Level 1:colcon.colcon_core.shell:create_environment_hook('canopen_interfaces', 'ld_library_path_lib')
+[0.940s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/hook/ld_library_path_lib.ps1'
+[0.940s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/hook/ld_library_path_lib.dsv'
+[0.941s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/hook/ld_library_path_lib.sh'
+[0.941s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/bin'
+[0.941s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/lib/pkgconfig/canopen_interfaces.pc'
+[0.941s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/lib/python3.10/site-packages'
+[0.941s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/bin'
+[0.942s] INFO:colcon.colcon_core.shell:Creating package script '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/package.ps1'
+[0.942s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/package.dsv'
+[0.943s] INFO:colcon.colcon_core.shell:Creating package script '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/package.sh'
+[0.943s] INFO:colcon.colcon_core.shell:Creating package script '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/package.bash'
+[0.943s] INFO:colcon.colcon_core.shell:Creating package script '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/package.zsh'
+[0.944s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/colcon-core/packages/canopen_interfaces)
+[0.944s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/roburoc/PycharmProjects/P9-RobuROC4/src/roburoc_canopen' with build type 'ament_cmake'
+[0.944s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/roburoc/PycharmProjects/P9-RobuROC4/src/roburoc_canopen'
+[0.944s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.944s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.952s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_canopen': AMENT_PREFIX_PATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces:/opt/ros/humble LD_LIBRARY_PATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_canopen -- -j12 -l12
+[1.254s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_canopen' returned '0': AMENT_PREFIX_PATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces:/opt/ros/humble LD_LIBRARY_PATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_canopen -- -j12 -l12
+[1.270s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_canopen': AMENT_PREFIX_PATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces:/opt/ros/humble LD_LIBRARY_PATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --install /home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_canopen
+[1.306s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(roburoc_canopen)
+[1.307s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen' for CMake module files
+[1.307s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_canopen' returned '0': AMENT_PREFIX_PATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces:/opt/ros/humble LD_LIBRARY_PATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --install /home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_canopen
+[1.307s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen' for CMake config files
+[1.308s] Level 1:colcon.colcon_core.shell:create_environment_hook('roburoc_canopen', 'cmake_prefix_path')
+[1.308s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/hook/cmake_prefix_path.ps1'
+[1.308s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/hook/cmake_prefix_path.dsv'
+[1.309s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/hook/cmake_prefix_path.sh'
+[1.309s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/lib'
+[1.309s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/bin'
+[1.309s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/lib/pkgconfig/roburoc_canopen.pc'
+[1.309s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/lib/python3.10/site-packages'
+[1.310s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/bin'
+[1.310s] INFO:colcon.colcon_core.shell:Creating package script '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/package.ps1'
+[1.310s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/package.dsv'
+[1.310s] INFO:colcon.colcon_core.shell:Creating package script '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/package.sh'
+[1.311s] INFO:colcon.colcon_core.shell:Creating package script '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/package.bash'
+[1.311s] INFO:colcon.colcon_core.shell:Creating package script '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/package.zsh'
+[1.311s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/colcon-core/packages/roburoc_canopen)
+[1.327s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(roburoc_canopen)
+[1.327s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen' for CMake module files
+[1.328s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen' for CMake config files
+[1.328s] Level 1:colcon.colcon_core.shell:create_environment_hook('roburoc_canopen', 'cmake_prefix_path')
+[1.328s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/hook/cmake_prefix_path.ps1'
+[1.328s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/hook/cmake_prefix_path.dsv'
+[1.329s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/hook/cmake_prefix_path.sh'
+[1.329s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/lib'
+[1.329s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/bin'
+[1.329s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/lib/pkgconfig/roburoc_canopen.pc'
+[1.329s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/lib/python3.10/site-packages'
+[1.329s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/bin'
+[1.330s] INFO:colcon.colcon_core.shell:Creating package script '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/package.ps1'
+[1.330s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/package.dsv'
+[1.330s] INFO:colcon.colcon_core.shell:Creating package script '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/package.sh'
+[1.331s] INFO:colcon.colcon_core.shell:Creating package script '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/package.bash'
+[1.331s] INFO:colcon.colcon_core.shell:Creating package script '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/roburoc_canopen/package.zsh'
+[1.331s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/share/colcon-core/packages/roburoc_canopen)
+[1.332s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/roburoc/PycharmProjects/P9-RobuROC4/src/roburoc_controller' with build type 'ament_cmake'
+[1.332s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/roburoc/PycharmProjects/P9-RobuROC4/src/roburoc_controller'
+[1.332s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.332s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.340s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_controller': AMENT_PREFIX_PATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen:/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen:/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces:/opt/ros/humble LD_LIBRARY_PATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/local/lib/python3.10/dist-packages:/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_controller -- -j12 -l12
+[1.368s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_controller' returned '0': AMENT_PREFIX_PATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen:/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen:/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces:/opt/ros/humble LD_LIBRARY_PATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/local/lib/python3.10/dist-packages:/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_controller -- -j12 -l12
+[1.383s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_controller': AMENT_PREFIX_PATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen:/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen:/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces:/opt/ros/humble LD_LIBRARY_PATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/local/lib/python3.10/dist-packages:/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --install /home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_controller
+[1.390s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(roburoc_controller)
+[1.391s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_controller' returned '0': AMENT_PREFIX_PATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen:/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen:/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces:/opt/ros/humble LD_LIBRARY_PATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_canopen/local/lib/python3.10/dist-packages:/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --install /home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_controller
+[1.391s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller' for CMake module files
+[1.391s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller' for CMake config files
+[1.392s] Level 1:colcon.colcon_core.shell:create_environment_hook('roburoc_controller', 'cmake_prefix_path')
+[1.392s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/hook/cmake_prefix_path.ps1'
+[1.392s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/hook/cmake_prefix_path.dsv'
+[1.393s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/hook/cmake_prefix_path.sh'
+[1.393s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/lib'
+[1.393s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/bin'
+[1.393s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/lib/pkgconfig/roburoc_controller.pc'
+[1.394s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/lib/python3.10/site-packages'
+[1.394s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/bin'
+[1.394s] INFO:colcon.colcon_core.shell:Creating package script '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/package.ps1'
+[1.395s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/package.dsv'
+[1.395s] INFO:colcon.colcon_core.shell:Creating package script '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/package.sh'
+[1.395s] INFO:colcon.colcon_core.shell:Creating package script '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/package.bash'
+[1.396s] INFO:colcon.colcon_core.shell:Creating package script '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/package.zsh'
+[1.396s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/colcon-core/packages/roburoc_controller)
+[1.410s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(roburoc_controller)
+[1.411s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller' for CMake module files
+[1.411s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller' for CMake config files
+[1.411s] Level 1:colcon.colcon_core.shell:create_environment_hook('roburoc_controller', 'cmake_prefix_path')
+[1.411s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/hook/cmake_prefix_path.ps1'
+[1.412s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/hook/cmake_prefix_path.dsv'
+[1.412s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/hook/cmake_prefix_path.sh'
+[1.412s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/lib'
+[1.413s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/bin'
+[1.413s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/lib/pkgconfig/roburoc_controller.pc'
+[1.413s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/lib/python3.10/site-packages'
+[1.413s] Level 1:colcon.colcon_core.environment:checking '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/bin'
+[1.413s] INFO:colcon.colcon_core.shell:Creating package script '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/package.ps1'
+[1.414s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/package.dsv'
+[1.414s] INFO:colcon.colcon_core.shell:Creating package script '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/package.sh'
+[1.414s] INFO:colcon.colcon_core.shell:Creating package script '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/package.bash'
+[1.415s] INFO:colcon.colcon_core.shell:Creating package script '/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/package.zsh'
+[1.415s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/colcon-core/packages/roburoc_controller)
+[1.415s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[1.415s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[1.415s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[1.416s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[1.419s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[1.419s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[1.420s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[1.432s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[1.432s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/roburoc/PycharmProjects/P9-RobuROC4/install/local_setup.ps1'
+[1.433s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/roburoc/PycharmProjects/P9-RobuROC4/install/_local_setup_util_ps1.py'
+[1.434s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/roburoc/PycharmProjects/P9-RobuROC4/install/setup.ps1'
+[1.435s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/roburoc/PycharmProjects/P9-RobuROC4/install/local_setup.sh'
+[1.436s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/roburoc/PycharmProjects/P9-RobuROC4/install/_local_setup_util_sh.py'
+[1.436s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/roburoc/PycharmProjects/P9-RobuROC4/install/setup.sh'
+[1.437s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/roburoc/PycharmProjects/P9-RobuROC4/install/local_setup.bash'
+[1.437s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/roburoc/PycharmProjects/P9-RobuROC4/install/setup.bash'
+[1.438s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/roburoc/PycharmProjects/P9-RobuROC4/install/local_setup.zsh'
+[1.438s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/roburoc/PycharmProjects/P9-RobuROC4/install/setup.zsh'

@@ -1,0 +1,17 @@
+/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/lib/roburoc_controller/robuROC_CTRL.py
+/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/RobuROC_Controller_launch.py
+/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/ament_index/resource_index/package_run_dependencies/roburoc_controller
+/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/ament_index/resource_index/parent_prefix_path/roburoc_controller
+/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/environment/ament_prefix_path.sh
+/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/environment/ament_prefix_path.dsv
+/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/environment/path.sh
+/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/environment/path.dsv
+/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/local_setup.bash
+/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/local_setup.sh
+/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/local_setup.zsh
+/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/local_setup.dsv
+/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/package.dsv
+/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/ament_index/resource_index/packages/roburoc_controller
+/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/cmake/roburoc_controllerConfig.cmake
+/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/cmake/roburoc_controllerConfig-version.cmake
+/home/roburoc/PycharmProjects/P9-RobuROC4/install/roburoc_controller/share/roburoc_controller/package.xml

@@ -1,0 +1,20 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from canopen_interfaces/msg/CANWrite.msg
+// generated code does not contain a copyright notice
+
+
+module canopen_interfaces {
+  module msg {
+    struct CANWrite {
+      string command;
+
+      int16 cobid;
+
+      int8 node_id;
+
+      sequence<int32> indices;
+
+      sequence<int32> data;
+    };
+  };
+};

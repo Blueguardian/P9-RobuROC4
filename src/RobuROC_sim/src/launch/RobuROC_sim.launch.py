@@ -17,6 +17,7 @@ def generate_launch_description():
     # Specify the name of the package and path to xacro file within the package
     namePackage = 'RobuROC_sim'
     RTABPackage = 'rtabmap_launch'
+    d345Package = 'realsense2_camera'
     # Path to rviz config
     my_base_path = 'src/RobuROC_sim/src/rviz'   #path to all config files
     my_rviz_path = my_base_path+'/RobuROC_vis.rviz'       #config file for rviz
@@ -104,6 +105,29 @@ def generate_launch_description():
             )]), launch_arguments={'use_sim_time':'true',
                                   'deskwing':'false'}.items()
     )
+    realsense = IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([os.path.join(
+                get_package_share_directory(d345Package),'launch','rs_dual_camera_launch.py'
+            )]), launch_arguments={'serial_no1':"'034422070675'",
+                                   'camera_name':'camera1',
+                                   'camera_namespace':'camera1',
+                                   'serial_no2':"'829212072207'",
+                                   'camera_name':'camera2',
+                                   'camera_namespace':'camera2'
+                                #    'tf.translation.x':-1.2
+                                #    tf.translation.y:=0.075
+                                #    tf.translation.z:=-0.4
+                                #    tf.rotation.yaw:=-180
+                                #    tf.rotation.pitch:=31.0
+                                #    tf.rotation.roll:=1.0
+                                }.items()
+    )
+
+    Dual_camera = IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([os.path.join(
+                get_package_share_directory(namePackage),'launch','dual_camera.launch.py'
+            )]), launch_arguments={'use_sim_time':'true',
+                                  'deskwing':'false'}.items()
 
     # Launch the nodes
     return LaunchDescription([
@@ -112,13 +136,14 @@ def generate_launch_description():
             default_value='false',
             description='Use sim time if true'),        
         
-        gazeboLaunch,
-        spawnModelNode,
+        # gazeboLaunch,
+        # spawnModelNode,
         node_robot_state_publisher,
         # joint_state_publisher,
         # joint_state_publisher_gui,
         rviz,
-        LIDAR
+        Dual_camera
+        # LIDAR
         # RTAB,
         # SLAM
     ])

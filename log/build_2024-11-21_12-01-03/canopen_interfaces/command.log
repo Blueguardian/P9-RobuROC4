@@ -1,0 +1,4 @@
+Invoking command in '/home/roburoc/PycharmProjects/P9-RobuROC4/build/canopen_interfaces': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/roburoc/PycharmProjects/P9-RobuROC4/build/canopen_interfaces -- -j12 -l12
+Invoked command in '/home/roburoc/PycharmProjects/P9-RobuROC4/build/canopen_interfaces' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/roburoc/PycharmProjects/P9-RobuROC4/build/canopen_interfaces -- -j12 -l12
+Invoking command in '/home/roburoc/PycharmProjects/P9-RobuROC4/build/canopen_interfaces': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/roburoc/PycharmProjects/P9-RobuROC4/build/canopen_interfaces
+Invoked command in '/home/roburoc/PycharmProjects/P9-RobuROC4/build/canopen_interfaces' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/roburoc/PycharmProjects/P9-RobuROC4/build/canopen_interfaces

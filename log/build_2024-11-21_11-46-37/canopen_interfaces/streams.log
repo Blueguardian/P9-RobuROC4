@@ -1,0 +1,351 @@
+[0.008s] Invoking command in '/home/roburoc/PycharmProjects/P9-RobuROC4/build/canopen_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/roburoc/PycharmProjects/P9-RobuROC4/build/canopen_interfaces --clean-first -- -j12 -l12
+[0.175s] [  1%] [34m[1mGenerating C code for ROS interfaces[0m
+[0.182s] [  2%] [34m[1mGenerating C++ code for ROS interfaces[0m
+[0.188s] [  2%] Built target ament_cmake_python_copy_canopen_interfaces
+[0.421s] running egg_info
+[0.421s] writing canopen_interfaces.egg-info/PKG-INFO
+[0.421s] writing dependency_links to canopen_interfaces.egg-info/dependency_links.txt
+[0.421s] writing top-level names to canopen_interfaces.egg-info/top_level.txt
+[0.424s] reading manifest file 'canopen_interfaces.egg-info/SOURCES.txt'
+[0.424s] writing manifest file 'canopen_interfaces.egg-info/SOURCES.txt'
+[0.445s] [  2%] Built target ament_cmake_python_build_canopen_interfaces_egg
+[0.704s] [  2%] Built target canopen_interfaces__cpp
+[0.718s] [  5%] [34m[1mGenerating C++ type support for eProsima Fast-RTPS[0m
+[0.718s] [  5%] [34m[1mGenerating C++ type support dispatch for ROS interfaces[0m
+[0.725s] [  7%] [34m[1mGenerating C++ introspection for ROS interfaces[0m
+[0.740s] [  8%] [32mBuilding C object CMakeFiles/canopen_interfaces__rosidl_generator_c.dir/rosidl_generator_c/canopen_interfaces/msg/detail/can_subscription__functions.c.o[0m
+[0.740s] [  9%] [32mBuilding C object CMakeFiles/canopen_interfaces__rosidl_generator_c.dir/rosidl_generator_c/canopen_interfaces/msg/detail/can_write__functions.c.o[0m
+[0.743s] [ 11%] [32mBuilding C object CMakeFiles/canopen_interfaces__rosidl_generator_c.dir/rosidl_generator_c/canopen_interfaces/srv/detail/can_subscribe__functions.c.o[0m
+[0.743s] [ 12%] [32mBuilding C object CMakeFiles/canopen_interfaces__rosidl_generator_c.dir/rosidl_generator_c/canopen_interfaces/srv/detail/can_periodic_task__functions.c.o[0m
+[0.743s] [ 14%] [32mBuilding C object CMakeFiles/canopen_interfaces__rosidl_generator_c.dir/rosidl_generator_c/canopen_interfaces/srv/detail/can_read__functions.c.o[0m
+[0.743s] [ 15%] [32mBuilding C object CMakeFiles/canopen_interfaces__rosidl_generator_c.dir/rosidl_generator_c/canopen_interfaces/srv/detail/can_connection__functions.c.o[0m
+[0.830s] [ 16%] [32m[1mLinking C shared library libcanopen_interfaces__rosidl_generator_c.so[0m
+[0.860s] [ 16%] Built target canopen_interfaces__rosidl_generator_c
+[0.869s] [ 19%] [34m[1mGenerating C type support dispatch for ROS interfaces[0m
+[0.869s] [ 19%] [34m[1mGenerating C introspection for ROS interfaces[0m
+[0.869s] [ 21%] [34m[1mGenerating C type support for eProsima Fast-RTPS[0m
+[1.123s] [ 23%] [32mBuilding CXX object CMakeFiles/canopen_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/canopen_interfaces/msg/can_write__type_support.cpp.o[0m
+[1.123s] [ 23%] [32mBuilding CXX object CMakeFiles/canopen_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/canopen_interfaces/msg/can_subscription__type_support.cpp.o[0m
+[1.123s] [ 26%] [32mBuilding CXX object CMakeFiles/canopen_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/canopen_interfaces/srv/can_subscribe__type_support.cpp.o[0m
+[1.124s] [ 26%] [32mBuilding CXX object CMakeFiles/canopen_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/canopen_interfaces/srv/can_periodic_task__type_support.cpp.o[0m
+[1.124s] [ 28%] [32mBuilding CXX object CMakeFiles/canopen_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/canopen_interfaces/srv/can_read__type_support.cpp.o[0m
+[1.124s] [ 29%] [32mBuilding CXX object CMakeFiles/canopen_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/canopen_interfaces/srv/can_connection__type_support.cpp.o[0m
+[1.306s] [ 30%] [32mBuilding CXX object CMakeFiles/canopen_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/canopen_interfaces/msg/detail/can_write__type_support.cpp.o[0m
+[1.309s] [ 32%] [32mBuilding CXX object CMakeFiles/canopen_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/canopen_interfaces/msg/detail/can_subscription__type_support.cpp.o[0m
+[1.428s] [ 33%] [32mBuilding CXX object CMakeFiles/canopen_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/canopen_interfaces/msg/can_write__type_support.cpp.o[0m
+[1.484s] [ 35%] [32mBuilding CXX object CMakeFiles/canopen_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/canopen_interfaces/msg/can_subscription__type_support.cpp.o[0m
+[1.496s] [ 36%] [32mBuilding CXX object CMakeFiles/canopen_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/canopen_interfaces/srv/can_subscribe__type_support.cpp.o[0m
+[1.506s] [ 38%] [32mBuilding CXX object CMakeFiles/canopen_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/canopen_interfaces/srv/can_periodic_task__type_support.cpp.o[0m
+[1.509s] [ 39%] [32mBuilding CXX object CMakeFiles/canopen_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/canopen_interfaces/srv/can_read__type_support.cpp.o[0m
+[1.511s] [ 40%] [32mBuilding CXX object CMakeFiles/canopen_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/canopen_interfaces/srv/detail/can_subscribe__type_support.cpp.o[0m
+[1.518s] [ 42%] [32mBuilding CXX object CMakeFiles/canopen_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/canopen_interfaces/srv/detail/can_periodic_task__type_support.cpp.o[0m
+[1.520s] [ 43%] [32mBuilding CXX object CMakeFiles/canopen_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/canopen_interfaces/msg/detail/dds_fastrtps/can_write__type_support.cpp.o[0m
+[1.524s] [ 45%] [32mBuilding CXX object CMakeFiles/canopen_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/canopen_interfaces/msg/detail/dds_fastrtps/can_subscription__type_support.cpp.o[0m
+[1.542s] [ 46%] [32mBuilding CXX object CMakeFiles/canopen_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/canopen_interfaces/srv/detail/can_read__type_support.cpp.o[0m
+[1.553s] [ 47%] [32mBuilding CXX object CMakeFiles/canopen_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/canopen_interfaces/srv/detail/can_connection__type_support.cpp.o[0m
+[1.561s] [ 50%] [32mBuilding CXX object CMakeFiles/canopen_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/canopen_interfaces/srv/can_connection__type_support.cpp.o[0m
+[1.561s] [ 50%] [32m[1mLinking CXX shared library libcanopen_interfaces__rosidl_typesupport_cpp.so[0m
+[1.602s] [ 52%] [32m[1mLinking CXX shared library libcanopen_interfaces__rosidl_typesupport_c.so[0m
+[1.616s] [ 52%] Built target canopen_interfaces__rosidl_typesupport_cpp
+[1.638s] [ 53%] [32mBuilding C object CMakeFiles/canopen_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/canopen_interfaces/msg/detail/can_write__type_support.c.o[0m
+[1.639s] [ 54%] [32mBuilding CXX object CMakeFiles/canopen_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/canopen_interfaces/srv/detail/dds_fastrtps/can_subscribe__type_support.cpp.o[0m
+[1.662s] [ 54%] Built target canopen_interfaces__rosidl_typesupport_c
+[1.678s] [ 56%] [32mBuilding CXX object CMakeFiles/canopen_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/canopen_interfaces/srv/detail/dds_fastrtps/can_periodic_task__type_support.cpp.o[0m
+[1.702s] [ 57%] [32mBuilding CXX object CMakeFiles/canopen_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/canopen_interfaces/msg/detail/can_write__type_support_c.cpp.o[0m
+[1.706s] [ 59%] [32mBuilding C object CMakeFiles/canopen_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/canopen_interfaces/msg/detail/can_subscription__type_support.c.o[0m
+[1.791s] [ 60%] [32mBuilding C object CMakeFiles/canopen_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/canopen_interfaces/srv/detail/can_subscribe__type_support.c.o[0m
+[1.880s] [ 61%] [32mBuilding C object CMakeFiles/canopen_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/canopen_interfaces/srv/detail/can_periodic_task__type_support.c.o[0m
+[1.941s] [ 63%] [32mBuilding C object CMakeFiles/canopen_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/canopen_interfaces/srv/detail/can_read__type_support.c.o[0m
+[1.950s] [ 64%] [32mBuilding CXX object CMakeFiles/canopen_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/canopen_interfaces/msg/detail/can_subscription__type_support_c.cpp.o[0m
+[1.953s] [ 66%] [32mBuilding CXX object CMakeFiles/canopen_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/canopen_interfaces/srv/detail/can_subscribe__type_support_c.cpp.o[0m
+[2.068s] [ 67%] [32mBuilding C object CMakeFiles/canopen_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/canopen_interfaces/srv/detail/can_connection__type_support.c.o[0m
+[2.087s] [ 69%] [32mBuilding CXX object CMakeFiles/canopen_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/canopen_interfaces/srv/detail/can_periodic_task__type_support_c.cpp.o[0m
+[2.158s] [ 70%] [32m[1mLinking C shared library libcanopen_interfaces__rosidl_typesupport_introspection_c.so[0m
+[2.164s] [ 71%] [32mBuilding CXX object CMakeFiles/canopen_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/canopen_interfaces/srv/detail/can_read__type_support_c.cpp.o[0m
+[2.175s] [ 73%] [32mBuilding CXX object CMakeFiles/canopen_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/canopen_interfaces/srv/detail/can_connection__type_support_c.cpp.o[0m
+[2.208s] [ 74%] [32m[1mLinking CXX shared library libcanopen_interfaces__rosidl_typesupport_introspection_cpp.so[0m
+[2.222s] [ 76%] [32mBuilding CXX object CMakeFiles/canopen_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/canopen_interfaces/srv/detail/dds_fastrtps/can_read__type_support.cpp.o[0m
+[2.224s] [ 76%] Built target canopen_interfaces__rosidl_typesupport_introspection_c
+[2.238s] [ 77%] [32mBuilding CXX object CMakeFiles/canopen_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/canopen_interfaces/srv/detail/dds_fastrtps/can_connection__type_support.cpp.o[0m
+[2.313s] [ 77%] Built target canopen_interfaces__rosidl_typesupport_introspection_cpp
+[2.594s] [ 78%] [32m[1mLinking CXX shared library libcanopen_interfaces__rosidl_typesupport_fastrtps_c.so[0m
+[2.656s] [ 78%] Built target canopen_interfaces__rosidl_typesupport_fastrtps_c
+[2.684s] [ 80%] [32m[1mLinking CXX shared library libcanopen_interfaces__rosidl_typesupport_fastrtps_cpp.so[0m
+[2.746s] [ 80%] Built target canopen_interfaces__rosidl_typesupport_fastrtps_cpp
+[2.761s] [ 80%] Built target canopen_interfaces
+[2.776s] [ 81%] [34m[1mGenerating Python code for ROS interfaces[0m
+[3.644s] [ 81%] Built target canopen_interfaces__py
+[3.662s] [ 85%] [32mBuilding C object CMakeFiles/canopen_interfaces__rosidl_generator_py.dir/rosidl_generator_py/canopen_interfaces/msg/_can_write_s.c.o[0m
+[3.662s] [ 85%] [32mBuilding C object CMakeFiles/canopen_interfaces__rosidl_generator_py.dir/rosidl_generator_py/canopen_interfaces/msg/_can_subscription_s.c.o[0m
+[3.662s] [ 85%] [32mBuilding C object CMakeFiles/canopen_interfaces__rosidl_generator_py.dir/rosidl_generator_py/canopen_interfaces/srv/_can_subscribe_s.c.o[0m
+[3.662s] [ 87%] [32mBuilding C object CMakeFiles/canopen_interfaces__rosidl_generator_py.dir/rosidl_generator_py/canopen_interfaces/srv/_can_periodic_task_s.c.o[0m
+[3.663s] [ 88%] [32mBuilding C object CMakeFiles/canopen_interfaces__rosidl_generator_py.dir/rosidl_generator_py/canopen_interfaces/srv/_can_read_s.c.o[0m
+[3.663s] [ 90%] [32mBuilding C object CMakeFiles/canopen_interfaces__rosidl_generator_py.dir/rosidl_generator_py/canopen_interfaces/srv/_can_connection_s.c.o[0m
+[3.783s] [ 91%] [32m[1mLinking C shared library rosidl_generator_py/canopen_interfaces/libcanopen_interfaces__rosidl_generator_py.so[0m
+[3.812s] [ 91%] Built target canopen_interfaces__rosidl_generator_py
+[3.829s] [ 95%] [32mBuilding C object CMakeFiles/canopen_interfaces__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_generator_py/canopen_interfaces/_canopen_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c.o[0m
+[3.829s] [ 95%] [32mBuilding C object CMakeFiles/canopen_interfaces__rosidl_typesupport_introspection_c__pyext.dir/rosidl_generator_py/canopen_interfaces/_canopen_interfaces_s.ep.rosidl_typesupport_introspection_c.c.o[0m
+[3.829s] [ 95%] [32mBuilding C object CMakeFiles/canopen_interfaces__rosidl_typesupport_c__pyext.dir/rosidl_generator_py/canopen_interfaces/_canopen_interfaces_s.ep.rosidl_typesupport_c.c.o[0m
+[3.945s] [100%] [32m[1mLinking C shared library rosidl_generator_py/canopen_interfaces/canopen_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so[0m
+[3.945s] [100%] [32m[1mLinking C shared library rosidl_generator_py/canopen_interfaces/canopen_interfaces_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so[0m
+[3.945s] [100%] [32m[1mLinking C shared library rosidl_generator_py/canopen_interfaces/canopen_interfaces_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so[0m
+[3.977s] [100%] Built target canopen_interfaces__rosidl_typesupport_c__pyext
+[3.977s] [100%] Built target canopen_interfaces__rosidl_typesupport_introspection_c__pyext
+[3.977s] [100%] Built target canopen_interfaces__rosidl_typesupport_fastrtps_c__pyext
+[3.985s] Invoked command in '/home/roburoc/PycharmProjects/P9-RobuROC4/build/canopen_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/roburoc/PycharmProjects/P9-RobuROC4/build/canopen_interfaces --clean-first -- -j12 -l12
+[4.090s] Invoking command in '/home/roburoc/PycharmProjects/P9-RobuROC4/build/canopen_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/roburoc/PycharmProjects/P9-RobuROC4/build/canopen_interfaces
+[4.095s] -- Install configuration: ""
+[4.095s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/ament_index/resource_index/rosidl_interfaces/canopen_interfaces
+[4.096s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces
+[4.096s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv
+[4.096s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/can_subscribe.h
+[4.096s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/can_connection.h
+[4.096s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail
+[4.096s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_subscribe__functions.c
+[4.096s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_subscribe__type_support.h
+[4.096s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_read__struct.h
+[4.096s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_connection__functions.c
+[4.096s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_read__type_support.h
+[4.096s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_periodic_task__functions.c
+[4.096s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_read__functions.h
+[4.096s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_read__functions.c
+[4.097s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_connection__struct.h
+[4.097s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_subscribe__functions.h
+[4.097s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_subscribe__struct.h
+[4.097s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_connection__functions.h
+[4.097s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_connection__type_support.h
+[4.097s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_periodic_task__functions.h
+[4.097s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_periodic_task__type_support.h
+[4.097s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_periodic_task__struct.h
+[4.097s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/can_read.h
+[4.097s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/can_periodic_task.h
+[4.098s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg
+[4.098s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/can_subscription.h
+[4.098s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail
+[4.098s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail/can_write__functions.h
+[4.098s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail/can_write__struct.h
+[4.098s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail/can_subscription__type_support.h
+[4.098s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail/can_write__functions.c
+[4.098s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail/can_subscription__struct.h
+[4.098s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail/can_subscription__functions.h
+[4.098s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail/can_subscription__functions.c
+[4.099s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail/can_write__type_support.h
+[4.099s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/rosidl_generator_c__visibility_control.h
+[4.099s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/can_write.h
+[4.099s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/environment/library_path.sh
+[4.099s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/environment/library_path.dsv
+[4.099s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/lib/libcanopen_interfaces__rosidl_generator_c.so
+[4.099s] -- Set runtime path of "/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/lib/libcanopen_interfaces__rosidl_generator_c.so" to ""
+[4.099s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces
+[4.099s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv
+[4.099s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail
+[4.099s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_periodic_task__rosidl_typesupport_fastrtps_c.h
+[4.099s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_connection__rosidl_typesupport_fastrtps_c.h
+[4.100s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_subscribe__rosidl_typesupport_fastrtps_c.h
+[4.100s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_read__rosidl_typesupport_fastrtps_c.h
+[4.100s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg
+[4.100s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[4.100s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail
+[4.100s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail/can_subscription__rosidl_typesupport_fastrtps_c.h
+[4.100s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail/can_write__rosidl_typesupport_fastrtps_c.h
+[4.100s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/lib/libcanopen_interfaces__rosidl_typesupport_fastrtps_c.so
+[4.100s] -- Set runtime path of "/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/lib/libcanopen_interfaces__rosidl_typesupport_fastrtps_c.so" to ""
+[4.100s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces
+[4.100s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv
+[4.100s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/can_connection.hpp
+[4.101s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/can_subscribe.hpp
+[4.101s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail
+[4.101s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_subscribe__builder.hpp
+[4.101s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_periodic_task__struct.hpp
+[4.101s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_subscribe__traits.hpp
+[4.101s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_read__traits.hpp
+[4.101s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_read__struct.hpp
+[4.101s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_connection__struct.hpp
+[4.101s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_read__builder.hpp
+[4.101s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_connection__builder.hpp
+[4.101s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_connection__traits.hpp
+[4.101s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_periodic_task__builder.hpp
+[4.102s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_subscribe__struct.hpp
+[4.102s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_periodic_task__traits.hpp
+[4.102s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/can_periodic_task.hpp
+[4.102s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/can_read.hpp
+[4.102s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg
+[4.102s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/can_write.hpp
+[4.102s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/can_subscription.hpp
+[4.102s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail
+[4.102s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail/can_subscription__builder.hpp
+[4.102s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail/can_write__builder.hpp
+[4.102s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail/can_subscription__traits.hpp
+[4.103s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail/can_write__traits.hpp
+[4.103s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail/can_subscription__struct.hpp
+[4.103s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail/can_write__struct.hpp
+[4.103s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces
+[4.103s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv
+[4.103s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail
+[4.103s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_read__rosidl_typesupport_fastrtps_cpp.hpp
+[4.103s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/dds_fastrtps
+[4.103s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_periodic_task__rosidl_typesupport_fastrtps_cpp.hpp
+[4.103s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_subscribe__rosidl_typesupport_fastrtps_cpp.hpp
+[4.103s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_connection__rosidl_typesupport_fastrtps_cpp.hpp
+[4.103s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg
+[4.103s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[4.104s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail
+[4.104s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail/dds_fastrtps
+[4.104s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail/can_subscription__rosidl_typesupport_fastrtps_cpp.hpp
+[4.104s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail/can_write__rosidl_typesupport_fastrtps_cpp.hpp
+[4.104s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/lib/libcanopen_interfaces__rosidl_typesupport_fastrtps_cpp.so
+[4.104s] -- Set runtime path of "/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/lib/libcanopen_interfaces__rosidl_typesupport_fastrtps_cpp.so" to ""
+[4.104s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces
+[4.104s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv
+[4.104s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail
+[4.104s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_connection__rosidl_typesupport_introspection_c.h
+[4.104s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_subscribe__rosidl_typesupport_introspection_c.h
+[4.104s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_periodic_task__rosidl_typesupport_introspection_c.h
+[4.105s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_connection__type_support.c
+[4.105s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_read__type_support.c
+[4.105s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_read__rosidl_typesupport_introspection_c.h
+[4.105s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_subscribe__type_support.c
+[4.105s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_periodic_task__type_support.c
+[4.105s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg
+[4.105s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[4.105s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail
+[4.105s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail/can_write__type_support.c
+[4.105s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail/can_subscription__rosidl_typesupport_introspection_c.h
+[4.105s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail/can_write__rosidl_typesupport_introspection_c.h
+[4.105s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail/can_subscription__type_support.c
+[4.106s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/lib/libcanopen_interfaces__rosidl_typesupport_introspection_c.so
+[4.106s] -- Set runtime path of "/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/lib/libcanopen_interfaces__rosidl_typesupport_introspection_c.so" to ""
+[4.106s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/lib/libcanopen_interfaces__rosidl_typesupport_c.so
+[4.106s] -- Set runtime path of "/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/lib/libcanopen_interfaces__rosidl_typesupport_c.so" to ""
+[4.106s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces
+[4.106s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv
+[4.107s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail
+[4.107s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_periodic_task__type_support.cpp
+[4.107s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_subscribe__type_support.cpp
+[4.107s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_connection__rosidl_typesupport_introspection_cpp.hpp
+[4.107s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_periodic_task__rosidl_typesupport_introspection_cpp.hpp
+[4.107s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_subscribe__rosidl_typesupport_introspection_cpp.hpp
+[4.107s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_connection__type_support.cpp
+[4.107s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_read__rosidl_typesupport_introspection_cpp.hpp
+[4.107s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/srv/detail/can_read__type_support.cpp
+[4.107s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg
+[4.107s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail
+[4.107s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail/can_write__type_support.cpp
+[4.107s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail/can_subscription__type_support.cpp
+[4.108s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail/can_subscription__rosidl_typesupport_introspection_cpp.hpp
+[4.108s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/include/canopen_interfaces/canopen_interfaces/msg/detail/can_write__rosidl_typesupport_introspection_cpp.hpp
+[4.108s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/lib/libcanopen_interfaces__rosidl_typesupport_introspection_cpp.so
+[4.108s] -- Set runtime path of "/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/lib/libcanopen_interfaces__rosidl_typesupport_introspection_cpp.so" to ""
+[4.108s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/lib/libcanopen_interfaces__rosidl_typesupport_cpp.so
+[4.108s] -- Set runtime path of "/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/lib/libcanopen_interfaces__rosidl_typesupport_cpp.so" to ""
+[4.109s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/environment/pythonpath.sh
+[4.109s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/environment/pythonpath.dsv
+[4.109s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces-0.0.0-py3.10.egg-info
+[4.109s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces-0.0.0-py3.10.egg-info/SOURCES.txt
+[4.109s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces-0.0.0-py3.10.egg-info/dependency_links.txt
+[4.109s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces-0.0.0-py3.10.egg-info/top_level.txt
+[4.109s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces-0.0.0-py3.10.egg-info/PKG-INFO
+[4.109s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces
+[4.109s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/_canopen_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c
+[4.109s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/libcanopen_interfaces__rosidl_generator_py.so
+[4.109s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/_canopen_interfaces_s.ep.rosidl_typesupport_introspection_c.c
+[4.109s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/srv
+[4.110s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/srv/_can_subscribe_s.c
+[4.110s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/srv/_can_connection.py
+[4.110s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/srv/_can_subscribe.py
+[4.110s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/srv/_can_read_s.c
+[4.110s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/srv/_can_read.py
+[4.110s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/srv/_can_connection_s.c
+[4.110s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/srv/__init__.py
+[4.110s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/srv/_can_periodic_task.py
+[4.111s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/srv/_can_periodic_task_s.c
+[4.111s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/canopen_interfaces_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so
+[4.111s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/_canopen_interfaces_s.ep.rosidl_typesupport_c.c
+[4.111s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/msg
+[4.111s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/msg/_can_subscription.py
+[4.111s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/msg/_can_write_s.c
+[4.111s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/msg/__init__.py
+[4.111s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/msg/_can_subscription_s.c
+[4.111s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/msg/_can_write.py
+[4.111s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/canopen_interfaces_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so
+[4.112s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/__init__.py
+[4.112s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/canopen_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so
+[4.147s] Listing '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces'...
+[4.147s] Listing '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/msg'...
+[4.147s] Compiling '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/msg/__init__.py'...
+[4.147s] Compiling '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/msg/_can_subscription.py'...
+[4.147s] Compiling '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/msg/_can_write.py'...
+[4.147s] Listing '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/srv'...
+[4.147s] Compiling '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/srv/__init__.py'...
+[4.147s] Compiling '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/srv/_can_connection.py'...
+[4.147s] Compiling '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/srv/_can_periodic_task.py'...
+[4.147s] Compiling '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/srv/_can_read.py'...
+[4.147s] Compiling '/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/srv/_can_subscribe.py'...
+[4.151s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/canopen_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so
+[4.151s] -- Set runtime path of "/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/canopen_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so" to ""
+[4.151s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/canopen_interfaces_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so
+[4.152s] -- Set runtime path of "/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/canopen_interfaces_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so" to ""
+[4.152s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/canopen_interfaces_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so
+[4.152s] -- Set runtime path of "/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/local/lib/python3.10/dist-packages/canopen_interfaces/canopen_interfaces_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so" to ""
+[4.152s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/lib/libcanopen_interfaces__rosidl_generator_py.so
+[4.153s] -- Set runtime path of "/home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/lib/libcanopen_interfaces__rosidl_generator_py.so" to ""
+[4.153s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/msg/CANWrite.idl
+[4.153s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/msg/CANSubscription.idl
+[4.153s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/srv/CANSubscribe.idl
+[4.153s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/srv/CANPeriodicTask.idl
+[4.153s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/srv/CANRead.idl
+[4.153s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/srv/CANConnection.idl
+[4.153s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/msg/CANWrite.msg
+[4.153s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/msg/CANSubscription.msg
+[4.153s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/srv/CANSubscribe.srv
+[4.153s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/srv/CANSubscribe_Request.msg
+[4.154s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/srv/CANSubscribe_Response.msg
+[4.154s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/srv/CANPeriodicTask.srv
+[4.154s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/srv/CANPeriodicTask_Request.msg
+[4.154s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/srv/CANPeriodicTask_Response.msg
+[4.154s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/srv/CANRead.srv
+[4.154s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/srv/CANRead_Request.msg
+[4.154s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/srv/CANRead_Response.msg
+[4.154s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/srv/CANConnection.srv
+[4.154s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/srv/CANConnection_Request.msg
+[4.154s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/srv/CANConnection_Response.msg
+[4.154s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/ament_index/resource_index/package_run_dependencies/canopen_interfaces
+[4.154s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/ament_index/resource_index/parent_prefix_path/canopen_interfaces
+[4.154s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/environment/ament_prefix_path.sh
+[4.154s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/environment/ament_prefix_path.dsv
+[4.154s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/environment/path.sh
+[4.155s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/environment/path.dsv
+[4.155s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/local_setup.bash
+[4.155s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/local_setup.sh
+[4.155s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/local_setup.zsh
+[4.155s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/local_setup.dsv
+[4.155s] -- Installing: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/package.dsv
+[4.155s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/ament_index/resource_index/packages/canopen_interfaces
+[4.155s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/cmake/export_canopen_interfaces__rosidl_generator_cExport.cmake
+[4.155s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/cmake/export_canopen_interfaces__rosidl_generator_cExport-noconfig.cmake
+[4.155s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/cmake/export_canopen_interfaces__rosidl_typesupport_fastrtps_cExport.cmake
+[4.155s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/cmake/export_canopen_interfaces__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+[4.155s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/cmake/export_canopen_interfaces__rosidl_generator_cppExport.cmake
+[4.155s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/cmake/export_canopen_interfaces__rosidl_typesupport_fastrtps_cppExport.cmake
+[4.155s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/cmake/export_canopen_interfaces__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+[4.156s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/cmake/canopen_interfaces__rosidl_typesupport_introspection_cExport.cmake
+[4.156s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/cmake/canopen_interfaces__rosidl_typesupport_introspection_cExport-noconfig.cmake
+[4.156s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/cmake/canopen_interfaces__rosidl_typesupport_cExport.cmake
+[4.156s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/cmake/canopen_interfaces__rosidl_typesupport_cExport-noconfig.cmake
+[4.156s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/cmake/canopen_interfaces__rosidl_typesupport_introspection_cppExport.cmake
+[4.156s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/cmake/canopen_interfaces__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+[4.156s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/cmake/canopen_interfaces__rosidl_typesupport_cppExport.cmake
+[4.156s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/cmake/canopen_interfaces__rosidl_typesupport_cppExport-noconfig.cmake
+[4.156s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/cmake/export_canopen_interfaces__rosidl_generator_pyExport.cmake
+[4.156s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/cmake/export_canopen_interfaces__rosidl_generator_pyExport-noconfig.cmake
+[4.156s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/cmake/rosidl_cmake-extras.cmake
+[4.156s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/cmake/ament_cmake_export_dependencies-extras.cmake
+[4.156s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/cmake/ament_cmake_export_include_directories-extras.cmake
+[4.156s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/cmake/ament_cmake_export_libraries-extras.cmake
+[4.156s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/cmake/ament_cmake_export_targets-extras.cmake
+[4.156s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[4.157s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[4.157s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/cmake/canopen_interfacesConfig.cmake
+[4.157s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/cmake/canopen_interfacesConfig-version.cmake
+[4.157s] -- Up-to-date: /home/roburoc/PycharmProjects/P9-RobuROC4/install/canopen_interfaces/share/canopen_interfaces/package.xml
+[4.158s] Invoked command in '/home/roburoc/PycharmProjects/P9-RobuROC4/build/canopen_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/roburoc/PycharmProjects/P9-RobuROC4/build/canopen_interfaces
