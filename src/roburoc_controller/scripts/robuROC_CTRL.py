@@ -138,9 +138,15 @@ class RobuROC_CTRL(Node):
 
     def setSpeed(self, message):
         """
-        Method for setting the speed of the individual wheels
-        :param speed: A list of speeds for the individual wheels
-        :param type: Speed representation, current supported values: ['MPS', 'RPM']
+        Sets the speed of the individual wheels based on joystick input or Twist messages.
+
+        - If `message` has `buttons` (e.g., joystick message):
+            - '▲': Set wheel speeds based on linear and angular axes.
+            - `■`: Brakes the vehicle.
+            - `⬤`: Recovers from an error state.
+        - If `message` lacks `buttons` (e.g., Twist message): Use `linear.x` and `angular.z` to set wheel speeds.
+
+        :param message: Input message, expected to have `buttons` (joystick) or `linear` and `angular` (Twist).
         :return: None
         """
         check = getattr(message, 'buttons', None) # Make "None" function to run with Twist instead
@@ -197,10 +203,8 @@ class RobuROC_CTRL(Node):
 
     def brake(self):
         """
-        Method for braking the RobuROC4 when velocity is set to 0.
-        :param node_id: The node for which to change the state to Quickstop
+        Brakes the RobuROC4 by setting velocities to zero and transitioning nodes to Quickstop state.
         :return: None
-
         """
 
         self.SDO_Write(0, [0x6040, 0x00], [0x02, 0x00, 0x00, 0x00])
@@ -208,33 +212,14 @@ class RobuROC_CTRL(Node):
         self.SDO_Write(2, [0x6040, 0x00], [0x02, 0x00, 0x00, 0x00])
         self.SDO_Write(3, [0x6040, 0x00], [0x02, 0x00, 0x00, 0x00])
         for node in self._CAN_NODES:
+            self.SDO_Write(node - 1, [0x2062, 0x04], [0xFF, 0xFF, 0xFF, 0x0F])
             self.SDO_Write(node-1, [0x6040, 0x00], [0x0F, 0x00, 0x00, 0x00])
-
-
-        # for node in self._CAN_NODES:
-            # self.logger.info(f"{self.SDORead(node-1, [0x6040, 0x00])}")
-
-            # self.logger.info(f"Status: {int.from_bytes(self.SDORead(node-1, [0x6040, 0x00]), 'little')}")
-        # speed = [int.from_bytes(self.SDORead(1, [0x606C, 0x00]), byteorder='little'),
-        #          int.from_bytes(self.SDORead(2, [0x606C, 0x00]), byteorder='little'),
-        #          int.from_bytes(self.SDORead(3, [0x606C, 0x00]), byteorder='little'),
-        #          int.from_bytes(self.SDORead(4, [0x606C, 0x00]), byteorder='little')]
-        # self.logger.info(f"Actual velocity: {speed}")
-        # success = [True if x <= 1000 else False for x in speed]
-        # while not all(success):
-        #     for node in self._CAN_NODES:
-        #         speed[node-1] = int.from_bytes(self.SDORead(node-1, [0x606C, 0x00]), byteorder='little')
-        #     success = [True if x <= 1000 else False for x in speed]
-
-
-
 
     def recover(self):
         """
-        Recovery method for when a software related issue has arisen. Will not reset the emergency stop
-        module.
+        Recovers the RobuROC4 from a software-related issue by resetting and enabling CAN nodes.
+        This method does not reset the emergency stop module.
         :return: None
-        TODO: Enable status bit check to enable proper recovery
         """
         self.NMT_Write([self._CTW.RESET])
         self.NMT_Write([self._CTW.RESET_AE])
@@ -246,11 +231,10 @@ class RobuROC_CTRL(Node):
 
     def AddPeriodicTask(self, COBID: int, data: list, period: float):
         """
-
-        :param COBID:
-        :param data:
-        :param period:
-        :return:
+        Adds a periodic CAN message task to be executed at a specified interval.
+        :param COBID: The COB-ID of the CAN message.
+        :param data: The data payload of the CAN message.
+        :param period: Interval in seconds for the task.
         """
         request = CANPeriodicTask.Request()
         request.command = "Add"
@@ -262,12 +246,10 @@ class RobuROC_CTRL(Node):
         return response.result().success
     def RemovePeriodicTask(self, COBID:int):
         """
-
-        :param COBID:
-        :param data:
-        :return:
+        Removes a periodic CAN message task.COBID:
+        :param COBID: The COB-ID of the CAN message task to be removed.:
+        :return: True if successful, False otherwise.
         """
-
         request = CANPeriodicTask.Request()
         request.command = "Remove"
         request.cobid = COBID  # 0x700 + COBID.HOST
@@ -288,9 +270,11 @@ class RobuROC_CTRL(Node):
         return response.result().success
     def Unsubscribe(self, COBID:int):
         """
-        Subscribe "override" method, to subscribe to specific COBIDs in the CANBUS node
-        :param COBID: COBID of the desired object
-        :return: None
+        Subscribes to a specific CANBUS COB-ID.
+
+
+        :param COBID: The COB-ID of the CAN message to subscribe to.
+        :return: True if successful, False otherwise.
         """
         Subscribe_req = CANSubscribe.Request()
         Subscribe_req.command = "Remove"
@@ -301,24 +285,24 @@ class RobuROC_CTRL(Node):
 
     def NMT_Write(self, data: list):
         """
-        NMT write "override" method, to write NMT messages to the canbus node
-        for readability
-        :param node_id:
-        :param data:
-        :return:
+        Sends a Network Management (NMT) command to the CANBUS node.
+
+        :param data: NMT command data.
+        :return: None
         """
+
         NMT_msg = CANWrite()
         NMT_msg.command = "NMT"
         NMT_msg.data = data
         self.WritePub.publish(NMT_msg)
     def SDO_Write(self, node_id: int, indices: list, data: list):
         """
-        SDO write "override" method, to write SDO messages to the canbus node
-        for readability
-        :param node_id:
-        :param data:
-        :return:
-        """
+        Sends a Service Data Object (SDO) write command to the CANBUS node.
+
+        :param node_id: Node ID of the target device.
+        :param indices: List of indices/sub-indices for the SDO operation.
+        :param data: Data payload for the SDO write.
+        :return: None
 
         SDO_msg = CANWrite()
         SDO_msg.command = "SDO"
@@ -326,22 +310,39 @@ class RobuROC_CTRL(Node):
         SDO_msg.indices = indices
         SDO_msg.data = data
         self.WritePub.publish(SDO_msg)
-    def PDO_Write(self, COBID: int, data: list):
+    def PDO_Write(self, COBID: int, node_id: int, data: list):
         """
-        PDO write "override" method, to write PDO messages to the canbus node
-        for readability
-        :param COBID:
-        :param data:
-        :return:
-        TODO: Fix
+        Sends a Process Data Object (PDO) write command to the CANBUS node.
+
+        :param COBID: COB-ID of the PDO message.
+        :param node_id: Node ID of the target device.
+        :param data: Data payload for the PDO write.
+        :return: None
+        TODO:FIX
         """
 
         PDO_msg = CANWrite()
         PDO_msg.command = "PDO"
         PDO_msg.cobid = COBID
-        PDO_msg.node_id
+        PDO_msg.node_id = node_id
         PDO_msg.data = data
         self.WritePub.publish(PDO_msg)
+    def SDORead(self, node_id: int, indices: list):
+        """
+        Sends a Service Data Object (SDO) read command to the CANBUS node and returns the response.
+
+        :param node_id: Node ID of the target device.
+        :param indices: List of indices/sub-indices for the SDO read operation.
+        :return: The result of the SDO read operation.
+        """
+        SDO_Read = CANRead.Request()
+        SDO_Read.command = "SDO"
+        SDO_Read.node_id = node_id
+        SDO_Read.indices = indices
+        response = self.SubscribeSrvCli.call_async(SDO_Read)
+        rclpy.spin_until_future_complete(self, response)
+        return response.result()
+
     def Subscription_CB(self, message):
         return None
         # if COBID in self._COBID.ACT_CURRENT.ALL:
@@ -371,22 +372,6 @@ class RobuROC_CTRL(Node):
         #         self._STATUS_PERIODIC[nodeid-1] = 'PRE-OPERATIONAL'
         #     else:
         #         self._STATUS_PERIODIC[nodeid-1] = 'UNKNOWN'
-
-    def SDORead(self, node_id: int, indices: list):
-        """
-
-        :param node_id:
-        :param indices:
-        :return:
-        """
-        SDO_Read = CANRead.Request()
-        SDO_Read.command = "SDO"
-        SDO_Read.node_id = node_id
-        SDO_Read.indices = indices
-        response = self.SubscribeSrvCli.call_async(SDO_Read)
-        rclpy.spin_until_future_complete(self, response)
-        return response.result()
-
 def main():
     rclpy.init()
     ctrl = RobuROC_CTRL()
