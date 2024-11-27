@@ -303,7 +303,7 @@ class RobuROC_CTRL(Node):
         :param indices: List of indices/sub-indices for the SDO operation.
         :param data: Data payload for the SDO write.
         :return: None
-
+        """
         SDO_msg = CANWrite()
         SDO_msg.command = "SDO"
         SDO_msg.node_id = node_id
