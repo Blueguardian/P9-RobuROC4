@@ -110,19 +110,19 @@ def generate_launch_description():
 
     realsense = IncludeLaunchDescription(
             PythonLaunchDescriptionSource([os.path.join(
-                get_package_share_directory(d345Package),'examples', 'dual_camera','rs_dual_camera_launch.py'
+                get_package_share_directory(namePackage),'launch','dual_camera.launch.py'
             )]), launch_arguments={'serial_no1':"'034422070675'",
                                    'camera_name':'camera1',
                                    'camera_namespace':'camera1',
                                    'serial_no2':"'829212072207'",
                                    'camera_name':'camera2',
-                                   'camera_namespace':'camera2'}.items()
-                                #    'tf.translation.x':-1.2
-                                #    tf.translation.y:=0.075
-                                #    tf.translation.z:=-0.4
-                                #    tf.rotation.yaw:=-180
-                                #    tf.rotation.pitch:=31.0
-                                #    tf.rotation.roll:=1.0
+                                   'camera_namespace':'camera2',
+                                    'tf.translation.x':'-1.2',
+                                    'tf.translation.y':'0.075',
+                                    'tf.translation.z':'-0.4',
+                                    'tf.rotation.yaw':'-180',
+                                    'tf.rotation.pitch':'31.0',
+                                    'tf.rotation.roll':'1.0'}.items()
                             
     )
 

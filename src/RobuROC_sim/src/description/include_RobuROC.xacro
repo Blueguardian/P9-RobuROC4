@@ -45,7 +45,7 @@
     <!-- ######################################### -->
     <!--                    Lidar                  -->
     <!-- ######################################### -->
-    <xacro:property name="lidar_off_x" value="0.12" />
+    <xacro:property name="lidar_off_x" value="-0.12" />
     <xacro:property name="lidar_off_z" value="${box_off_z+0.155}" />
     <xacro:property name="lidar_origin" value="${lidar_off_x} 0 ${lidar_off_z}" />
 

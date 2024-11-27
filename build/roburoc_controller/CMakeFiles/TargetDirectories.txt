@@ -1,9 +1,0 @@
-/home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_controller/CMakeFiles/uninstall.dir
-/home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_controller/CMakeFiles/roburoc_controller_uninstall.dir
-/home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_controller/CMakeFiles/test.dir
-/home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_controller/CMakeFiles/edit_cache.dir
-/home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_controller/CMakeFiles/rebuild_cache.dir
-/home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_controller/CMakeFiles/list_install_components.dir
-/home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_controller/CMakeFiles/install.dir
-/home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_controller/CMakeFiles/install/local.dir
-/home/roburoc/PycharmProjects/P9-RobuROC4/build/roburoc_controller/CMakeFiles/install/strip.dir

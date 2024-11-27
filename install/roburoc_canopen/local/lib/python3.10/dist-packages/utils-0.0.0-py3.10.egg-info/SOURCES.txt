@@ -1,9 +1,0 @@
-setup.py
-utils/COBID.py
-utils/CTW.py
-utils/__init__.py
-utils/gamepad_buttons.py
-utils.egg-info/PKG-INFO
-utils.egg-info/SOURCES.txt
-utils.egg-info/dependency_links.txt
-utils.egg-info/top_level.txt

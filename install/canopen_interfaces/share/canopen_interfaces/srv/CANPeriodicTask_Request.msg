@@ -1,4 +1,0 @@
-string command
-int16 cobid
-int32[] data
-float32 period

@@ -1,5 +1,0 @@
-string command
-int16 cobid
-int8 node_id
-int32[] indices
-int32[] data
