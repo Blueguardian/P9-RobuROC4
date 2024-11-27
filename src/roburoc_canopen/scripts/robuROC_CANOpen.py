@@ -62,16 +62,18 @@ class RobuROC_Canopen(Node):
         self._CONNECTED = False
 
         # Initialize subscriptions
-        self.WriteSub = self.create_subscription(CANWrite, 'CANWrite', self.Write_CB, 10)
+        self.WriteSub = self.create_subscription(CANWrite, '/roburoc/CANWrite', self.Write_CB, 10)
 
         # Initialize publishers
-        self.SubscriptionPub = self.create_publisher(CANSubscription, 'CANSubscription', 10)
+        self.SubscriptionPub = self.create_publisher(CANSubscription, '/roburoc/CANSubscription', 10)
 
         # Initialize services
-        self.ConnectionSrv = self.create_service(CANConnection, 'CANConnection', self.Connection_CB)
-        self.PeriodicSrv = self.create_service(CANPeriodicTask, 'CANPeriodic', self.PeriodicTask_CB)
-        self.SubscribeSrv = self.create_service(CANSubscribe, 'CANSubscribe', self.Subscribe_CB)
-        self.ReadSrv = self.create_service(CANRead, 'CANRead', self.Read_CB)
+        self.ConnectionSrv = self.create_service(CANConnection, '/roburoc/CANConnection', self.Connection_CB)
+        self.PeriodicSrv = self.create_service(CANPeriodicTask, '/roburoc/CANPeriodic', self.PeriodicTask_CB)
+        self.SubscribeSrv = self.create_service(CANSubscribe, '/roburoc/CANSubscribe', self.Subscribe_CB)
+        self.ReadSrv = self.create_service(CANRead, '/roburoc/CANRead', self.Read_CB)
+
+
     def __del__(self):
         self.Disconnect()
 
@@ -160,8 +162,8 @@ class RobuROC_Canopen(Node):
                         self._CAN_PERIODICTASK[task].stop()
                         del self._CAN_PERIODICTASK[task]
                 if len(self._CAN_SUBSCRIPTION) != 0:
-                    for id in self._CAN_SUBSCRIPTION:
-                            self.Unsubscribe(id)
+                    for ids in self._CAN_SUBSCRIPTION:
+                            self.Unsubscribe(ids)
             except Exception as error:
                 self.logger.error(f"Unable to disconnect from CAN Bus, Error: {error}")
             finally:
@@ -344,7 +346,7 @@ class RobuROC_Canopen(Node):
         """
         Write data to a specified SDO for the given node.
         :param node_id: The ID of the node to write to.
-        :param pdo_index: A list of the index and subindex of the SDO as in [index bit 0, index bit 1, subindex bit].
+        :param indices: A list of the index and subindex of the SDO as in [index bit 0, index bit 1, subindex bit].
         :param data: The data to be sent (as a list of hexadecimals or ints).
         :return: Bool: True if the write operation was successful, False otherwise.
         """
@@ -418,7 +420,7 @@ class RobuROC_Canopen(Node):
         """
         Retrieve the current data from the specified SDO for the given node.
         :param node_id: The ID of the node to read from.
-        :param pdo_index: A list of the index and subindex of the sdo as in [index bit 0, index bit 1, subindex bit], e.g. [0x60, 0x60, 0x00] for index 0x6060 subindex 0x00
+        :param indices: A list of the index and subindex of the sdo as in [index bit 0, index bit 1, subindex bit], e.g. [0x60, 0x60, 0x00] for index 0x6060 subindex 0x00
         return: Returns data with callback with node id 0x580 + nodeid or None if an error occurs.
         """
         data = None
