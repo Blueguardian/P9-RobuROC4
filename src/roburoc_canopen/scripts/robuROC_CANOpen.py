@@ -141,9 +141,9 @@ class RobuROC_Canopen(Node):
                 self.logger.error(f"Unable to connect to CAN Bus, Error: {error}")
                 self._CONNECTED = False
             finally:
-                for node in self.CAN_NODES:
-                    node.tpdo.read() # Initalize PDO values for tpdo
-                    node.rpdo.read() # Initialize PDO values for rpdo
+                # for node in self.CAN_NODES:
+                    # node.tpdo.read() # Initalize PDO values for tpdo
+                    # node.rpdo.read() # Initialize PDO values for rpdo
                 return self._CONNECTED
     def Disconnect(self):
         """
@@ -191,7 +191,8 @@ class RobuROC_Canopen(Node):
             if request.command.lower() == "add":
                 if cobid and data and period:
                     kwargs = {k: getattr(request, k) for k in ['cobid', 'data', 'period'] if hasattr(request, k)}
-                    response.index = self._PERIODIC_ID
+                    response.key = self._PERIODIC_ID
+                    self._PERIODIC_ID += 1
                     response.success = self.PeriodicTask(**kwargs)
                     return response
                 else:

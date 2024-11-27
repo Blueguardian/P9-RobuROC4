@@ -156,6 +156,7 @@ class RobuROC_CTRL(Node):
         :param type: Speed representation, current supported values: ['MPS', 'RPM']
         :return: None
         """
+
         if message.buttons[2] == 1:
             left, right = None, None
             if message.axes[0] < 0.4:
@@ -177,76 +178,25 @@ class RobuROC_CTRL(Node):
             self.brake()
         if message.buttons[3] == 1:
             self.recover()
-        # elif not message.buttons[2] == 1:
-        #     self.SDO_Write(0, [0x60FF, 0x00], [0x00, 0x00, 0x00, 0x00])
-        #     self.SDO_Write(1, [0x60FF, 0x00], [0x00, 0x00, 0x00, 0x00])
-        #     self.SDO_Write(2, [0x60FF, 0x00], [0x00, 0x00, 0x00, 0x00])
-        #     self.SDO_Write(3, [0x60FF, 0x00], [0x00, 0x00, 0x00, 0x00])
 
-
-
-        # network.send_message(0x514, vel_MPS)
-        # network.send_message(0x513, vel2_MPS)
-        # network.send_message(0x512, vel2_MPS)
-        # network.send_message(0x511, vel_MPS)
-
-            # # Set the mode to velocity mode
-            # SDO_msg = CANWrite
-            # SDO_msg.command = "SDO"
-            # SDO_msg.node_id = nodeSDO_msg = CANWrite
-            #     SDO_msg.command = "SDO"
-            #     SDO_msg.node_id = node
-            #     SDO_msg.indices = [0x20, 0x64, 0x04]
-            #     SDO_msg.data = [0x80, 0x4F, 0x12]
-            #     self.WritePub.publish(SDO_msg)
-            # SDO_msg.indices = [0x20, 0x64, 0x04]
-            # SDO_msg.data = [0x80, 0x4F, 0x12]
-            # self.WritePub.publish(SDO_msg)
-            # self.CAN.SDOwrite(node.id, [0x60, 0x60, 0x00], [0x03])
-
-#             # If the system is not in operation mode
-#             if self._STATUS_PERIODIC[node.id-1] == 'OPERATIONAL':
-#                 self.recover()
-#                 self.CAN.NMTwrite(node.id, self._CTW.ENABLE_OP)
-
-#             data = list(speed.to_bytes(4, byteorder='little', signed=True))
-#             self.CAN.SDOwrite(node.id, [0x60, 0xFF, 0x00], data)
     def brake(self):
         """
         Method for braking the RobuROC4 when velocity is set to 0.
         :param node_id: The node for which to change the state to Quickstop
         :return: None
 
-        TODO: Introduce read command for when to renable
         """
+        self.SDO_Write(0, [0x60FF, 0x00], [0x00])
+        self.SDO_Write(1, [0x60FF, 0x00], [0x00])
+        self.SDO_Write(2, [0x60FF, 0x00], [0x00])
+        self.SDO_Write(3, [0x60FF, 0x00], [0x00])
         self.SDO_Write(0, [0x6040, 0x00], [0x02, 0x00, 0x00, 0x00])
         self.SDO_Write(1, [0x6040, 0x00], [0x02, 0x00, 0x00, 0x00])
         self.SDO_Write(2, [0x6040, 0x00], [0x02, 0x00, 0x00, 0x00])
         self.SDO_Write(3, [0x6040, 0x00], [0x02, 0x00, 0x00, 0x00])
         for node in self._CAN_NODES:
-            # self.CAN.NMTwrite(node.id, self._CTW.ENABLE_OP)
-            # self.SDO_Write(node - 1, [0x2062, 0x00], [0x80, 0x4F, 0x12])
             self.SDO_Write(node - 1, [0x2062, 0x04], [0xFF, 0xFF, 0xFF, 0x0F])
             self.SDO_Write(node-1, [0x6040, 0x00], [0x0F, 0x00, 0x00, 0x00])
-
-
-        # for node in self._CAN_NODES:
-            # self.logger.info(f"{self.SDORead(node-1, [0x6040, 0x00])}")
-
-            # self.logger.info(f"Status: {int.from_bytes(self.SDORead(node-1, [0x6040, 0x00]), 'little')}")
-        # speed = [int.from_bytes(self.SDORead(1, [0x606C, 0x00]), byteorder='little'),
-        #          int.from_bytes(self.SDORead(2, [0x606C, 0x00]), byteorder='little'),
-        #          int.from_bytes(self.SDORead(3, [0x606C, 0x00]), byteorder='little'),
-        #          int.from_bytes(self.SDORead(4, [0x606C, 0x00]), byteorder='little')]
-        # self.logger.info(f"Actual velocity: {speed}")
-        # success = [True if x <= 1000 else False for x in speed]
-        # while not all(success):
-        #     for node in self._CAN_NODES:
-        #         speed[node-1] = int.from_bytes(self.SDORead(node-1, [0x606C, 0x00]), byteorder='little')
-        #     success = [True if x <= 1000 else False for x in speed]
-
-
-
 
     def recover(self):
         """
@@ -255,16 +205,10 @@ class RobuROC_CTRL(Node):
         :return: None
         TODO: Enable status bit check to enable proper recovery
         """
-        self.NMT_Write([self._CTW.SHUTDOWN])
-        self.NMT_Write([self._CTW.RESET_AE])
-        self.NMT_Write([self._CTW.RESET])
         self.NMT_Write([self._CTW.ENABLE_OP])
         sleep(2)
-        # self.NMT_Write([self._CTW.ENABLE_OP])
         self.NMT_Write([self._CTW.ENABLE])
         for node in self._CAN_NODES:
-            # self.CAN.NMTwrite(node.id, self._CTW.ENABLE_OP)
-            # self.SDO_Write(node - 1, [0x2062, 0x00], [0x80, 0x4F, 0x12])
             self.SDO_Write(node - 1, [0x2062, 0x04], [0xFF, 0xFF, 0xFF, 0x0F])
             self.SDO_Write(node-1, [0x6040, 0x00], [0x0F, 0x00, 0x00, 0x00])
 
