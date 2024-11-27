@@ -151,14 +151,14 @@ class RobuROC_CTRL(Node):
         """
         check = getattr(message, 'buttons', None) # Make "None" function to run with Twist instead
         if message.buttons[2] == 1:
-            left, right = None, None
+            right, left = None, None
             if message.axes[0] < 0.4:
-                left = round(message.axes[1] + message.axes[0]/ 4, 4) * 2
-                right = round(message.axes[1] - message.axes[0]/ 4, 4) * 2
+                right = round(message.axes[1] + message.axes[0]/ 4, 4) * 2
+                left = round(message.axes[1] - message.axes[0]/ 4, 4) * 2
             else:
                 turn_magnitude = round(message.axes[0] / 2, 4)
-                left = turn_magnitude
-                right = -turn_magnitude
+                right = turn_magnitude
+                left = -turn_magnitude
             vel_MPS = int(left * (self._SCALE_VELOCITY / self._SCALE_RPM_TO_MPS))
             vel2_MPS = int(-right * (self._SCALE_VELOCITY / self._SCALE_RPM_TO_MPS))
             vel_MPS = list(bytearray(vel_MPS.to_bytes(4, byteorder='little', signed=True)))
@@ -177,14 +177,14 @@ class RobuROC_CTRL(Node):
             self.recover()
 
         elif check == None:
-            left, right = None, None
+            right, left = None, None
             if message.angular.z < 0.4:
-                left = round(message.linear.x + message.angular.z/4, 4) * 2
-                right = round(message.linear.x - message.angular.z/4, 4) * 2
+                right = round(message.linear.x + message.angular.z/4, 4) * 2
+                left = round(message.linear.x - message.angular.z/4, 4) * 2
             else:
                 turn_magnitude = round(message.angular.z / 2, 4)
-                left = turn_magnitude
-                right = -turn_magnitude
+                right = turn_magnitude
+                left = -turn_magnitude
             vel_MPS = int(left * (self._SCALE_VELOCITY / self._SCALE_RPM_TO_MPS))
             vel2_MPS = int(-right * (self._SCALE_VELOCITY / self._SCALE_RPM_TO_MPS))
             vel_MPS = list(bytearray(vel_MPS.to_bytes(4, byteorder='little', signed=True)))
