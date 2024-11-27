@@ -36,7 +36,7 @@
     <!--                    Camera                 -->
     <!-- ######################################### -->
     <xacro:property name="camera_off_x" value="0.6" />
-    <xacro:property name="camera_off_z" value="0.45" />
+    <xacro:property name="camera_off_z" value="0.55" />
     <xacro:property name="camera_rot" value="${16*pi/180}" />
     <xacro:property name="camera_1_origin" value="${camera_off_x} 0 ${camera_off_z}" />
     <xacro:property name="camera_2_origin" value="${-camera_off_x} 0 ${camera_off_z}" />

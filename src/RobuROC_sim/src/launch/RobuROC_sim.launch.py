@@ -101,12 +101,12 @@ def generate_launch_description():
     #                                     'queue_size':'30'}.items()
     # )
     # 
-    # LIDAR = IncludeLaunchDescription(
-    #         PythonLaunchDescriptionSource([os.path.join(
-    #             get_package_share_directory(namePackage),'launch','vel_16.launch.py'
-    #         )]), launch_arguments={'use_sim_time':'true',
-    #                               'deskwing':'false'}.items()
-    # )
+    LIDAR = IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([os.path.join(
+                get_package_share_directory(namePackage),'launch','vel_16.launch.py'
+            )]), launch_arguments={'use_sim_time':'true',
+                                  'deskwing':'false'}.items()
+    )
 
     realsense = IncludeLaunchDescription(
             PythonLaunchDescriptionSource([os.path.join(
@@ -116,16 +116,15 @@ def generate_launch_description():
                                    'camera_namespace':'camera1',
                                    'serial_no2':"'829212072207'",
                                    'camera_name':'camera2',
-                                   'camera_namespace':'camera2',
-                                    'tf.translation.x':'-1.2',
-                                    'tf.translation.y':'0.075',
-                                    'tf.translation.z':'-0.4',
-                                    'tf.rotation.yaw':'-180',
-                                    'tf.rotation.pitch':'31.0',
-                                    'tf.rotation.roll':'1.0'}.items()
+                                   'camera_namespace':'camera2'}.items()
                             
     )
-
+# 'tf.translation.x':'-1.2',
+                                    # 'tf.translation.y':'0.075',
+                                    # 'tf.translation.z':'-0.4',
+                                    # 'tf.rotation.yaw':'-180',
+                                    # 'tf.rotation.pitch':'31.0',
+                                    # 'tf.rotation.roll':'1.0'
     # Dual_camera = IncludeLaunchDescription(
     #         PythonLaunchDescriptionSource([os.path.join(
     #             get_package_share_directory(namePackage),'launch','dual_camera.launch.py'
@@ -159,10 +158,10 @@ def generate_launch_description():
         # joint_state_publisher_gui,
         rviz,
         realsense,
-        Pointcloud,
-        VelDriver
+        # Pointcloud,
+        # VelDriver,
         # Dual_camera
-        # LIDAR
+        LIDAR
         # RTAB,
         # SLAM
 
