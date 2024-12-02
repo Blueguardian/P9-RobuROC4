@@ -159,15 +159,6 @@ class RobuROC_CTRL(Node):
                 self.SDO_Write(1, [0x60FF, 0x00], [0,0,0,0])
                 self.SDO_Write(2, [0x60FF, 0x00], [0,0,0,0])
                 self.SDO_Write(3, [0x60FF, 0x00], [0,0,0,0])
-                self.brake()
-        finally:
-            return None
-
-        # elif not message.buttons[2] == 1:
-        #     self.SDO_Write(0, [0x60FF, 0x00], [0x00, 0x00, 0x00, 0x00])
-        #     self.SDO_Write(1, [0x60FF, 0x00], [0x00, 0x00, 0x00, 0x00])
-        #     self.SDO_Write(2, [0x60FF, 0x00], [0x00, 0x00, 0x00, 0x00])
-        #     self.SDO_Write(3, [0x60FF, 0x00], [0x00, 0x00, 0x00, 0x00])
 
     def gamepad_control(self, message):
         if message.buttons[2] == 1:
