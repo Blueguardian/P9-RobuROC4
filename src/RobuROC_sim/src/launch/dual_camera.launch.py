@@ -43,6 +43,10 @@ local_parameters = [{'name': 'camera_name1',            'default': 'camera1', 'd
                     {'name': 'enable_color2',           'default': 'true', 'description': 'enable color stream'},
                     {'name': 'enable_depth1',           'default': 'true', 'description': 'enable depth stream'},
                     {'name': 'enable_depth2',           'default': 'true', 'description': 'enable depth stream'},
+                    {'name': 'enable_sync1',            'default': 'true', 'description': 'enable sync'},
+                    {'name': 'enable_sync2',            'default': 'true', 'description': 'enable sync'},
+                    {'name': 'align_depth1',            'default': 'true', 'description': 'align depth stream'},
+                    {'name': 'align_depth2',            'default': 'true', 'description': 'align depth stream'},
                     {'name': 'pointcloud.enable1',      'default': 'true', 'description': 'enable pointcloud'},
                     {'name': 'pointcloud.enable2',      'default': 'true', 'description': 'enable pointcloud'},
                     {'name': 'spatial_filter.enable1',  'default': 'true', 'description': 'enable_spatial_filter'},
@@ -90,7 +94,7 @@ def generate_launch_description():
     return LaunchDescription(
         rs_launch.declare_configurable_parameters(local_parameters) +
         rs_launch.declare_configurable_parameters(params1) + 
-        rs_launch.declare_configurable_parameters(params2) + 
+        rs_launch.declare_configurable_parameters(params2) +
         [
         OpaqueFunction(function=rs_launch.launch_setup,
                        kwargs = {'params'           : set_configurable_parameters(params1),

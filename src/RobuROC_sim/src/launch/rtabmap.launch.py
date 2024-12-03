@@ -37,6 +37,7 @@ class ConditionalBool(Substitution):
         if self.condition:
             return self.text_if
         else:
+
             return self.text_else
             
 def launch_setup(context, *args, **kwargs):      

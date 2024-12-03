@@ -40,7 +40,7 @@ def generate_launch_description():
         Node(
             package='rtabmap_odom', executable='icp_odometry', output='screen',
             parameters=[{
-              'frame_id':'velodyne',
+              'frame_id':'base_link',
               'odom_frame_id':'odom',
               'wait_for_transform':0.2,
               'expected_update_rate':15.0,
@@ -70,7 +70,7 @@ def generate_launch_description():
         Node(
             package='rtabmap_slam', executable='rtabmap', output='screen',
             parameters=[{
-              'frame_id':'velodyne',
+              'frame_id':'base_link',
               'subscribe_depth':False,
               'subscribe_rgb':False,
               'subscribe_scan_cloud':True,
@@ -109,7 +109,7 @@ def generate_launch_description():
         Node(
             package='rtabmap_viz', executable='rtabmap_viz', output='screen',
             parameters=[{
-              'frame_id':'velodyne',
+              'frame_id':'base_link',
               'odom_frame_id':'odom',
               'subscribe_odom_info':True,
               'subscribe_scan_cloud':True,

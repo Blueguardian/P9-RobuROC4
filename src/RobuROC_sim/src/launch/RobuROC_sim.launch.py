@@ -4,6 +4,7 @@ from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription
 from launch.actions import DeclareLaunchArgument
 from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch_ros.actions import Node
 
 
 from launch_ros.actions import Node
@@ -17,7 +18,7 @@ def generate_launch_description():
     # Specify the name of the package and path to xacro file within the package
     namePackage = 'RobuROC_sim'
     RTABPackage = 'rtabmap_launch'
-    d345Package = 'realsense2_camera'
+    d435Package = 'realsense2_camera'             
     PointcloudPackage = 'velodyne_pointcloud'
     VelDriverPackage = 'velodyne_driver'
     # Path to rviz config
@@ -81,34 +82,26 @@ def generate_launch_description():
             output='screen',
             arguments=['-d', str(my_rviz_path)]
     )
-    # SLAM = IncludeLaunchDescription(
-    #             PythonLaunchDescriptionSource([os.path.join(
-    #                 get_package_share_directory(namePackage),'launch','online_async.launch.py'
-    #             )]), launch_arguments={'use_sim_time': 'true'}.items()
-    # )
 
-    # RTAB = IncludeLaunchDescription(
-    #             PythonLaunchDescriptionSource([os.path.join(
-    #                 get_package_share_directory(RTABPackage),'launch','rtabmap.launch.py'
-    #             )]), launch_arguments={'rtabmap_args':"--delete_db_on_start",
-    #                                     'rgb_topic':'camera1/color/image_raw',
-    #                                     'depth_topic':'camera1/depth/image_raw',
-    #                                     'camera_info_topic':'camera1/color/camera_info',
-    #                                     'frame_id':'camera1_link',
-    #                                     'use_sim_time':'true',
-    #                                     'approx_sync':'true',
-    #                                     'qos':'2',
-    #                                     'queue_size':'30'}.items()
-    # )
-    # 
     LIDAR = IncludeLaunchDescription(
             PythonLaunchDescriptionSource([os.path.join(
                 get_package_share_directory(namePackage),'launch','vel_16.launch.py'
-            )]), launch_arguments={'use_sim_time':'true',
-                                  'deskwing':'false'}.items()
+            )]), launch_arguments={'use_sim_time':'false',
+                                  'deskewing':'false'}.items()
     )
 
-    realsense = IncludeLaunchDescription(
+
+
+
+
+    # realsense_two = IncludeLaunchDescription(
+    #         PythonLaunchDescriptionSource([os.path.join(
+    #             get_package_share_directory(namePackage),'launch','camera_rtab.launch.py'       # trying new rtab lf
+    #         )])
+    # )
+# 
+
+    realsense_dual = IncludeLaunchDescription(
             PythonLaunchDescriptionSource([os.path.join(
                 get_package_share_directory(namePackage),'launch','dual_camera.launch.py'
             )]), launch_arguments={'serial_no1':"'034422070675'",
@@ -117,20 +110,14 @@ def generate_launch_description():
                                    'serial_no2':"'829212072207'",
                                    'camera_name':'camera2',
                                    'camera_namespace':'camera2'}.items()
-                            
+    
     )
-# 'tf.translation.x':'-1.2',
-                                    # 'tf.translation.y':'0.075',
-                                    # 'tf.translation.z':'-0.4',
-                                    # 'tf.rotation.yaw':'-180',
-                                    # 'tf.rotation.pitch':'31.0',
-                                    # 'tf.rotation.roll':'1.0'
-    # Dual_camera = IncludeLaunchDescription(
-    #         PythonLaunchDescriptionSource([os.path.join(
-    #             get_package_share_directory(namePackage),'launch','dual_camera.launch.py'
-    #         )]), launch_arguments={'use_sim_time':'true',
-    #                               'deskwing':'false'}.items
-    # )
+    #                                 # 'tf.translation.x':'-1.2',
+    #                                 # 'tf.translation.y':'0.075',
+    #                                 # 'tf.translation.z':'-0.4',
+    #                                 # 'tf.rotation.yaw':'-180',
+    #                                 # 'tf.rotation.pitch':'31.0',
+    #                                 # 'tf.rotation.roll':'1.0'
 
     Pointcloud = IncludeLaunchDescription(
             PythonLaunchDescriptionSource([os.path.join(
@@ -143,6 +130,43 @@ def generate_launch_description():
                 get_package_share_directory(VelDriverPackage),'launch','velodyne_driver_node-VLP16-launch.py'
             )]),launch_arguments={}.items()
     )    
+    # rtab_vis =         Node(
+            # package='rtabmap_viz', executable='rtabmap_viz', output='screen',
+            # parameters=[{
+        #   'frame_id':'camera_link',
+        #   'subscribe_depth':True,
+        #   'subscribe_odom_info':True,
+        #   'approx_sync':False}],
+            # remappings=[
+        #   ('rgb/image', 'camera1/camera1/color/image_raw'),
+        #   ('rgb/camera_info', 'camera1/camera1/color/camera_info'),
+        #   ('depth/image', 'camera1/camera1/aligned_depth_to_color/image_raw')]
+        #   )
+
+    IMU = Node(
+        package='imu_publisher', executable='imu_publisher', name='imu_publisher_node'
+    )
+
+    # realsense_rtab  = IncludeLaunchDescription(
+            # PythonLaunchDescriptionSource([os.path.join(
+                # get_package_share_directory('rtabmap_launch'),'launch','rtabmap.launch.py'
+            # )]), launch_arguments={'rtabmap_args':"--delete_db_on_start",
+                                #    'rgb_topic':'camera1/camera1/color/image_raw',
+                                #    'depth_topic':'camera1/camera1/depth/image_rect_raw',
+                                #    'camera_info':"camera1/camera1/color/camera_info",
+                                #    'frame_id':'camera1_link',
+                                #    'use_sim_time':'true',
+                                #    'approx_sync':'true',
+                                #    'qos':'2',
+                                #    'queue_size':'30'}.items()
+    # )
+
+    rtab_lidar_rgbd = IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([os.path.join(
+                get_package_share_directory(namePackage),'launch','rtab_lidar_rgbd.launch.py'
+            )])
+    )
+
 
     # Launch the nodes
     return LaunchDescription([
@@ -155,15 +179,16 @@ def generate_launch_description():
         # spawnModelNode,
         node_robot_state_publisher,
         joint_state_publisher,
+        # IMU,
         # joint_state_publisher_gui,
-        rviz,
-        realsense,
+        # rviz,
+        # realsense_dual,
         # Pointcloud,
         # VelDriver,
-        # Dual_camera
-        LIDAR
-        # RTAB,
-        # SLAM
+        #  LIDAR,
+        # realsense_rtab
+        # rtab_vis
+        rtab_lidar_rgbd
 
     ])
 
