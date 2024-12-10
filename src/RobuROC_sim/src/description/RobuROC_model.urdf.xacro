@@ -3,7 +3,7 @@
     <!-- Add all parameters -->
     <xacro:include filename="include_RobuROC.xacro" />    
     <!-- Add platform -->
-    <xacro:include filename="RobuROC_core.urdf.xacro" />
+    <xacro:include filename="RobuROC_core_vis.urdf.xacro" />
     <!-- Add two Realsense D435 RGB-D cameras -->
     <xacro:include filename="camera_depth.xacro"/>
     <!-- <xacro:include filename="real_sense_cameras.xacro"/> -->

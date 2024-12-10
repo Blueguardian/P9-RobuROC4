@@ -203,15 +203,15 @@ def generate_launch_description():
 
         # joint_state_publisher_gui,
         rviz,
-        # realsense_dual,            # launching cams outside of the rtabmap node
+        realsense_dual,            # launching cams outside of the rtabmap node
         # # Pointcloud,
         # # VelDriver,
-        # LIDAR,
+        # #  LIDAR,
         # # realsense_rtab,
         # # rtab_vis,
-        rtab_lidar_rgbd,        # working single cam + lidar mapping. Comment out realsense_dual.
+        # # rtab_lidar_rgbd,        # working single cam + lidar mapping. Comment out realsense_dual.
         # # rtab_dual_rgbd,           # Most complete dual launchfile (lots of args), currently not working:
-        # rtab_dual_simple,            # working dual cam mapping, lidar to be added.
+        rtab_dual_simple,            # working dual cam mapping, lidar to be added.
         # camera_1,
         # two_rgbd_and_lidar
 

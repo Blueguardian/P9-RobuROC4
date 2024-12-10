@@ -149,18 +149,24 @@ class RobuROC_CTRL(Node):
         :param message: Input message, expected to have `buttons` (joystick) or `linear` and `angular` (Twist).
         :return: None
         """
-        check = getattr(message, 'buttons', None) # Make "None" function to run with Twist instead
+        try:
+            getattr(message, 'buttons', self.navigation_control(message))
+        except AttributeError:
+            try:
+                getattr(message, 'linear', self.gamepad_control(message))
+            except AttributeError:
+                self.SDO_Write(0, [0x60FF, 0x00], [0,0,0,0])
+                self.SDO_Write(1, [0x60FF, 0x00], [0,0,0,0])
+                self.SDO_Write(2, [0x60FF, 0x00], [0,0,0,0])
+                self.SDO_Write(3, [0x60FF, 0x00], [0,0,0,0])
+
+    def gamepad_control(self, message):
         if message.buttons[2] == 1:
-            right, left = None, None
-            if message.axes[0] < 0.4:
-                right = round(message.axes[1] + message.axes[0]/ 4, 4) * 2
-                left = round(message.axes[1] - message.axes[0]/ 4, 4) * 2
-            else:
-                turn_magnitude = round(message.axes[0] / 2, 4)
-                right = turn_magnitude
-                left = -turn_magnitude
+            left, right = None, None
+            left = round(message.axes[1] - message.axes[0]/ 4, 4) * 0.5
+            right = -round(message.axes[1] + message.axes[0]/ 4, 4) * 0.5
             vel_MPS = int(left * (self._SCALE_VELOCITY / self._SCALE_RPM_TO_MPS))
-            vel2_MPS = int(-right * (self._SCALE_VELOCITY / self._SCALE_RPM_TO_MPS))
+            vel2_MPS = int(right * (self._SCALE_VELOCITY / self._SCALE_RPM_TO_MPS))
             vel_MPS = list(bytearray(vel_MPS.to_bytes(4, byteorder='little', signed=True)))
             vel2_MPS = list(bytearray(vel2_MPS.to_bytes(4, byteorder='little', signed=True)))
             self.SDO_Write(0, [0x60FF, 0x00], vel_MPS)
@@ -176,29 +182,22 @@ class RobuROC_CTRL(Node):
         if message.buttons[3] == 1:
             self.recover()
 
-        elif check == None:
-            right, left = None, None
-            if message.angular.z < 0.4:
-                right = round(message.linear.x + message.angular.z/4, 4) * 2
-                left = round(message.linear.x - message.angular.z/4, 4) * 2
-            else:
-                turn_magnitude = round(message.angular.z / 2, 4)
-                right = turn_magnitude
-                left = -turn_magnitude
-            vel_MPS = int(left * (self._SCALE_VELOCITY / self._SCALE_RPM_TO_MPS))
-            vel2_MPS = int(-right * (self._SCALE_VELOCITY / self._SCALE_RPM_TO_MPS))
-            vel_MPS = list(bytearray(vel_MPS.to_bytes(4, byteorder='little', signed=True)))
-            vel2_MPS = list(bytearray(vel2_MPS.to_bytes(4, byteorder='little', signed=True)))
-            self.SDO_Write(0, [0x60FF, 0x00], vel_MPS)
-            self.SDO_Write(1, [0x60FF, 0x00], vel2_MPS)
-            self.SDO_Write(2, [0x60FF, 0x00], vel2_MPS)
-            self.SDO_Write(3, [0x60FF, 0x00], vel_MPS)
-
-        # elif not message.buttons[2] == 1:
-        #     self.SDO_Write(0, [0x60FF, 0x00], [0x00, 0x00, 0x00, 0x00])
-        #     self.SDO_Write(1, [0x60FF, 0x00], [0x00, 0x00, 0x00, 0x00])
-        #     self.SDO_Write(2, [0x60FF, 0x00], [0x00, 0x00, 0x00, 0x00])
-        #     self.SDO_Write(3, [0x60FF, 0x00], [0x00, 0x00, 0x00, 0x00])
+    def navigation_control(self, message):
+        if message.angular.z < 0.4:
+            left = round(message.linear.x + message.angular.z / 4, 4) * 2
+            right = round(message.linear.x - message.angular.z / 4, 4) * 2
+        else:
+            turn_magnitude = round(message.angular.z / 2, 4)
+            left = turn_magnitude
+            right = -turn_magnitude
+        vel_MPS = int(left * (self._SCALE_VELOCITY / self._SCALE_RPM_TO_MPS))
+        vel2_MPS = int(-right * (self._SCALE_VELOCITY / self._SCALE_RPM_TO_MPS))
+        vel_MPS = list(bytearray(vel_MPS.to_bytes(4, byteorder='little', signed=True)))
+        vel2_MPS = list(bytearray(vel2_MPS.to_bytes(4, byteorder='little', signed=True)))
+        self.SDO_Write(0, [0x60FF, 0x00], vel_MPS)
+        self.SDO_Write(1, [0x60FF, 0x00], vel2_MPS)
+        self.SDO_Write(2, [0x60FF, 0x00], vel2_MPS)
+        self.SDO_Write(3, [0x60FF, 0x00], vel_MPS)
 
 
     def brake(self):

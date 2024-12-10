@@ -69,18 +69,19 @@ def generate_launch_description():
                 'use_sim_time': use_sim_time,
                 'deskewing': deskewing,
                 # ICP parameters
-                'Icp/PointToPlane': 'true',
-                'Icp/Iterations': '10',
-                'Icp/VoxelSize': '0.1',
-                'Icp/Epsilon': '0.001',
-                'Icp/MaxCorrespondenceDistance': '1'
+                # 'Icp/PointToPlane': 'true',
+                # 'Icp/Iterations': '10',
+                # 'Icp/VoxelSize': '0.1',
+                # 'Icp/Epsilon': '0.001',
+                # 'Icp/MaxCorrespondenceDistance': '1'
             }],
             remappings=[
                 ('scan_cloud', '/velodyne_points'),
-                ('odom', '/odom_lidar')
+                ('odom', '/odom_lidar'),
+                ('scan', 'dummy1')
             ]),
 
-        # RTAB-Map Odometry for RGB-D
+        # # RTAB-Map Odometry for RGB-D
         Node(
             package='rtabmap_odom', executable='rgbd_odometry', output='screen',
             parameters=[{
@@ -90,7 +91,7 @@ def generate_launch_description():
                 # RGB-D odometry parameters
                 'RGBD/LinearUpdate': '0.1',
                 'RGBD/AngularUpdate': '0.05',
-                'approx_sync': False,
+                'approx_sync':True
             }],
             remappings=[
                 ('rgb/image', '/camera1/camera1/color/image_raw'),
@@ -108,15 +109,16 @@ def generate_launch_description():
                 'subscribe_scan_cloud': True,
 
                 # 'subscribe_rgb': True,             #added
+                'subscribe_rgbd': True,
+                # 'subscribe_depth': True,
 
-                'subscribe_depth': True,
                 # 'approx_sync': False,
                 'approx_sync': True,
-                'sync_queue_size': 30,
-                'qos': 1,
+                'sync_queue_size': '30',
+                'qos': 2,
                 'use_sim_time': use_sim_time,
                 # RTAB-Map parameters
-                'RGBD/LinearUpdate': '0.1',
+             'RGBD/LinearUpdate': '0.1',
                 'RGBD/AngularUpdate': '0.05',
                 'RGBD/CreateOccupancyGrid': 'true',
                 'RGBD/ProximityBySpace': 'true',
@@ -135,19 +137,20 @@ def generate_launch_description():
             arguments=['d','--database_path', '/path/to/unified_rtabmap.db']    # shared db for all sensor data.
         ),
 
-        # Visualization
-        Node(
-            package='rtabmap_viz', executable='rtabmap_viz', output='screen',
-            parameters=[{
-                'frame_id': 'base_link',
-                'odom_frame_id': 'odom',
-                'subscribe_odom_info': True,
-                'subscribe_scan_cloud': True,
-                'use_sim_time': use_sim_time
-            }],
-            remappings=[
-                ('scan_cloud', '/velodyne_points'),
-                ('rgb/image', '/camera1/camera1/color/image_raw'),
-                ('depth/image', '/camera1/camera1/depth/image_rect_raw')
-            ]),
+        # # Visualization
+        # Node(
+        #     package='rtabmap_viz', executable='rtabmap_viz', output='screen',
+        #     parameters=[{
+        #         'frame_id': 'base_link',
+        #         'odom_frame_id': 'odom',
+        #         'subscribe_odom': True,
+        #         'subscribe_odom_info': True,
+        #         'subscribe_scan_cloud': True,
+        #         'use_sim_time': use_sim_time
+        #     }],
+        #     remappings=[
+        #         ('scan_cloud', '/velodyne_points'),
+        #         ('rgb/image', '/camera1/camera1/color/image_raw'),
+        #         ('depth/image', '/camera1/camera1/depth/image_rect_raw')
+        #     ]),
     ])

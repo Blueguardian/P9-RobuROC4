@@ -33,7 +33,7 @@ sys.path.append(str(pathlib.Path(__file__).parent.absolute()))
 import os
 from ament_index_python.packages import get_package_share_directory
 sys.path.append(os.path.join(get_package_share_directory('realsense2_camera'), 'launch'))
-import rs_launch
+import rs_launch as rs_launch
 
 local_parameters = [{'name': 'camera_name1',            'default': 'camera1', 'description': 'camera unique name'},
                     {'name': 'camera_name2',            'default': 'camera2', 'description': 'camera unique name'},
