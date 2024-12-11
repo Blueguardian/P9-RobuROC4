@@ -1,4 +1,0 @@
-string command "SDO"
-int16 cobid
-int8 node_id
-int32[] indices
