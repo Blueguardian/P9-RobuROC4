@@ -150,9 +150,17 @@ class RobuROC_CTRL(Node):
         :return: None
         """
         try:
-            getattr(message, 'linear', self.gamepad_control(message))
-        except AttributeError:
-            getattr(message, 'buttons', self.navigation_control(message))
+            if getattr(message, 'linear') and getattr(message, 'angular'):
+                self.navigation_control(message)
+            elif getattr(message, 'buttons') and any(message.buttons):
+                self.gamepad_control(message)
+            else:
+                self.SDO_Write(0, [0x60FF, 0x00], [0x00])
+                self.SDO_Write(1, [0x60FF, 0x00], [0x00])
+                self.SDO_Write(2, [0x60FF, 0x00], [0x00])
+                self.SDO_Write(3, [0x60FF, 0x00], [0x00])
+        except AttributeError as e:
+            self.logger.error(f"Unknown message format, error {e}")
 
     def gamepad_control(self, message):
         if message.buttons[2] == 1:
@@ -175,11 +183,6 @@ class RobuROC_CTRL(Node):
             self.brake()
         if message.buttons[3] == 1:
             self.recover()
-        if not message.buttons[2] == 1:
-            self.SDO_Write(0, [0x60FF, 0x00], [0x00]*8)
-            self.SDO_Write(1, [0x60FF, 0x00], [0x00]*8)
-            self.SDO_Write(2, [0x60FF, 0x00], [0x00]*8)
-            self.SDO_Write(3, [0x60FF, 0x00], [0x00]*8)
 
     def navigation_control(self, message):
         if message.angular.z < 0.4:
