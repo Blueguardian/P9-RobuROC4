@@ -5,6 +5,7 @@ from utils.CTW import CTW
 from utils.COBID import COBID
 from canopen_interfaces.msg import CANWrite, CANSubscription
 from canopen_interfaces.srv import CANRead, CANConnection, CANPeriodicTask, CANSubscribe
+import rclpy
 import rclpy.subscription, logging, time
 from geometry_msgs.msg import Twist
 from rclpy.node import Node
@@ -101,6 +102,7 @@ class RobuROC_CTRL(Node):
                 self.InitPeriodic()
             if not self._HEARTBEAT:
                 self.InitHeartbeat()
+
         else:
             Node.get_logger(self).error(f"Unable to connect to CANBUS")
     def InitHeartbeat(self, heartbeat_time_ms: float = 0.2):
@@ -149,10 +151,23 @@ class RobuROC_CTRL(Node):
         :param message: Input message, expected to have `buttons` (joystick) or `linear` and `angular` (Twist).
         :return: None
         """
+        # joy_msg = self.get_topic_names_and_types()
+        # self.logger.info(f"{type(message)} + {type(Joy())}")
+        #
+        # self.logger.info(f"{joy_msg}")
         try:
-            getattr(message, 'linear', self.gamepad_control(message))
-        except AttributeError:
-            getattr(message, 'buttons', self.navigation_control(message))
+            if type(message) == type(Joy()) and any(message.buttons):
+                self.gamepad_control(message)
+            elif type(message) == type(Twist()):
+                self.navigation_control(message)
+            elif type(message) == type(Joy()) and not any(message.buttons):
+                time.sleep(0.01)
+                self.SDO_Write(0, [0x60FF, 0x00], [0x00])
+                self.SDO_Write(1, [0x60FF, 0x00], [0x00])
+                self.SDO_Write(2, [0x60FF, 0x00], [0x00])
+                self.SDO_Write(3, [0x60FF, 0x00], [0x00])
+        except Exception as e:
+            self.logger.error(f"Unknown message format; error {e}")
 
     def gamepad_control(self, message):
         if message.buttons[2] == 1:
@@ -167,14 +182,19 @@ class RobuROC_CTRL(Node):
             self.SDO_Write(1, [0x60FF, 0x00], vel2_MPS)
             self.SDO_Write(2, [0x60FF, 0x00], vel2_MPS)
             self.SDO_Write(3, [0x60FF, 0x00], vel_MPS)
-        if message.buttons[1] == 1:
+        elif message.buttons[1] == 1:
             self.SDO_Write(0, [0x60FF, 0x00], [0x00])
             self.SDO_Write(1, [0x60FF, 0x00], [0x00])
             self.SDO_Write(2, [0x60FF, 0x00], [0x00])
             self.SDO_Write(3, [0x60FF, 0x00], [0x00])
             self.brake()
-        if message.buttons[3] == 1:
+        elif message.buttons[3] == 1:
             self.recover()
+        # elif not any(message.buttons):
+        #     self.SDO_Write(0, [0x60FF, 0x00], [0x00])
+        #     self.SDO_Write(1, [0x60FF, 0x00], [0x00])
+        #     self.SDO_Write(2, [0x60FF, 0x00], [0x00])
+        #     self.SDO_Write(3, [0x60FF, 0x00], [0x00])
 
     def navigation_control(self, message):
         if message.angular.z < 0.4:
@@ -370,7 +390,6 @@ def main():
     ctrl.setup()
 
     try:
-        time.sleep(1)
         rclpy.spin(ctrl)
     except Exception as e:
         print(e)
