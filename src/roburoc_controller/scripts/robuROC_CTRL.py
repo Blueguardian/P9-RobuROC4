@@ -150,23 +150,15 @@ class RobuROC_CTRL(Node):
         :return: None
         """
         try:
-            if getattr(message, 'linear') and getattr(message, 'angular'):
-                self.navigation_control(message)
-            elif getattr(message, 'buttons') and any(message.buttons):
-                self.gamepad_control(message)
-            else:
-                self.SDO_Write(0, [0x60FF, 0x00], [0x00])
-                self.SDO_Write(1, [0x60FF, 0x00], [0x00])
-                self.SDO_Write(2, [0x60FF, 0x00], [0x00])
-                self.SDO_Write(3, [0x60FF, 0x00], [0x00])
-        except AttributeError as e:
-            self.logger.error(f"Unknown message format, error {e}")
+            getattr(message, 'linear', self.gamepad_control(message))
+        except AttributeError:
+            getattr(message, 'buttons', self.navigation_control(message))
 
     def gamepad_control(self, message):
         if message.buttons[2] == 1:
             left, right = None, None
-            left = round(message.axes[1] - message.axes[0]/ 4, 4) * 0.5
-            right = -round(message.axes[1] + message.axes[0]/ 4, 4) * 0.5
+            left = round(message.axes[1] - message.axes[0]/ 4, 4) * 1.0
+            right = -round(message.axes[1] + message.axes[0]/ 4, 4) * 1.0
             vel_MPS = int(left * (self._SCALE_VELOCITY / self._SCALE_RPM_TO_MPS))
             vel2_MPS = int(right * (self._SCALE_VELOCITY / self._SCALE_RPM_TO_MPS))
             vel_MPS = list(bytearray(vel_MPS.to_bytes(4, byteorder='little', signed=True)))
@@ -223,9 +215,8 @@ class RobuROC_CTRL(Node):
         :return: None
         """
         self.NMT_Write([self._CTW.RESET])
-        self.NMT_Write([self._CTW.RESET_AE])
         self.NMT_Write([self._CTW.ENABLE_OP])
-        sleep(2)
+        sleep(0.5)
         self.NMT_Write([self._CTW.ENABLE])
         for node in self._CAN_NODES:
             self.SDO_Write(node-1, [0x6040, 0x00], [0x0F, 0x00, 0x00, 0x00])
