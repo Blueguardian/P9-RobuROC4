@@ -16,46 +16,21 @@ def generate_launch_description():
     robotXacroName = 'RobuROC'  # Must have same name as in xacro file
 
     # Specify the name of the package and path to xacro file within the package
-    namePackage = 'RobuROC_sim'
-    RTABPackage = 'rtabmap_launch'
-    d435Package = 'realsense2_camera'             
+    namePackage = 'RobuROC_sim'            
     PointcloudPackage = 'velodyne_pointcloud'
     VelDriverPackage = 'velodyne_driver'
+
     # Path to rviz config
     my_base_path = 'src/RobuROC_sim/src/rviz'   #path to all config files
     my_rviz_path = my_base_path+'/RobuROC_vis.rviz'       #config file for rviz
 
-    # Use xacro to process the file
-    # xacro_file = os.path.join(get_package_share_directory(namePackage),file_subpath)
-    # robot_description_raw = xacro.process_file(xacro_file).toxml()
-
-
+    # Path to model description
     modelFileRelativePath = 'description/RobuROC_model.urdf.xacro'
-    worldFileRelativePath = 'worlds/RobuROC_env.world'
-    # worldFileRelativePath = 'worlds/empty_world.world'
-    # worldFileRelativePath = 'worlds/moon.world'
-
-    pkg_project = get_package_share_directory(namePackage)
-
     pathModelFile = os.path.join(get_package_share_directory(namePackage),modelFileRelativePath)
-
-    pathWolrdFile = os.path.join(get_package_share_directory(namePackage),worldFileRelativePath)
-
     robotDescription = xacro.process_file(pathModelFile).toxml()
-
-    gazebo_rosPackageLaunch=PythonLaunchDescriptionSource(os.path.join(get_package_share_directory('gazebo_ros'),'launch','gazebo.launch.py'))
-
-    gazeboLaunch=IncludeLaunchDescription(gazebo_rosPackageLaunch,launch_arguments={'world': pathWolrdFile}.items())
 
 
     # Configure the nodes
-    spawnModelNode = Node(
-        package='gazebo_ros',
-        executable='spawn_entity.py',
-        arguments=['-topic','robot_description','-entity',robotXacroName],
-        output='screen'
-    )
-
     node_robot_state_publisher = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
@@ -69,11 +44,7 @@ def generate_launch_description():
         executable='joint_state_publisher',
         output='screen', # add other parameters here if required
     )    
-    # joint_state_publisher_gui = Node(
-        # package='joint_state_publisher_gui',
-        # executable='joint_state_publisher_gui',
-        # output='screen', # add other parameters here if required
-    # )  
+ 
     rviz = Node(
             package='rviz2',
             # namespace='',
@@ -81,23 +52,6 @@ def generate_launch_description():
             name='rviz2',
             output='screen',
             arguments=['-d', str(my_rviz_path)]
-    )
-
-    LIDAR = IncludeLaunchDescription(
-            PythonLaunchDescriptionSource([os.path.join(
-                get_package_share_directory(namePackage),'launch','vel_16.launch.py'
-            )]), launch_arguments={'use_sim_time':'false',
-                                  'deskewing':'false'}.items()
-    )
-
-
-
-
-
-    camera_1 = IncludeLaunchDescription(
-            PythonLaunchDescriptionSource([os.path.join(
-                get_package_share_directory(namePackage),'launch','camera_1.launch.py'       # trying new rtab lf
-            )])
     )
 
 
@@ -113,115 +67,23 @@ def generate_launch_description():
 
     
     )
-    #                                 # 'tf.translation.x':'-1.2',
-    #                                 # 'tf.translation.y':'0.075',
-    #                                 # 'tf.translation.z':'-0.4',
-    #                                 # 'tf.rotation.yaw':'-180',
-    #                                 # 'tf.rotation.pitch':'31.0',
-    #                                 # 'tf.rotation.roll':'1.0'
-
-    Pointcloud = IncludeLaunchDescription(
-            PythonLaunchDescriptionSource([os.path.join(
-                get_package_share_directory(PointcloudPackage),'launch','velodyne_transform_node-VLP16-launch.py'
-            )])
-    )
-
-    VelDriver = IncludeLaunchDescription(
-            PythonLaunchDescriptionSource([os.path.join(
-                get_package_share_directory(VelDriverPackage),'launch','velodyne_driver_node-VLP16-launch.py'
-            )]),launch_arguments={}.items()
-    )    
-    rtab_vis =         Node(
-            package='rtabmap_viz', executable='rtabmap_viz', output='screen',
-            parameters=[{
-          'frame_id':'camera_link',
-          'subscribe_depth':False,
-          'subscribe_rgbd': True,
-          'subscribe_odom_info':True,
-          'rgbd_cameras': 2,
-          'approx_sync':False}],
-            remappings=[
-                ("rgbd_image0", '/camera1/rgbd_image'),
-                ("rgbd_image1", '/camera2/rgbd_image'),
-          # ('rgb/image', 'camera1/camera1/color/image_raw'),
-          # ('rgb/camera_info', 'camera1/camera1/color/camera_info'),
-          # ('depth/image', 'camera1/camera1/aligned_depth_to_color/image_raw')
-          ]
-          )
-
-    IMU = Node(
-        package='imu_publisher', executable='imu_publisher', name='imu_publisher_node'
-    )
-
-    realsense_rtab  = IncludeLaunchDescription(
-            PythonLaunchDescriptionSource([os.path.join(
-                get_package_share_directory('rtabmap_launch'),'launch','rtabmap.launch.py'
-            )]), launch_arguments={'rtabmap_args':"--delete_db_on_start",
-                                   'rgb_topic':'camera1/camera1/color/image_raw',
-                                   'depth_topic':'camera1/camera1/depth/image_rect_raw',
-                                   'camera_info':"camera1/camera1/color/camera_info",
-                                   'frame_id':'camera1_link',
-                                   'use_sim_time':'true',
-                                   'approx_sync':'true',
-                                   'qos':'2',
-                                   'queue_size':'30'}.items()
-    )
-
-    rtab_lidar_rgbd = IncludeLaunchDescription(
-            PythonLaunchDescriptionSource([os.path.join(
-                get_package_share_directory(namePackage),'launch','rtab_lidar_rgbd.launch.py'
-            )])
-    )
-    rtab_dual_rgbd = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([os.path.join(
-            get_package_share_directory(namePackage), 'launch', 'rtab_dual_rgbd.launch.py'
-        )])
-    )
-    rtab_dual_simple = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([os.path.join(
-            get_package_share_directory(namePackage), 'launch', 'rtab_dual_simple.launch.py'
-        )]),
-    )
-
-    two_rgbd_and_lidar = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([os.path.join(
-            get_package_share_directory(namePackage), 'launch', '2rgbd_lidar.launch.py'
-        )]),
-    )
 
     lidar_odom_lidarrgbd_map = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
             get_package_share_directory(namePackage), 'launch', 'rgbd_lidar.launch.py'
         )]),
     )
+
     # Launch the nodes
     return LaunchDescription([
         DeclareLaunchArgument(
             'use_sim_time',
             default_value='false',
             description='Use sim time if true'),        
-        
-        # gazeboLaunch,
-        # spawnModelNode,
-        # IMU,
         node_robot_state_publisher,
         joint_state_publisher,
-
-        # joint_state_publisher_gui,
         rviz,
         realsense_dual,            # launching cams outside of the rtabmap node
-        # # Pointcloud,
-        # # VelDriver,
-        # #  LIDAR,
-        # # realsense_rtab,
-        # # rtab_vis,
-        # # rtab_lidar_rgbd,        # working single cam + lidar mapping. Comment out realsense_dual.
-        # # rtab_dual_rgbd,           # Most complete dual launchfile (lots of args), currently not working:
-        # rtab_dual_simple,            # working dual cam mapping, lidar to be added.
-        # camera_1,
-        # two_rgbd_and_lidar
         lidar_odom_lidarrgbd_map
 
     ])
-
-#  ros2 launch slam_toolbox online_async_launch.py params_file:=./src/RobuROC_sim/src/config/mapper_params_online_async.yaml use_sim_time:=true
