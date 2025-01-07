@@ -21,6 +21,7 @@
 # You should be able to visualize now, with the right rviz config, the camera's SLAM
 # Have fun!
 
+
  
 
 import os
@@ -59,8 +60,8 @@ def generate_launch_description():
             # ("depth/image", '/camera1/depth/image_rect_raw'),
             # ("rgb/camera_info", '/camera1/color/camera_info'),
             # ("rgbd_image", 'rgbd_image')],
-            ("rgb/image", "camera1/color/image_raw"),
-            ("depth/image", "camera1/depth/image_rect_raw"),
+            ("rgb/image", "camera1/camera1/color/image_raw"),
+            ("depth/image", "camera1/camera1/depth/image_rect_raw"),
             ("rgb/camera_info", "camera1/color/camera_info"),
             ("rgbd_image", 'rgbd_image')],
         namespace='camera1'
@@ -79,8 +80,8 @@ def generate_launch_description():
             # ("depth/image", '/camera2/depth/image_rect_raw'),
             # ("rgb/camera_info", '/camera2/color/camera_info'),
             # ("rgbd_image", 'rgbd_image')],
-            ("rgb/image", "camera2/color/image_raw"),
-            ("depth/image", "camera2/depth/image_rect_raw"),
+            ("rgb/image", "camera2/camera2/color/image_raw"),
+            ("depth/image", "camera2/camera2/depth/image_rect_raw"),
             ("rgb/camera_info", "camera2/color/camera_info"),
             ("rgbd_image", 'rgbd_image')],
         namespace='camera2'
@@ -92,13 +93,13 @@ def generate_launch_description():
         package='rtabmap_odom', executable='rgbd_odometry', output="screen",
         parameters=[{
             "frame_id": 'base_link',
-            "odom_frame_id": 'odom',
+            "odom_frame_id": 'odom_rgb',
             "publish_tf": True,
-            "approx_sync": True,
+            "approx_sync": False,
             "subscribe_rgbd": True,
             # "rbgd_cameras": 2,
 
-            'use_sim_time': False,
+            'use_sim_time': True,
             # RGB-D odometry parameters
             'RGBD/LinearUpdate': '0.1',
             'RGBD/AngularUpdate': '0.05',
@@ -107,7 +108,7 @@ def generate_launch_description():
             ("rgbd_image", '/camera1/rgbd_image'),
             # ("rgbd_image0", '/camera1/rgbd_image'),
             # ("rgbd_image1", '/camera2/rgbd_image'),
-            ('odom', '/odom'),
+            # ('odom', '/odom'),
             # ("rgbd_image", '/camera1/rgbd_image'),
 ],
         arguments=["--delete_db_on_start", ''],
@@ -149,35 +150,6 @@ def generate_launch_description():
         namespace='rtabmap'
     )
 
-    voxelcloud1_node = launch_ros.actions.Node(
-        package='rtabmap_util', executable='point_cloud_xyzrgb', name='point_cloud_xyzrgb1', output='screen',
-        parameters=[{
-            "approx_sync": True,
-        }],
-        remappings=[
-            # ('rgb/image', '/camera1/color/image_rect_raw'),
-            # ('depth/image', '/camera1/depth/image_rect_raw'),
-            # ('rgb/camera_info', '/camera1/color/camera_info'),
-            ("rgb/image", "/camera1/camera1/color/image_raw"),
-            ("depth/image", "/camera1/camera1/depth/image_rect_raw"),
-            ("rgb/camera_info", "/camera1/camera1/color/camera_info"),
-            ('rgbd_image', 'rgbd_image'),
-            ('cloud', 'voxel_cloud1')]
-    )
-
-    voxelcloud2_node = launch_ros.actions.Node(
-        package='rtabmap_util', executable='point_cloud_xyzrgb', name='point_cloud_xyzrgb2', output='screen',
-        parameters=[{
-            "approx_sync": True,
-        }],
-        remappings=[
-            ("rgb/image", "/camera2/camera2/color/image_raw"),
-            ("depth/image", "/camera2/camera2/depth/image_rect_raw"),
-            ("rgb/camera_info", "/camera2/camera2/color/camera_info"),
-            ('rgbd_image', '/camera2/rgbd_image'),
-            ('cloud', 'voxel_cloud2')]
-    )
-
 
     return launch.LaunchDescription(
         [
@@ -186,7 +158,5 @@ def generate_launch_description():
             rgbd_sync2_node,
             rgbd_odometry_node,
             slam_node,
-            # voxelcloud1_node,
-            # voxelcloud2_node,
         ]
     )

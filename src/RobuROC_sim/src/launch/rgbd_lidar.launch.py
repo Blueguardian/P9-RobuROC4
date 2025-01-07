@@ -187,49 +187,6 @@ def generate_launch_description():
         namespace='rtabmap'
     )
 
-    voxelcloud1_node = launch_ros.actions.Node(
-        package='rtabmap_util', executable='point_cloud_xyzrgb', name='point_cloud_xyzrgb1', output='screen',
-        parameters=[{
-            "approx_sync": True,
-        }],
-        remappings=[
-            # ('rgb/image', '/camera1/color/image_rect_raw'),
-            # ('depth/image', '/camera1/depth/image_rect_raw'),
-            # ('rgb/camera_info', '/camera1/color/camera_info'),
-            ("rgb/image", "/camera1/camera1/color/image_raw"),
-            ("depth/image", "/camera1/camera1/depth/image_rect_raw"),
-            ("rgb/camera_info", "/camera1/camera1/color/camera_info"),
-            ('rgbd_image', 'rgbd_image'),
-            ('cloud', 'voxel_cloud1')]
-    )
-
-    voxelcloud2_node = launch_ros.actions.Node(
-        package='rtabmap_util', executable='point_cloud_xyzrgb', name='point_cloud_xyzrgb2', output='screen',
-        parameters=[{
-            "approx_sync": True,
-        }],
-        remappings=[
-            ("rgbd_image0", '/camera1/rgbd_image'),
-            ("rgbd_image1", '/camera2/rgbd_image'),
-            # ("rgbd_image0", '/camera1/rgbd_image'),
-            # ("rgbd_image1", '/camera2/rgbd_image'),
-            ('scan_cloud', '/velodyne_points')],
-    )
-
-    rtab_vis = launch_ros.actions.Node(
-            package='rtabmap_viz', executable='rtabmap_viz', output='screen',
-            parameters=[{
-                'frame_id': 'base_link',
-                'odom_frame_id': 'odom',
-                'subscribe_odom_info': True,
-                'subscribe_scan_cloud': True,
-                'use_sim_time': False
-            }],
-            remappings=[
-                ('scan_cloud', '/velodyne_points'),
-                ('rgb/image', '/camera1/camera1/color/image_raw'),
-                ('depth/image', '/camera1/camera1/depth/image_rect_raw')
-            ])
 
     return launch.LaunchDescription(
         [
@@ -237,11 +194,7 @@ def generate_launch_description():
             Pointcloud_vel,
             rgbd_sync1_node,
             rgbd_sync2_node,
-            # rgbd_odometry_node,
             scan_cloud,
             slam_node,
-            # voxelcloud1_node,
-            # voxelcloud2_node,
-            # rtab_vis
         ]
     )

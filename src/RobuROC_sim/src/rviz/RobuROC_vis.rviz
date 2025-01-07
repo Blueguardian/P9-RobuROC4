@@ -7,7 +7,7 @@ Panels:
         - /Global Options1
         - /Status1
         - /RobuROC1
-        - /Map1/Status1
+        - /Map1
         - /PointCloud23
       Splitter Ratio: 0.5011441707611084
     Tree Height: 649
@@ -28,7 +28,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: PointCloud2
+    SyncSource: ""
 Visualization Manager:
   Class: ""
   Displays:
@@ -218,8 +218,8 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 3.879023551940918
-        Min Value: -0.43904560804367065
+        Max Value: 2.8220138549804688
+        Min Value: -0.00036269426345825195
         Value: true
       Axis: Z
       Channel Name: intensity
@@ -227,7 +227,7 @@ Visualization Manager:
       Color: 255; 255; 255
       Color Transformer: AxisColor
       Decay Time: 0
-      Enabled: true
+      Enabled: false
       Invert Rainbow: true
       Max Color: 255; 255; 255
       Max Intensity: 0
@@ -248,7 +248,7 @@ Visualization Manager:
         Value: /velodyne_points
       Use Fixed Frame: true
       Use rainbow: true
-      Value: true
+      Value: false
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
@@ -261,7 +261,7 @@ Visualization Manager:
       Color: 255; 255; 255
       Color Transformer: RGB8
       Decay Time: 0
-      Enabled: true
+      Enabled: false
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Max Intensity: 4096
@@ -282,7 +282,7 @@ Visualization Manager:
         Value: /camera1/camera1/depth/color/points
       Use Fixed Frame: true
       Use rainbow: true
-      Value: true
+      Value: false
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
@@ -295,7 +295,7 @@ Visualization Manager:
       Color: 255; 255; 255
       Color Transformer: RGB8
       Decay Time: 0
-      Enabled: true
+      Enabled: false
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Max Intensity: 4096
@@ -316,7 +316,7 @@ Visualization Manager:
         Value: /camera2/camera2/depth/color/points
       Use Fixed Frame: true
       Use rainbow: true
-      Value: true
+      Value: false
     - Alpha: 0.699999988079071
       Class: rviz_default_plugins/Map
       Color Scheme: map
@@ -345,15 +345,15 @@ Visualization Manager:
         Min Value: -10
         Value: true
       Axis: Z
-      Channel Name: intensity
+      Channel Name: ring
       Class: rviz_default_plugins/PointCloud2
       Color: 255; 255; 255
-      Color Transformer: RGB8
+      Color Transformer: Intensity
       Decay Time: 0
       Enabled: true
       Invert Rainbow: false
       Max Color: 255; 255; 255
-      Max Intensity: 4096
+      Max Intensity: 0
       Min Color: 0; 0; 0
       Min Intensity: 0
       Name: PointCloud2
@@ -368,14 +368,14 @@ Visualization Manager:
         Filter size: 10
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /rtabmap/octomap_obstacles
+        Value: /odom_local_scan_map
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: base_link
+    Fixed Frame: map
     Frame Rate: 30
   Name: root
   Tools:
@@ -418,7 +418,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/ThirdPersonFollower
-      Distance: 11.740968704223633
+      Distance: 14.592145919799805
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -433,10 +433,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.2803982198238373
+      Pitch: 0.34039756655693054
       Target Frame: base_link
       Value: ThirdPersonFollower (rviz_default_plugins)
-      Yaw: 5.681722640991211
+      Yaw: 6.146727085113525
     Saved: ~
 Window Geometry:
   Displays:
@@ -454,5 +454,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1920
-  X: 71
-  Y: 28
+  X: 0
+  Y: 27
