@@ -161,7 +161,13 @@ class RobuROC_CTRL(Node):
             elif type(message) == type(Twist()):
                 self.navigation_control(message)
             elif type(message) == type(Joy()) and not any(message.buttons):
-                time.sleep(0.01)
+                time.sleep(0.01) # NO FUCKING CLUE?!?!??! It works
+                self.SDO_Write(0, [0x60FF, 0x00], [0x00])
+                self.SDO_Write(1, [0x60FF, 0x00], [0x00])
+                self.SDO_Write(2, [0x60FF, 0x00], [0x00])
+                self.SDO_Write(3, [0x60FF, 0x00], [0x00])
+            elif type(message) != type(Joy()) and type(message) != type(Twist()):
+                time.sleep(0.01)  # NO FUCKING CLUE?!?!??! It works
                 self.SDO_Write(0, [0x60FF, 0x00], [0x00])
                 self.SDO_Write(1, [0x60FF, 0x00], [0x00])
                 self.SDO_Write(2, [0x60FF, 0x00], [0x00])
@@ -356,34 +362,30 @@ class RobuROC_CTRL(Node):
         return response.result()
 
     def Subscription_CB(self, message):
-        return None
-        # if COBID in self._COBID.ACT_CURRENT.ALL:
-        #     current = int.from_bytes(data, 'little', signed=True)
-        #     current_amps = current * (pow(2, 13) / 40.0) # to amps
-        #     node_id = COBID - 0x380
-        #     self._CURRENT_PERIODIC[node_id-1] = current_amps
-        # else:
-        #     self.logger.log(logging.ERROR, f"COBID {COBID} not recognised")
-        #
-        # if COBID in self._COBID.ACT_VELOCITY.ALL:
-        #     velocity = int.from_bytes(data, 'little', signed=True)
-        #     velocity_mps = velocity / ((((pow(2, 17) / (2 * 20000) * pow(2, 19)) / 1000) * 32) * (((2.0 * 3.14) / 60.0) * 0.28)) # To MPS
-        #     node_id = COBID - 0x370
-        #     self._VELOCITY_PERIODIC[node_id-1] = velocity_mps
-        # else:
-        #     self.logger.log(logging.ERROR, f"COBID {COBID} not recognized")
-        #
-        # if COBID in self._COBID.HEARTBEAT.ALL:
-        #     status = int.from_bytes(data, 'little', signed=True)
-        #     nodeid = COBID - 0x700
-        #     if status == 0x85 or status == 0x05:
-        #         self._STATUS_PERIODIC[nodeid-1] = 'OPERATIONAL'
-        #     elif status == 0x84 or status == 0x04:
-        #         self._STATUS_PERIODIC[nodeid-1] = 'STOPPED'
-        #     elif status == 0xFF or status == 0x7F:
-        #         self._STATUS_PERIODIC[nodeid-1] = 'PRE-OPERATIONAL'
-        #     else:
-        #         self._STATUS_PERIODIC[nodeid-1] = 'UNKNOWN'
+        if message.cobid in self._COBID.ACT_CURRENT.ALL:
+            current = int.from_bytes(message.data, 'little', signed=True)
+            current_amps = current * (pow(2, 13) / 40.0) # to amps
+            self._CURRENT_PERIODIC[message.node_id-1] = current_amps
+        else:
+            self.logger.log(logging.ERROR, f"COBID {message.cobid} not recognised")
+
+        if message.cobid in self._COBID.ACT_VELOCITY.ALL:
+            velocity = int.from_bytes(message.data, 'little', signed=True)
+            velocity_mps = velocity / ((((pow(2, 17) / (2 * 20000) * pow(2, 19)) / 1000) * 32) * (((2.0 * 3.14) / 60.0) * 0.28)) # To MPS
+            self._VELOCITY_PERIODIC[message.node_id-1] = velocity_mps
+        else:
+            self.logger.log(logging.ERROR, f"COBID {message.cobid} not recognized")
+
+        if message.cobid in self._COBID.HEARTBEAT.ALL:
+            status = int.from_bytes(message.data, 'little', signed=True)
+            if status == 0x85 or status == 0x05:
+                self._STATUS_PERIODIC[message.node_id-1] = 'OPERATIONAL'
+            elif status == 0x84 or status == 0x04:
+                self._STATUS_PERIODIC[message.node_id-1] = 'STOPPED'
+            elif status == 0xFF or status == 0x7F:
+                self._STATUS_PERIODIC[message.node_id-1] = 'PRE-OPERATIONAL'
+            else:
+                self._STATUS_PERIODIC[message.node_id-1] = 'UNKNOWN'
 def main():
     rclpy.init()
     ctrl = RobuROC_CTRL()

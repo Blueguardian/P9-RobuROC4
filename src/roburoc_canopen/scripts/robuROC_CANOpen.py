@@ -441,7 +441,7 @@ class RobuROC_Canopen(Node):
         :param timeout: Timeout in seconds for the operation.
         :param timeout_count: Amount of tries to read
         :return: Data read from the node, or raises an exception on failure.
-        TODO: Aquire list of PDO mappings
+        TODO: Acquire list of PDO mappings
         TODO: Adjust to work with nodes
         """
         timeout_counter = 0
