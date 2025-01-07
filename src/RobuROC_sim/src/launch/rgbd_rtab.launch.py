@@ -133,7 +133,7 @@ def generate_launch_description():
 
     return launch.LaunchDescription(
         [
-        rviz_node,
+        # rviz_node,
         rgbd_sync1_node,
         rgbd_sync2_node,
         rgbd_odometry_node,

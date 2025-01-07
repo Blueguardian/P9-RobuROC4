@@ -195,25 +195,14 @@ def generate_launch_description():
             default_value='false',
             description='Use sim time if true'),        
         
-        # gazeboLaunch,
+        gazeboLaunch,
         # spawnModelNode,
         # IMU,
         node_robot_state_publisher,
         joint_state_publisher,
-
-        # joint_state_publisher_gui,
         rviz,
-        # realsense_dual,            # launching cams outside of the rtabmap node
-        # # Pointcloud,
-        # # VelDriver,
-        # LIDAR,
-        # # realsense_rtab,
-        # # rtab_vis,
         rtab_lidar_rgbd,        # working single cam + lidar mapping. Comment out realsense_dual.
-        # # rtab_dual_rgbd,           # Most complete dual launchfile (lots of args), currently not working:
-        # rtab_dual_simple,            # working dual cam mapping, lidar to be added.
-        # camera_1,
-        # two_rgbd_and_lidar
+
 
     ])
 
