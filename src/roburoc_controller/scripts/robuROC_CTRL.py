@@ -54,6 +54,7 @@ class RobuROC_CTRL(Node):
 
         # Set up publisher
         self.WritePub = self.create_publisher(CANWrite, '/roburoc/CANWrite', 10)
+        self.SpeedPub = self.create_publisher(CANSubscribe, '/roburoc/Velocity', 10)
 
         # Set up service clients
         self.ConnectionSrvCli = self.create_client(CANConnection, '/roburoc/CANConnection')
@@ -140,34 +141,35 @@ class RobuROC_CTRL(Node):
 
     def setSpeed(self, message):
         """
-        Sets the speed of the individual wheels based on joystick input or Twist messages.
-
-        - If `message` has `buttons` (e.g., joystick message):
-            - '▲': Set wheel speeds based on linear and angular axes.
+        Set the speed of the individual wheels based on the type of message received.
+        - If Joy message (Joystick message) and has Non-zero data:
+            - '▲' + Left Stick: Set wheel speeds based on linear and angular axes.
             - `■`: Brakes the vehicle.
             - `⬤`: Recovers from an error state.
-        - If `message` lacks `buttons` (e.g., Twist message): Use `linear.x` and `angular.z` to set wheel speeds.
+        - If Twist message:
+            - `linear.x` and `angular.z` to set wheel speeds.
+        - If Joy message and only has zero-data:
+            - Stop all motion
+        - If neither type message
+            - Stop all motion
 
-        :param message: Input message, expected to have `buttons` (joystick) or `linear` and `angular` (Twist).
+        :param message: Input message, expected to by of type Joy (joystick) or Twist (Navigation).
         :return: None
         """
-        # joy_msg = self.get_topic_names_and_types()
-        # self.logger.info(f"{type(message)} + {type(Joy())}")
-        #
-        # self.logger.info(f"{joy_msg}")
+
         try:
             if type(message) == type(Joy()) and any(message.buttons):
                 self.gamepad_control(message)
             elif type(message) == type(Twist()):
                 self.navigation_control(message)
             elif type(message) == type(Joy()) and not any(message.buttons):
-                time.sleep(0.01) # NO FUCKING CLUE?!?!??! It works
+                time.sleep(0.01) # Ensures that the CANBus is not overloaded
                 self.SDO_Write(0, [0x60FF, 0x00], [0x00])
                 self.SDO_Write(1, [0x60FF, 0x00], [0x00])
                 self.SDO_Write(2, [0x60FF, 0x00], [0x00])
                 self.SDO_Write(3, [0x60FF, 0x00], [0x00])
             elif type(message) != type(Joy()) and type(message) != type(Twist()):
-                time.sleep(0.01)  # NO FUCKING CLUE?!?!??! It works
+                time.sleep(0.01)  # Ensures that the CANBus is not overloaded
                 self.SDO_Write(0, [0x60FF, 0x00], [0x00])
                 self.SDO_Write(1, [0x60FF, 0x00], [0x00])
                 self.SDO_Write(2, [0x60FF, 0x00], [0x00])
@@ -176,7 +178,7 @@ class RobuROC_CTRL(Node):
             self.logger.error(f"Unknown message format; error {e}")
 
     def gamepad_control(self, message):
-        if message.buttons[2] == 1:
+        if message.buttons[2] == 1: # '▲'
             left, right = None, None
             left = round(message.axes[1] - message.axes[0]/ 4, 4) * 1.0
             right = -round(message.axes[1] + message.axes[0]/ 4, 4) * 1.0
@@ -196,11 +198,6 @@ class RobuROC_CTRL(Node):
             self.brake()
         elif message.buttons[3] == 1:
             self.recover()
-        # elif not any(message.buttons):
-        #     self.SDO_Write(0, [0x60FF, 0x00], [0x00])
-        #     self.SDO_Write(1, [0x60FF, 0x00], [0x00])
-        #     self.SDO_Write(2, [0x60FF, 0x00], [0x00])
-        #     self.SDO_Write(3, [0x60FF, 0x00], [0x00])
 
     def navigation_control(self, message):
         if message.angular.z < 0.4:
@@ -362,6 +359,7 @@ class RobuROC_CTRL(Node):
         return response.result()
 
     def Subscription_CB(self, message):
+
         if message.cobid in self._COBID.ACT_CURRENT.ALL:
             current = int.from_bytes(message.data, 'little', signed=True)
             current_amps = current * (pow(2, 13) / 40.0) # to amps
@@ -373,6 +371,7 @@ class RobuROC_CTRL(Node):
             velocity = int.from_bytes(message.data, 'little', signed=True)
             velocity_mps = velocity / ((((pow(2, 17) / (2 * 20000) * pow(2, 19)) / 1000) * 32) * (((2.0 * 3.14) / 60.0) * 0.28)) # To MPS
             self._VELOCITY_PERIODIC[message.node_id-1] = velocity_mps
+            self.SpeedPub.publish(message)
         else:
             self.logger.log(logging.ERROR, f"COBID {message.cobid} not recognized")
 
