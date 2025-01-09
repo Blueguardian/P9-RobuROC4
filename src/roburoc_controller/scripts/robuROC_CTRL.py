@@ -19,7 +19,8 @@ logging.basicConfig(level=logging.DEBUG,
 
 class RobuROC_CTRL(Node):
     """
-
+    RobuROC controller node, abstracts the control of the RobuROC 4 platform futher, by utilising the services and other
+    interfaces from the roburoc_canopen node and any navigation node that it might be attached to.
     """
     # Initialize fields to contain periodic status updates
     _CURRENT_PERIODIC = [None, None, None, None]
@@ -142,15 +143,12 @@ class RobuROC_CTRL(Node):
     def setSpeed(self, message):
         """
         Set the speed of the individual wheels based on the type of message received.
+
         - If Joy message (Joystick message) and has Non-zero data:
-            - '▲' + Left Stick: Set wheel speeds based on linear and angular axes.
-            - `■`: Brakes the vehicle.
-            - `⬤`: Recovers from an error state.
+            - Utilize gamepad_control method
         - If Twist message:
-            - `linear.x` and `angular.z` to set wheel speeds.
-        - If Joy message and only has zero-data:
-            - Stop all motion
-        - If neither type message
+            - Utilize navigation_control method
+        - If Joy message and only has zero-data or is neither type of message:
             - Stop all motion
 
         :param message: Input message, expected to by of type Joy (joystick) or Twist (Navigation).
@@ -178,6 +176,18 @@ class RobuROC_CTRL(Node):
             self.logger.error(f"Unknown message format; error {e}")
 
     def gamepad_control(self, message):
+        """
+        Gamepad control method, utilizes the DUALSHOCK controller for operating the platform.
+        The implementation is aimed at security, thereby meant that all functionality that provides movement requires
+        the use of a dead-man switch. The following are the available commands:
+
+        - '▲' + Left Stick: Set wheel speeds based on linear and angular axes. ('▲' is the dead-man switch)
+        - `■`: Brakes the vehicle.
+        - `⬤`: Recovers from an error state or after re-enabling the security measures
+        :param message:
+        :return: None
+        """
+
         if message.buttons[2] == 1: # '▲'
             left, right = None, None
             left = round(message.axes[1] - message.axes[0]/ 4, 4) * 1.0
@@ -190,16 +200,24 @@ class RobuROC_CTRL(Node):
             self.SDO_Write(1, [0x60FF, 0x00], vel2_MPS)
             self.SDO_Write(2, [0x60FF, 0x00], vel2_MPS)
             self.SDO_Write(3, [0x60FF, 0x00], vel_MPS)
-        elif message.buttons[1] == 1:
+        elif message.buttons[1] == 1: # `■`
             self.SDO_Write(0, [0x60FF, 0x00], [0x00])
             self.SDO_Write(1, [0x60FF, 0x00], [0x00])
             self.SDO_Write(2, [0x60FF, 0x00], [0x00])
             self.SDO_Write(3, [0x60FF, 0x00], [0x00])
             self.brake()
-        elif message.buttons[3] == 1:
+        elif message.buttons[3] == 1: # `⬤`
             self.recover()
 
     def navigation_control(self, message):
+        """
+        Navigation control method, utilising the internal linear and angular velocity commands embedded in most
+        algorithms and packages in ROS2.
+
+        TODO: Test (Not done)
+        :param message:
+        :return:
+        """
         if message.angular.z < 0.4:
             left = round(message.linear.x + message.angular.z / 4, 4) * 2
             right = round(message.linear.x - message.angular.z / 4, 4) * 2
@@ -359,7 +377,17 @@ class RobuROC_CTRL(Node):
         return response.result()
 
     def Subscription_CB(self, message):
+        """
+        Generic callback for storing data recieved from the RobuROC 4 drivers.
+        This includes:
+        - Velocity readings
+        - Current readings
+        - Heartbeat (Status) readings
+        These are stored for future use in the instantiated object.
 
+        :param message:
+        :return: None
+        """
         if message.cobid in self._COBID.ACT_CURRENT.ALL:
             current = int.from_bytes(message.data, 'little', signed=True)
             current_amps = current * (pow(2, 13) / 40.0) # to amps
