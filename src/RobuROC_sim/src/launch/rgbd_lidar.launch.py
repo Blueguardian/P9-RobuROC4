@@ -34,17 +34,6 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 
 def generate_launch_description():
-    # config_rviz = os.path.join(
-    #     get_package_share_directory('rtabmap_examples'), 'launch', 'config', 'slam_D405x2_config.rviz')
-    #
-    # rviz_node = launch_ros.actions.Node(
-    #     package='rviz2', executable='rviz2', output='screen',
-    #     arguments=[["-d"], [config_rviz]]
-    # )
-
-    # Sync nodes
-    # use_sim_time = LaunchConfiguration('use_sim_time')
-    # deskewing = LaunchConfiguration('deskewing')
 
             # Nodes to launch
     Driver_vel = IncludeLaunchDescription(
@@ -57,71 +46,6 @@ def generate_launch_description():
                 get_package_share_directory('velodyne_pointcloud'), 'launch'),
                 '/velodyne_transform_node-VLP16-launch.py']),
         )
-
-    rgbd_sync1_node = launch_ros.actions.Node(
-        package='rtabmap_sync', executable='rgbd_sync', name='rgbd_sync1', output="screen",
-        parameters=[{
-            "approx_sync": False
-        }],
-        remappings=[
-            # ("rgb/image", '/camera1/color/image_rect_raw'),
-            # ("depth/image", '/camera1/depth/image_rect_raw'),
-            # ("rgb/camera_info", '/camera1/color/camera_info'),
-            # ("rgbd_image", 'rgbd_image')],
-            ("rgb/image", "camera1/color/image_raw"),
-            ("depth/image", "camera1/depth/image_rect_raw"),
-            ("rgb/camera_info", "camera1/color/camera_info"),
-            ("rgbd_image", 'rgbd_image')],
-        namespace='camera1'
-        # namespace='camera1'
-    )
-
-    rgbd_sync2_node = launch_ros.actions.Node(
-        package='rtabmap_sync', executable='rgbd_sync', name='rgbd_sync2', output="screen",
-        parameters=[{
-            "approx_sync": False
-        }],
-        remappings=[
-            # ("rgb/image", '/camera2/color/image_rect_raw'),
-            # ("depth/image", '/camera2/depth/image_rect_raw'),
-            # ("rgb/camera_info", '/camera2/color/camera_info'),
-            # ("rgbd_image", 'rgbd_image')],
-            ("rgb/image", "camera2/color/image_raw"),
-            ("depth/image", "camera2/depth/image_rect_raw"),
-            ("rgb/camera_info", "camera2/color/camera_info"),
-            ("rgbd_image", 'rgbd_image')],
-        namespace='camera2'
-    # namespace ='camera2'
-    )
-
-    # RGB-D odometry
-    rgbd_odometry_node = launch_ros.actions.Node(
-        package='rtabmap_odom', executable='rgbd_odometry', output="screen",
-        parameters=[{
-            "frame_id": 'base_link',
-            "odom_frame_id": 'odom',
-            "publish_tf": True,
-            "approx_sync": True,
-            "subscribe_rgbd": True,
-            # "subscribe_scan_cloud": True
-
-            # "subscribe_imu" : True,
-            'use_sim_time': False,
-            # RGB-D odometry parameters
-            'RGBD/LinearUpdate': '0.1',
-            'RGBD/AngularUpdate': '0.05',
-        }],
-        remappings=[
-            ("rgbd_image", '/camera1/rgbd_image'),
-            # ("rgbd_image", '/camera1/rgbd_image'),
-            ('odom', '/odom'),
-            # ('imu','/imu/data'),
-            ],
-
-        arguments=["--delete_db_on_start", ''],
-        prefix='',
-        namespace='rtabmap'
-    )
 
     # Lidar
     scan_cloud =launch_ros.actions.Node(
@@ -153,7 +77,7 @@ def generate_launch_description():
             remappings=[
               ('scan_cloud', '/velodyne_points'),
               ('scan', 'dummy1'),
-              ('odom', '/odom'),
+              ('odom', 'odom'),
             ])
     
     # SLAM
@@ -162,10 +86,10 @@ def generate_launch_description():
         parameters=[{
             "rgbd_cameras": 2,
             "subscribe_depth": False,
-            "subscribe_rgbd": True,
-            # "subscribe_rgb": True,
+            "subscribe_rgbd": False,
+            "subscribe_rgb": False,
             'subscribe_scan_cloud':True,
-            "subscribe_odom_info": True,
+            # "subscribe_odom_info": False,
             'odom_frame_id': 'odom',
             "frame_id": 'base_link',
             "map_frame_id": 'map',
@@ -176,10 +100,6 @@ def generate_launch_description():
             "Mem/InitWMWithAllNodes": "true"
         }],
         remappings=[
-            ("rgbd_image0", '/camera1/rgbd_image'),
-            ("rgbd_image1", '/camera2/rgbd_image'),
-            # ("rgbd_image0", '/camera1/rgbd_image'),
-            # ("rgbd_image1", '/camera2/rgbd_image'),
             ("odom", 'odom'),
             ('scan_cloud', '/velodyne_points')],
         arguments=["--delete_db_on_start"],
@@ -192,8 +112,6 @@ def generate_launch_description():
         [
             Driver_vel,
             Pointcloud_vel,
-            rgbd_sync1_node,
-            rgbd_sync2_node,
             scan_cloud,
             slam_node,
         ]
