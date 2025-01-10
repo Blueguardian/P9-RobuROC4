@@ -58,15 +58,17 @@ def generate_launch_description():
     realsense_dual = IncludeLaunchDescription(
             PythonLaunchDescriptionSource([os.path.join(
                 get_package_share_directory(namePackage),'launch','dual_camera.launch.py'
-            )]), launch_arguments={'serial_no1':"'034422070675'",
+            )]), launch_arguments={'serial_no1':"'310522072602'",                                             # old : 03442207065
                                    'camera_name':'camera1',
                                    'camera_namespace':'camera1',
-                                   'serial_no2':"'829212072207'",
+                                   'serial_no2':"'336222071339'",                                            # old : 829212072207
                                    'camera_name':'camera2',
                                    'camera_namespace':'camera2'}.items()
 
-    
+
     )
+     # front 310522072602
+    # back 336222071339
 
     rtab_dual_simple = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(

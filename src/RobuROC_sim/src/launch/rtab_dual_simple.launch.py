@@ -95,6 +95,9 @@ def generate_launch_description():
             "odom_frame_id": 'odom',
             "publish_tf": True,
             "approx_sync": True,
+
+            # "wait_imu_to_init": True,     #iif using imu
+
             "subscribe_rgbd": True,
             # "rbgd_cameras": 2,
 
