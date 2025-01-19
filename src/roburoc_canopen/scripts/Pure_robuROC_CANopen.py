@@ -22,6 +22,7 @@ Copyright 2024 Thomas Schou Sørensen, Julian Witold Wagner and César Zacharie 
 import canopen, logging, os, asyncio
 from time import sleep
 
+
 from rclpy.node import Node
 
 
@@ -40,7 +41,6 @@ class RobuROC_Canopen():
     RobuROC4. The methods implemented here are defined such that the low level CANBus communication is simplified to the
     extent possible. When utilized, it will establish and maintain communication with these drivers.
     """
-
 
     # _SDO_ABORT_CODES  = {
     #     0x00000503: "Toggle bit not alternated",
@@ -74,6 +74,7 @@ class RobuROC_Canopen():
     #     0x00230800: "Object dictionary dynamic generation fails or no object dictionary is present (object dictionary loads from file and file error occurred)"
     # }
     _DRIVE_CONFIG = os.path.join(os.path.abspath("../../"), "resource", "AMC_Digiflex_1.0.14.eds")  # Adapt as needed
+
     CAN_NETWORK = canopen.Network()
 
     def __init__(self):
@@ -279,7 +280,6 @@ class RobuROC_Canopen():
         else:
             self.logger.error(f"Message length over 8 bits is not supported")
             return False
-
     def PDOread(self, node_id: int, index: int, subindex: int = 0, timeout: int = 1, timeout_count: int = 5):
         """
         Read data from an SDO on the specified CANopen node.

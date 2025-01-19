@@ -154,7 +154,6 @@ class RobuROC_CTRL(Node):
         :param message: Input message, expected to by of type Joy (joystick) or Twist (Navigation).
         :return: None
         """
-
         try:
             if type(message) == type(Joy()) and any(message.buttons):
                 self.gamepad_control(message)

@@ -143,6 +143,7 @@ class RobuROC_Canopen(Node):
                 self.logger.error(f"Unable to connect to CAN Bus, Error: {error}")
                 self._CONNECTED = False
             finally:
+
                 return self._CONNECTED
     def Disconnect(self):
         """

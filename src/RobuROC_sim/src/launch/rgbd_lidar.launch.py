@@ -35,6 +35,7 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 def generate_launch_description():
 
+
             # Nodes to launch
     Driver_vel = IncludeLaunchDescription(
             PythonLaunchDescriptionSource([os.path.join(
@@ -77,7 +78,9 @@ def generate_launch_description():
             remappings=[
               ('scan_cloud', '/velodyne_points'),
               ('scan', 'dummy1'),
+
               ('odom', 'odom'),
+
             ])
     
     # SLAM
@@ -86,10 +89,12 @@ def generate_launch_description():
         parameters=[{
             "rgbd_cameras": 2,
             "subscribe_depth": False,
+
             "subscribe_rgbd": False,
             "subscribe_rgb": False,
             'subscribe_scan_cloud':True,
             # "subscribe_odom_info": False,
+
             'odom_frame_id': 'odom',
             "frame_id": 'base_link',
             "map_frame_id": 'map',
@@ -100,6 +105,8 @@ def generate_launch_description():
             "Mem/InitWMWithAllNodes": "true"
         }],
         remappings=[
+
+
             ("odom", 'odom'),
             ('scan_cloud', '/velodyne_points')],
         arguments=["--delete_db_on_start"],
@@ -108,11 +115,13 @@ def generate_launch_description():
     )
 
 
+
     return launch.LaunchDescription(
         [
             Driver_vel,
             Pointcloud_vel,
             scan_cloud,
             slam_node,
+
         ]
     )

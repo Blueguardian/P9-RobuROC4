@@ -31,8 +31,10 @@ def generate_launch_description():
 
 
     modelFileRelativePath = 'description/RobuROC_model.urdf.xacro'
+
     # worldFileRelativePath = 'worlds/RobuROC_env.world'
     worldFileRelativePath = 'worlds/empty_world.world'
+
     # worldFileRelativePath = 'worlds/moon.world'
 
     pkg_project = get_package_share_directory(namePackage)
@@ -149,6 +151,8 @@ def generate_launch_description():
           ]
           )
 
+
+
     realsense_rtab  = IncludeLaunchDescription(
             PythonLaunchDescriptionSource([os.path.join(
                 get_package_share_directory('rtabmap_launch'),'launch','rtabmap.launch.py'
@@ -193,10 +197,10 @@ def generate_launch_description():
         
         gazeboLaunch,
         spawnModelNode,
+
         # IMU,
         node_robot_state_publisher,
         joint_state_publisher,
         rviz,
-
-
     ])
+
