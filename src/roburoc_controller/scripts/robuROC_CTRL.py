@@ -19,7 +19,8 @@ logging.basicConfig(level=logging.DEBUG,
 
 class RobuROC_CTRL(Node):
     """
-
+    RobuROC controller node, abstracts the control of the RobuROC 4 platform futher, by utilising the services and other
+    interfaces from the roburoc_canopen node and any navigation node that it might be attached to.
     """
     # Initialize fields to contain periodic status updates
     _CURRENT_PERIODIC = [None, None, None, None]
@@ -54,6 +55,7 @@ class RobuROC_CTRL(Node):
 
         # Set up publisher
         self.WritePub = self.create_publisher(CANWrite, '/roburoc/CANWrite', 10)
+        self.SpeedPub = self.create_publisher(CANSubscribe, '/roburoc/Velocity', 10)
 
         # Set up service clients
         self.ConnectionSrvCli = self.create_client(CANConnection, '/roburoc/CANConnection')
@@ -140,28 +142,31 @@ class RobuROC_CTRL(Node):
 
     def setSpeed(self, message):
         """
-        Sets the speed of the individual wheels based on joystick input or Twist messages.
+        Set the speed of the individual wheels based on the type of message received.
 
-        - If `message` has `buttons` (e.g., joystick message):
-            - '▲': Set wheel speeds based on linear and angular axes.
-            - `■`: Brakes the vehicle.
-            - `⬤`: Recovers from an error state.
-        - If `message` lacks `buttons` (e.g., Twist message): Use `linear.x` and `angular.z` to set wheel speeds.
+        - If Joy message (Joystick message) and has Non-zero data:
+            - Utilize gamepad_control method
+        - If Twist message:
+            - Utilize navigation_control method
+        - If Joy message and only has zero-data or is neither type of message:
+            - Stop all motion
 
-        :param message: Input message, expected to have `buttons` (joystick) or `linear` and `angular` (Twist).
+        :param message: Input message, expected to by of type Joy (joystick) or Twist (Navigation).
         :return: None
         """
-        # joy_msg = self.get_topic_names_and_types()
-        # self.logger.info(f"{type(message)} + {type(Joy())}")
-        #
-        # self.logger.info(f"{joy_msg}")
         try:
             if type(message) == type(Joy()) and any(message.buttons):
                 self.gamepad_control(message)
             elif type(message) == type(Twist()):
                 self.navigation_control(message)
             elif type(message) == type(Joy()) and not any(message.buttons):
-                time.sleep(0.01)
+                time.sleep(0.01) # Ensures that the CANBus is not overloaded
+                self.SDO_Write(0, [0x60FF, 0x00], [0x00])
+                self.SDO_Write(1, [0x60FF, 0x00], [0x00])
+                self.SDO_Write(2, [0x60FF, 0x00], [0x00])
+                self.SDO_Write(3, [0x60FF, 0x00], [0x00])
+            elif type(message) != type(Joy()) and type(message) != type(Twist()):
+                time.sleep(0.01)  # Ensures that the CANBus is not overloaded
                 self.SDO_Write(0, [0x60FF, 0x00], [0x00])
                 self.SDO_Write(1, [0x60FF, 0x00], [0x00])
                 self.SDO_Write(2, [0x60FF, 0x00], [0x00])
@@ -170,7 +175,19 @@ class RobuROC_CTRL(Node):
             self.logger.error(f"Unknown message format; error {e}")
 
     def gamepad_control(self, message):
-        if message.buttons[2] == 1:
+        """
+        Gamepad control method, utilizes the DUALSHOCK controller for operating the platform.
+        The implementation is aimed at security, thereby meant that all functionality that provides movement requires
+        the use of a dead-man switch. The following are the available commands:
+
+        - '▲' + Left Stick: Set wheel speeds based on linear and angular axes. ('▲' is the dead-man switch)
+        - `■`: Brakes the vehicle.
+        - `⬤`: Recovers from an error state or after re-enabling the security measures
+        :param message:
+        :return: None
+        """
+
+        if message.buttons[2] == 1: # '▲'
             left, right = None, None
             left = round(message.axes[1] - message.axes[0]/ 4, 4) * 1.0
             right = -round(message.axes[1] + message.axes[0]/ 4, 4) * 1.0
@@ -182,21 +199,24 @@ class RobuROC_CTRL(Node):
             self.SDO_Write(1, [0x60FF, 0x00], vel2_MPS)
             self.SDO_Write(2, [0x60FF, 0x00], vel2_MPS)
             self.SDO_Write(3, [0x60FF, 0x00], vel_MPS)
-        elif message.buttons[1] == 1:
+        elif message.buttons[1] == 1: # `■`
             self.SDO_Write(0, [0x60FF, 0x00], [0x00])
             self.SDO_Write(1, [0x60FF, 0x00], [0x00])
             self.SDO_Write(2, [0x60FF, 0x00], [0x00])
             self.SDO_Write(3, [0x60FF, 0x00], [0x00])
             self.brake()
-        elif message.buttons[3] == 1:
+        elif message.buttons[3] == 1: # `⬤`
             self.recover()
-        # elif not any(message.buttons):
-        #     self.SDO_Write(0, [0x60FF, 0x00], [0x00])
-        #     self.SDO_Write(1, [0x60FF, 0x00], [0x00])
-        #     self.SDO_Write(2, [0x60FF, 0x00], [0x00])
-        #     self.SDO_Write(3, [0x60FF, 0x00], [0x00])
 
     def navigation_control(self, message):
+        """
+        Navigation control method, utilising the internal linear and angular velocity commands embedded in most
+        algorithms and packages in ROS2.
+
+        TODO: Test (Not done)
+        :param message:
+        :return:
+        """
         if message.angular.z < 0.4:
             left = round(message.linear.x + message.angular.z / 4, 4) * 2
             right = round(message.linear.x - message.angular.z / 4, 4) * 2
@@ -356,34 +376,42 @@ class RobuROC_CTRL(Node):
         return response.result()
 
     def Subscription_CB(self, message):
-        return None
-        # if COBID in self._COBID.ACT_CURRENT.ALL:
-        #     current = int.from_bytes(data, 'little', signed=True)
-        #     current_amps = current * (pow(2, 13) / 40.0) # to amps
-        #     node_id = COBID - 0x380
-        #     self._CURRENT_PERIODIC[node_id-1] = current_amps
-        # else:
-        #     self.logger.log(logging.ERROR, f"COBID {COBID} not recognised")
-        #
-        # if COBID in self._COBID.ACT_VELOCITY.ALL:
-        #     velocity = int.from_bytes(data, 'little', signed=True)
-        #     velocity_mps = velocity / ((((pow(2, 17) / (2 * 20000) * pow(2, 19)) / 1000) * 32) * (((2.0 * 3.14) / 60.0) * 0.28)) # To MPS
-        #     node_id = COBID - 0x370
-        #     self._VELOCITY_PERIODIC[node_id-1] = velocity_mps
-        # else:
-        #     self.logger.log(logging.ERROR, f"COBID {COBID} not recognized")
-        #
-        # if COBID in self._COBID.HEARTBEAT.ALL:
-        #     status = int.from_bytes(data, 'little', signed=True)
-        #     nodeid = COBID - 0x700
-        #     if status == 0x85 or status == 0x05:
-        #         self._STATUS_PERIODIC[nodeid-1] = 'OPERATIONAL'
-        #     elif status == 0x84 or status == 0x04:
-        #         self._STATUS_PERIODIC[nodeid-1] = 'STOPPED'
-        #     elif status == 0xFF or status == 0x7F:
-        #         self._STATUS_PERIODIC[nodeid-1] = 'PRE-OPERATIONAL'
-        #     else:
-        #         self._STATUS_PERIODIC[nodeid-1] = 'UNKNOWN'
+        """
+        Generic callback for storing data recieved from the RobuROC 4 drivers.
+        This includes:
+        - Velocity readings
+        - Current readings
+        - Heartbeat (Status) readings
+        These are stored for future use in the instantiated object.
+
+        :param message:
+        :return: None
+        """
+        if message.cobid in self._COBID.ACT_CURRENT.ALL:
+            current = int.from_bytes(message.data, 'little', signed=True)
+            current_amps = current * (pow(2, 13) / 40.0) # to amps
+            self._CURRENT_PERIODIC[message.node_id-1] = current_amps
+        else:
+            self.logger.log(logging.ERROR, f"COBID {message.cobid} not recognised")
+
+        if message.cobid in self._COBID.ACT_VELOCITY.ALL:
+            velocity = int.from_bytes(message.data, 'little', signed=True)
+            velocity_mps = velocity / ((((pow(2, 17) / (2 * 20000) * pow(2, 19)) / 1000) * 32) * (((2.0 * 3.14) / 60.0) * 0.28)) # To MPS
+            self._VELOCITY_PERIODIC[message.node_id-1] = velocity_mps
+            self.SpeedPub.publish(message)
+        else:
+            self.logger.log(logging.ERROR, f"COBID {message.cobid} not recognized")
+
+        if message.cobid in self._COBID.HEARTBEAT.ALL:
+            status = int.from_bytes(message.data, 'little', signed=True)
+            if status == 0x85 or status == 0x05:
+                self._STATUS_PERIODIC[message.node_id-1] = 'OPERATIONAL'
+            elif status == 0x84 or status == 0x04:
+                self._STATUS_PERIODIC[message.node_id-1] = 'STOPPED'
+            elif status == 0xFF or status == 0x7F:
+                self._STATUS_PERIODIC[message.node_id-1] = 'PRE-OPERATIONAL'
+            else:
+                self._STATUS_PERIODIC[message.node_id-1] = 'UNKNOWN'
 def main():
     rclpy.init()
     ctrl = RobuROC_CTRL()

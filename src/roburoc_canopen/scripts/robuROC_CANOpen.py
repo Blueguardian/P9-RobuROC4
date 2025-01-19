@@ -143,9 +143,7 @@ class RobuROC_Canopen(Node):
                 self.logger.error(f"Unable to connect to CAN Bus, Error: {error}")
                 self._CONNECTED = False
             finally:
-                # for node in self.CAN_NODES:
-                    # node.tpdo.read() # Initalize PDO values for tpdo
-                    # node.rpdo.read() # Initialize PDO values for rpdo
+
                 return self._CONNECTED
     def Disconnect(self):
         """
@@ -299,7 +297,7 @@ class RobuROC_Canopen(Node):
                 self.logger.debug(f"Added subscription to {COBID}")
                 return True
             else:
-                self.CAN_NETWORK.unsubscribe(COBID, callback) # TODO: Transfer to Pure python and remove
+                self.CAN_NETWORK.unsubscribe(COBID, callback)
                 self._CAN_SUBSCRIPTION.remove(COBID)
                 self.logger.debug(f"Added subscription to {COBID} with callback {callback.__name__}")
                 return True
@@ -369,6 +367,8 @@ class RobuROC_Canopen(Node):
         :return: Bool: True if successful, False if an error occurred.
 
         TODO: Adjust to work with nodes
+        TODO: If fix is found please adapt it
+        NOTE: Does not work
         """
         data = list(data)
         if len(data) <= 8:
@@ -441,8 +441,7 @@ class RobuROC_Canopen(Node):
         :param timeout: Timeout in seconds for the operation.
         :param timeout_count: Amount of tries to read
         :return: Data read from the node, or raises an exception on failure.
-        TODO: Aquire list of PDO mappings
-        TODO: Adjust to work with nodes
+        TODO: Does not work, please update if fix is found
         """
         timeout_counter = 0
         try:

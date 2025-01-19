@@ -31,8 +31,10 @@ def generate_launch_description():
 
 
     modelFileRelativePath = 'description/RobuROC_model.urdf.xacro'
-    worldFileRelativePath = 'worlds/RobuROC_env.world'
-    # worldFileRelativePath = 'worlds/empty_world.world'
+
+    # worldFileRelativePath = 'worlds/RobuROC_env.world'
+    worldFileRelativePath = 'worlds/empty_world.world'
+
     # worldFileRelativePath = 'worlds/moon.world'
 
     pkg_project = get_package_share_directory(namePackage)
@@ -149,9 +151,7 @@ def generate_launch_description():
           ]
           )
 
-    IMU = Node(
-        package='imu_publisher', executable='imu_publisher', name='imu_publisher_node'
-    )
+
 
     realsense_rtab  = IncludeLaunchDescription(
             PythonLaunchDescriptionSource([os.path.join(
@@ -196,14 +196,11 @@ def generate_launch_description():
             description='Use sim time if true'),        
         
         gazeboLaunch,
-        # spawnModelNode,
+        spawnModelNode,
+
         # IMU,
         node_robot_state_publisher,
         joint_state_publisher,
         rviz,
-        rtab_lidar_rgbd,        # working single cam + lidar mapping. Comment out realsense_dual.
-
-
     ])
 
-#  ros2 launch slam_toolbox online_async_launch.py params_file:=./src/RobuROC_sim/src/config/mapper_params_online_async.yaml use_sim_time:=true

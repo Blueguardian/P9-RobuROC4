@@ -33,7 +33,7 @@ endif()
 
 install(PROGRAMS
   scripts/robuROC_CTRL.py
-  scripts/cloud_transform.py
+  # scripts/cloud_transform.py
   DESTINATION lib/${PROJECT_NAME}
 )
 

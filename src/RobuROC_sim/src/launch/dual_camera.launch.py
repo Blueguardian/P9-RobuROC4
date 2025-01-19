@@ -53,6 +53,10 @@ local_parameters = [{'name': 'camera_name1',            'default': 'camera1', 'd
                     {'name': 'spatial_filter.enable2',  'default': 'true', 'description': 'enable_spatial_filter'},
                     {'name': 'temporal_filter.enable1', 'default': 'true', 'description': 'enable_temporal_filter'},
                     {'name': 'temporal_filter.enable2', 'default': 'true', 'description': 'enable_temporal_filter'},
+
+                    {'name': 'enable_gyro1', 'default': 'true', 'description': 'enable gyro'},                          # only for camera1
+                    {'name': 'enable_accel1', 'default': 'true', 'description': 'enable accel'},
+
                     {'name': 'tf.translation.x',        'default': '0.0', 'description': 'x'},
                     {'name': 'tf.translation.y',        'default': '0.0', 'description': 'y'},
                     {'name': 'tf.translation.z',        'default': '0.0', 'description': 'z'},
